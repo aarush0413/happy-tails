@@ -3,7 +3,6 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
-import { GoogleAdSense } from "@/components/ads/GoogleAdSense";
 import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { AdMobBanner } from "@/components/ads/AdMobBanner";
@@ -48,8 +47,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={inter.variable}>
+      <head>
+        <script
+          async
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3821753091079825"
+          crossOrigin="anonymous"
+        />
+      </head>
       <body className="font-sans antialiased bg-bluey-white text-bluey-navy min-h-screen flex flex-col">
-        <GoogleAdSense />
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
