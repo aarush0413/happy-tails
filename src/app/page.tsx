@@ -59,7 +59,7 @@ export default function HomePage() {
                 <AlertCircle className="w-5 h-5" /> Emergency 24/7
               </Button>
               <ShareButton
-                url="https://happytails.vercel.app"
+                url="https://happy-tails-coral.vercel.app"
                 variant="icon"
                 className="mt-1"
               />

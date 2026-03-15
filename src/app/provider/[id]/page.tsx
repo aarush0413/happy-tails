@@ -98,7 +98,7 @@ export default async function ProviderPage({ params }: Props) {
                     <ShareButton
                       title={`${provider.name} - Happy Tails`}
                       text={`Check out ${provider.name} on Happy Tails!`}
-                      url={`https://happytails.vercel.app/provider/${provider.id}`}
+                      url={`https://happy-tails-coral.vercel.app/provider/${provider.id}`}
                       variant="icon"
                     />
                   </div>

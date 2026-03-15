@@ -3,7 +3,7 @@ import { Category, Area, AreaSlug, CategorySlug } from "./types";
 export const SITE_NAME = "Happy Tails";
 export const SITE_DESCRIPTION =
   "East Pune's premium pet services directory. Find verified vets, groomers, boarding, training, walking & transport for your furry friends.";
-export const SITE_URL = "https://happytails.vercel.app";
+export const SITE_URL = "https://happy-tails-coral.vercel.app";
 
 export const COLORS = {
   primaryBlue: "#0096DB",

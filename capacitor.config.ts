@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
   webDir: "public",
   server: {
     androidScheme: "https",
-    url: "https://happytails.vercel.app",
+    url: "https://happy-tails-coral.vercel.app",
     cleartext: false,
   },
   plugins: {
