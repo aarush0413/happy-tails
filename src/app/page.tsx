@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { ShareButton } from "@/components/ui/ShareButton";
 import { AdBanner } from "@/components/ads/AdBanner";
 import { CATEGORIES, AREAS } from "@/lib/constants";
 import { getFeaturedProviders, getEmergencyProviders, formatRating, getAreaLabel } from "@/lib/utils";
@@ -50,13 +51,18 @@ export default function HomePage() {
               Curated vets, groomers, boarding, training & more in Kalyani Nagar,
               Viman Nagar, Kharadi & Hadapsar. Every provider verified.
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3">
+            <div className="mt-8 flex flex-col sm:flex-row gap-3 items-start">
               <Button href="/category/vet" size="lg">
                 Explore Services <ArrowRight className="w-5 h-5" />
               </Button>
               <Button href="/emergency" variant="emergency" size="lg">
                 <AlertCircle className="w-5 h-5" /> Emergency 24/7
               </Button>
+              <ShareButton
+                url="https://happy-tails-coral.vercel.app"
+                variant="icon"
+                className="mt-1"
+              />
             </div>
           </div>
 

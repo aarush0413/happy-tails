@@ -36,3 +36,18 @@ next-env.d.ts
 
 # converter script
 convert_data.py
+generate_icons.py
+
+# PWA generated
+public/sw.js
+public/sw.js.map
+public/workbox-*.js
+public/workbox-*.js.map
+public/worker-*.js
+public/worker-*.js.map
+
+# Capacitor native projects
+/android/
+/ios/
+
+.vercel

@@ -1,9 +1,12 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/layout/Header";
 import { Footer } from "@/components/layout/Footer";
 import { GoogleAdSense } from "@/components/ads/GoogleAdSense";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
+import { AdMobBanner } from "@/components/ads/AdMobBanner";
 import { SITE_NAME, SITE_DESCRIPTION, SITE_URL } from "@/lib/constants";
 
 const inter = Inter({
@@ -19,6 +22,12 @@ export const metadata: Metadata = {
   },
   description: SITE_DESCRIPTION,
   metadataBase: new URL(SITE_URL),
+  manifest: "/manifest.json",
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: SITE_NAME,
+  },
   openGraph: {
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
@@ -26,6 +35,10 @@ export const metadata: Metadata = {
     siteName: SITE_NAME,
     type: "website",
   },
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0096DB",
 };
 
 export default function RootLayout({
@@ -40,6 +53,9 @@ export default function RootLayout({
         <Header />
         <main className="flex-1">{children}</main>
         <Footer />
+        <AdMobBanner />
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );

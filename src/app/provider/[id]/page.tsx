@@ -8,6 +8,7 @@ import {
 import { getAllProviders, getProviderById, getSimilarProviders, getAuditForProvider, formatRating, getAreaLabel, getCategoryLabel } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
+import { ShareButton } from "@/components/ui/ShareButton";
 import { AdBanner } from "@/components/ads/AdBanner";
 
 interface Props {
@@ -94,6 +95,12 @@ export default async function ProviderPage({ params }: Props) {
                     <span className="text-sm text-bluey-navy/60">
                       {getAreaLabel(provider.area)}
                     </span>
+                    <ShareButton
+                      title={`${provider.name} - Happy Tails`}
+                      text={`Check out ${provider.name} on Happy Tails!`}
+                      url={`https://happy-tails-coral.vercel.app/provider/${provider.id}`}
+                      variant="icon"
+                    />
                   </div>
                 </div>
                 {rating !== "N/A" && (

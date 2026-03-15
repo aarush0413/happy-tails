@@ -1,0 +1,25 @@
+{
+  "name": "Happy Tails - East Pune Pet Services",
+  "short_name": "Happy Tails",
+  "description": "East Pune's premium pet services directory. Find verified vets, groomers, boarding, training & more.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#FFFFFD",
+  "theme_color": "#0096DB",
+  "orientation": "portrait-primary",
+  "categories": ["lifestyle", "health"],
+  "icons": [
+    {
+      "src": "/icons/icon-192x192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icons/icon-512x512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

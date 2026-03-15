@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { filterProviders } from "@/lib/utils";
+import { filterProviders, getAllProviders } from "@/lib/utils";
 import { CategorySlug, AreaSlug } from "@/lib/types";
 
 export async function GET(request: NextRequest) {
