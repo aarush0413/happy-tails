@@ -13,6 +13,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       { protocol: "https", hostname: "cdn2.thedogapi.com" },
       { protocol: "https", hostname: "cdn2.thecatapi.com" },
+      { protocol: "https", hostname: "images.unsplash.com" },
     ],
   },
 };

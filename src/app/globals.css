@@ -26,3 +26,17 @@ body {
   background: var(--color-bluey-light);
   color: var(--color-bluey-navy);
 }
+
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.paw-pattern {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='80' height='80' viewBox='0 0 80 80'%3E%3Cg fill='%230096DB' opacity='0.06'%3E%3Cellipse cx='40' cy='48' rx='10' ry='12'/%3E%3Cellipse cx='28' cy='32' rx='5' ry='6'/%3E%3Cellipse cx='52' cy='32' rx='5' ry='6'/%3E%3Cellipse cx='22' cy='42' rx='4.5' ry='5.5'/%3E%3Cellipse cx='58' cy='42' rx='4.5' ry='5.5'/%3E%3C/g%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 80px 80px;
+}

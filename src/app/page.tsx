@@ -1,16 +1,29 @@
 import Link from "next/link";
+import Image from "next/image";
 import {
   PawPrint, Stethoscope, Scissors, ShoppingBag, Home, GraduationCap,
   Footprints, Truck, ArrowRight, Star, MapPin, Zap, Shield, Phone,
-  AlertCircle, ChevronRight,
+  AlertCircle, ChevronRight, Heart,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ShareButton } from "@/components/ui/ShareButton";
-import { AdBanner } from "@/components/ads/AdBanner";
 import { CATEGORIES, AREAS } from "@/lib/constants";
 import { getFeaturedProviders, getEmergencyProviders, formatRating, getAreaLabel } from "@/lib/utils";
 import { getRandomPetFact } from "@/lib/petApi";
+
+const PET_PHOTOS = {
+  hero: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=75&fit=crop",
+  banner1: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&q=75&fit=crop",
+  banner2: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=1200&q=75&fit=crop",
+  gallery: [
+    "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&q=75&fit=crop",
+    "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=75&fit=crop",
+    "https://images.unsplash.com/photo-1587559070757-f72a388edbba?w=400&q=75&fit=crop",
+    "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=400&q=75&fit=crop",
+    "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&q=75&fit=crop",
+  ],
+};
 
 const ICON_MAP: Record<string, React.ReactNode> = {
   Stethoscope: <Stethoscope className="w-7 h-7" />,
@@ -30,9 +43,20 @@ export default function HomePage() {
     <div>
       {/* Hero */}
       <section className="relative overflow-hidden bg-gradient-to-br from-bluey-ice via-white to-bluey-pale">
+        <div className="absolute inset-0 paw-pattern" />
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute -top-40 -right-40 w-96 h-96 bg-bluey-light/20 rounded-full blur-3xl" />
           <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-bluey-primary/10 rounded-full blur-3xl" />
+        </div>
+        <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block">
+          <Image
+            src={PET_PHOTOS.hero}
+            alt="Happy golden retriever"
+            fill
+            className="object-cover opacity-[0.15] blur-[2px]"
+            priority
+          />
+          <div className="absolute inset-0 bg-gradient-to-r from-bluey-ice via-bluey-ice/80 to-transparent" />
         </div>
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
           <div className="max-w-3xl">
@@ -148,7 +172,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      <AdBanner className="max-w-5xl mx-auto px-4" />
+      {/* Photo Banner 1 */}
+      <section className="relative h-48 sm:h-64 overflow-hidden">
+        <Image
+          src={PET_PHOTOS.banner1}
+          alt="Two happy dogs running in a park"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-bluey-primary/80 to-bluey-primary/40" />
+        <div className="relative h-full flex items-center justify-center text-center px-4">
+          <div>
+            <Heart className="w-8 h-8 text-white/80 mx-auto mb-3" />
+            <p className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              Because every tail deserves to wag
+            </p>
+            <p className="mt-2 text-white/80 text-sm sm:text-base">
+              101 verified providers across East Pune
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Areas */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
@@ -202,6 +246,30 @@ export default function HomePage() {
                 Explore {area.name} <ChevronRight className="w-3.5 h-3.5" />
               </div>
             </Link>
+          ))}
+        </div>
+      </section>
+
+      {/* Pet Photo Gallery Strip */}
+      <section className="py-10 overflow-hidden bg-bluey-ice/20">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
+          <p className="text-center text-sm font-semibold text-bluey-navy/40 uppercase tracking-wider">
+            Happy pets of East Pune
+          </p>
+        </div>
+        <div className="flex gap-4 px-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
+          {PET_PHOTOS.gallery.map((src, i) => (
+            <div
+              key={i}
+              className="flex-shrink-0 w-56 h-40 sm:w-64 sm:h-48 relative rounded-2xl overflow-hidden shadow-md snap-center"
+            >
+              <Image
+                src={src}
+                alt={`Happy pet ${i + 1}`}
+                fill
+                className="object-cover"
+              />
+            </div>
           ))}
         </div>
       </section>
@@ -265,7 +333,27 @@ export default function HomePage() {
         </div>
       </section>
 
-      <AdBanner format="rectangle" className="max-w-3xl mx-auto my-10 px-4" />
+      {/* Photo Banner 2 */}
+      <section className="relative h-48 sm:h-64 overflow-hidden">
+        <Image
+          src={PET_PHOTOS.banner2}
+          alt="Cute puppy looking up"
+          fill
+          className="object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-l from-bluey-primary/80 to-bluey-primary/40" />
+        <div className="relative h-full flex items-center justify-center text-center px-4">
+          <div>
+            <PawPrint className="w-8 h-8 text-white/80 mx-auto mb-3" />
+            <p className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+              Your pet deserves the best
+            </p>
+            <p className="mt-2 text-white/80 text-sm sm:text-base">
+              Verified vets, groomers & more — one tap away
+            </p>
+          </div>
+        </div>
+      </section>
 
       {/* Trust Signals */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
