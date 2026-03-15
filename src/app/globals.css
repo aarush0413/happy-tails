@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@theme {
+  --color-bluey-primary: #0096DB;
+  --color-bluey-light: #82CAFC;
+  --color-bluey-pale: #D4EBFB;
+  --color-bluey-white: #FFFFFD;
+  --color-bluey-ice: #E5F7FF;
+  --color-bluey-navy: #3F3F65;
+  --color-bluey-gold: #EBCE72;
+
+  --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
+  --font-display: 'Inter', ui-sans-serif, system-ui, sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  color: var(--color-bluey-navy);
+  background: var(--color-bluey-white);
+}
+
+::selection {
+  background: var(--color-bluey-light);
+  color: var(--color-bluey-navy);
+}

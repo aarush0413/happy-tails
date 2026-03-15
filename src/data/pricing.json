@@ -1,0 +1,200 @@
+[
+  {
+    "service": "Vet",
+    "subService": "Vaccination",
+    "budget": "₹500–750",
+    "mid": "₹750–1000",
+    "premium": "₹1000+",
+    "homeSurcharge": "₹300",
+    "commissionPct": "10–15%",
+    "repeatFreq": "1–2x/year",
+    "notes": "Annual package deals"
+  },
+  {
+    "service": "Vet",
+    "subService": "Surgery (minor)",
+    "budget": "₹2K–5K",
+    "mid": "₹5K–10K",
+    "premium": "₹10K+",
+    "homeSurcharge": "N/A",
+    "commissionPct": "10–15%",
+    "repeatFreq": "Rare",
+    "notes": "Pre-op consult via platform"
+  },
+  {
+    "service": "Grooming",
+    "subService": "Basic bath",
+    "budget": "₹200–599",
+    "mid": "₹799–1099",
+    "premium": "₹1099–1599",
+    "homeSurcharge": "Included",
+    "commissionPct": "20–25%",
+    "repeatFreq": "2–4x/month",
+    "notes": "Highest repeat; core service"
+  },
+  {
+    "service": "Grooming",
+    "subService": "Full grooming",
+    "budget": "₹799–1100",
+    "mid": "₹1100–1500",
+    "premium": "₹1500–2200",
+    "homeSurcharge": "Included",
+    "commissionPct": "20–25%",
+    "repeatFreq": "1–2x/month",
+    "notes": "Bundle with bath"
+  },
+  {
+    "service": "Grooming",
+    "subService": "Haircut only",
+    "budget": "₹500–699",
+    "mid": "₹699–999",
+    "premium": "₹999–1599",
+    "homeSurcharge": "Included",
+    "commissionPct": "20–25%",
+    "repeatFreq": "Monthly",
+    "notes": "Breed-specific"
+  },
+  {
+    "service": "Grooming",
+    "subService": "Spa / Premium",
+    "budget": "₹999–1149",
+    "mid": "₹1149–1500",
+    "premium": "₹1500–2200+",
+    "homeSurcharge": "Included",
+    "commissionPct": "25–30%",
+    "repeatFreq": "Monthly",
+    "notes": "Microbubble trending"
+  },
+  {
+    "service": "Boarding",
+    "subService": "Day care",
+    "budget": "₹80/hr–₹420",
+    "mid": "₹500–700/day",
+    "premium": "₹700–1000",
+    "homeSurcharge": "N/A",
+    "commissionPct": "15–20%",
+    "repeatFreq": "Weekly",
+    "notes": "Weekend spike"
+  },
+  {
+    "service": "Boarding",
+    "subService": "Overnight",
+    "budget": "₹599–700",
+    "mid": "₹700–900",
+    "premium": "₹900–1350",
+    "homeSurcharge": "N/A",
+    "commissionPct": "15–20%",
+    "repeatFreq": "Holiday",
+    "notes": "Festival premium"
+  },
+  {
+    "service": "Training",
+    "subService": "Basic obedience",
+    "budget": "₹8K–12K",
+    "mid": "₹12K–15K",
+    "premium": "₹15K–20K",
+    "homeSurcharge": "N/A",
+    "commissionPct": "10–15%",
+    "repeatFreq": "Once",
+    "notes": "Board+train combos"
+  },
+  {
+    "service": "Training",
+    "subService": "Behavioural",
+    "budget": "₹15K–20K",
+    "mid": "₹20K–25K",
+    "premium": "₹25K+",
+    "homeSurcharge": "N/A",
+    "commissionPct": "10–15%",
+    "repeatFreq": "Once/twice",
+    "notes": "Specialist"
+  },
+  {
+    "service": "Training",
+    "subService": "At-home session",
+    "budget": "₹500–800",
+    "mid": "₹800–1200",
+    "premium": "₹1200–2000",
+    "homeSurcharge": "Included",
+    "commissionPct": "15–20%",
+    "repeatFreq": "Weekly",
+    "notes": "Recurring bookings"
+  },
+  {
+    "service": "Walking",
+    "subService": "Per walk (30m)",
+    "budget": "₹100–200",
+    "mid": "₹200–400",
+    "premium": "₹400–500",
+    "homeSurcharge": "N/A",
+    "commissionPct": "20–25%",
+    "repeatFreq": "Daily",
+    "notes": "Highest freq; subscription"
+  },
+  {
+    "service": "Walking",
+    "subService": "Monthly package",
+    "budget": "₹3K–4K",
+    "mid": "₹5K–6K",
+    "premium": "₹6K–7K",
+    "homeSurcharge": "N/A",
+    "commissionPct": "15–20%",
+    "repeatFreq": "Monthly",
+    "notes": "Recurring lock-in"
+  },
+  {
+    "service": "Sitting",
+    "subService": "Per day",
+    "budget": "₹300–500",
+    "mid": "₹500–800",
+    "premium": "₹800–1200",
+    "homeSurcharge": "N/A",
+    "commissionPct": "15–20%",
+    "repeatFreq": "Holiday",
+    "notes": "Surge on holidays"
+  },
+  {
+    "service": "Transport",
+    "subService": "Local taxi",
+    "budget": "₹300–500",
+    "mid": "₹500–1000",
+    "premium": "₹1K–2K",
+    "homeSurcharge": "N/A",
+    "commissionPct": "15–20%",
+    "repeatFreq": "As needed",
+    "notes": "Vet visit transport"
+  },
+  {
+    "service": "Transport",
+    "subService": "Relocation",
+    "budget": "₹5K–10K",
+    "mid": "₹10K–20K",
+    "premium": "₹20K–50K+",
+    "homeSurcharge": "N/A",
+    "commissionPct": "10–15%",
+    "repeatFreq": "Rare",
+    "notes": "High-value one-time"
+  },
+  {
+    "service": "Supplies",
+    "subService": "Food subscription",
+    "budget": "₹1.5K–2.5K",
+    "mid": "₹2.5K–4K",
+    "premium": "₹4K–8K+",
+    "homeSurcharge": "₹0",
+    "commissionPct": "8–12%",
+    "repeatFreq": "Monthly",
+    "notes": "Recurring revenue"
+  },
+  {
+    "service": "Supplies",
+    "subService": "Accessories",
+    "budget": "₹200–500",
+    "mid": "₹500–1.5K",
+    "premium": "₹1.5K–5K+",
+    "homeSurcharge": "₹0",
+    "commissionPct": "10–15%",
+    "repeatFreq": "Quarterly",
+    "notes": "Cross-sell w/ grooming"
+  }
+]
