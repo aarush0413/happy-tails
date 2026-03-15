@@ -1,3 +1,1 @@
-# Replace pub-XXXXXXXXXX with your real Google AdSense publisher ID
-# Sign up at https://adsense.google.com to get your publisher ID
-google.com, pub-XXXXXXXXXX, DIRECT, f08c47fec0942fa0
+google.com, pub-382175309107982, DIRECT, f08c47fec0942fa0

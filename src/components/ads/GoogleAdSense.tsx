@@ -1,10 +1,9 @@
 import Script from "next/script";
 
 export function GoogleAdSense() {
-  const publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID;
+  const publisherId = process.env.NEXT_PUBLIC_ADSENSE_PUB_ID || "ca-pub-382175309107982";
 
   if (process.env.NODE_ENV !== "production") return null;
-  if (!publisherId || publisherId === "ca-pub-XXXXXXXXXX") return null;
 
   return (
     <Script
