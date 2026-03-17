@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import Link from "next/link";
-import { MapPin, ChevronRight, Zap } from "lucide-react";
+import { MapPin, ChevronRight, Siren } from "lucide-react";
 import { AREAS, SITE_URL } from "@/lib/constants";
 import { Badge } from "@/components/ui/Badge";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 export default function AreasIndexPage() {
   return (
     <div>
-      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-18">
+      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: "Areas" }]} />
           <div className="flex items-center gap-2 mt-2 mb-4">
@@ -86,7 +86,7 @@ export default function AreasIndexPage() {
 
               {area.stats.emergency !== "No (limited)" && (
                 <div className="flex items-center gap-2 mb-4 text-xs text-red-500 bg-red-50 rounded-lg px-3 py-2">
-                  <Zap className="w-3.5 h-3.5" aria-hidden="true" />
+                  <Siren className="w-3.5 h-3.5" aria-hidden="true" />
                   <span className="font-medium">{area.stats.emergency}</span>
                 </div>
               )}

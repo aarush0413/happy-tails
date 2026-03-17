@@ -70,7 +70,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/emergency"
-                  className="text-sm text-white/60 hover:text-white font-medium transition-colors"
+                  className="text-sm text-white/40 hover:text-white transition-colors"
                 >
                   Emergency 24/7
                 </Link>

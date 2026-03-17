@@ -2,8 +2,8 @@ import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  Stethoscope, Scissors, ShoppingBag, Home, GraduationCap,
-  Footprints, Truck, ArrowRight, Star, Zap, Shield, Phone,
+  HeartPulse, Sparkles, Bone, BedDouble, Dog,
+  PawPrint, Car, ArrowRight, Star, Siren, Shield, Phone,
   AlertCircle, ChevronRight, Lightbulb,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -34,13 +34,13 @@ const PET_PHOTOS = {
 };
 
 const ICON_MAP: Record<string, React.ReactNode> = {
-  Stethoscope: <Stethoscope className="w-6 h-6" aria-hidden="true" />,
-  Scissors: <Scissors className="w-6 h-6" aria-hidden="true" />,
-  ShoppingBag: <ShoppingBag className="w-6 h-6" aria-hidden="true" />,
-  Home: <Home className="w-6 h-6" aria-hidden="true" />,
-  GraduationCap: <GraduationCap className="w-6 h-6" aria-hidden="true" />,
-  Footprints: <Footprints className="w-6 h-6" aria-hidden="true" />,
-  Truck: <Truck className="w-6 h-6" aria-hidden="true" />,
+  HeartPulse: <HeartPulse className="w-6 h-6" aria-hidden="true" />,
+  Sparkles: <Sparkles className="w-6 h-6" aria-hidden="true" />,
+  Bone: <Bone className="w-6 h-6" aria-hidden="true" />,
+  BedDouble: <BedDouble className="w-6 h-6" aria-hidden="true" />,
+  Dog: <Dog className="w-6 h-6" aria-hidden="true" />,
+  PawPrint: <PawPrint className="w-6 h-6" aria-hidden="true" />,
+  Car: <Car className="w-6 h-6" aria-hidden="true" />,
 };
 
 export default function HomePage() {
@@ -207,7 +207,7 @@ export default function HomePage() {
             className="group bg-white rounded-xl border border-bluey-pale/40 p-6 text-center transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-0.5"
           >
             <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-red-50 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all duration-300">
-              <Zap className="w-6 h-6" aria-hidden="true" />
+              <Siren className="w-6 h-6" aria-hidden="true" />
             </div>
             <h3 className="font-medium text-red-600 text-sm">Emergency 24/7</h3>
             <p className="text-[10px] text-red-400/60 mt-1 uppercase tracking-wider">{emergencyProviders.length} available</p>
@@ -389,7 +389,7 @@ export default function HomePage() {
                 desc: "See Budget, Mid & Premium price ranges upfront. No hidden fees, no surprises.",
               },
               {
-                icon: <Zap className="w-7 h-7" aria-hidden="true" />,
+                icon: <Siren className="w-7 h-7" aria-hidden="true" />,
                 title: "24/7 Emergency",
                 desc: "One tap to find emergency vets available right now. Because emergencies don't wait.",
               },

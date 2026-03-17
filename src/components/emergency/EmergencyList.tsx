@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
-  Phone, Zap, MapPin, Clock, Star, ExternalLink,
+  Phone, Siren, MapPin, Clock, Star, ExternalLink,
   Droplets, Wind, Brain, XCircle, Navigation,
 } from "lucide-react";
 import { Provider } from "@/lib/types";
@@ -153,7 +153,7 @@ export function EmergencyList({ providers }: EmergencyListProps) {
                       {provider.name}
                     </Link>
                     <Badge variant="emergency">
-                      <Zap className="w-3 h-3" aria-hidden="true" /> 24/7
+                      <Siren className="w-3 h-3" aria-hidden="true" /> 24/7
                     </Badge>
                     {provider.rating && formatRating(provider.rating) !== "N/A" && (
                       <div className="flex items-center gap-1 ml-1">

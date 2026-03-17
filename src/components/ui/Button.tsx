@@ -20,7 +20,7 @@ export function Button({
   type = "button",
 }: ButtonProps) {
   const base =
-    "inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-300 uppercase tracking-[0.05em]";
+    "inline-flex items-center justify-center gap-2 font-medium rounded-lg transition-all duration-300 uppercase tracking-[0.05em] focus-visible:ring-2 focus-visible:ring-bluey-gold focus-visible:ring-offset-2 outline-none";
 
   const sizes: Record<string, string> = {
     sm: "px-5 py-2 text-xs",

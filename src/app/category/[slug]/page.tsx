@@ -36,7 +36,7 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-18">
+      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: category.name }]} />
           <div className="max-w-2xl mt-2">

@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Shield, Zap, MapPin, Eye } from "lucide-react";
+import { Shield, Siren, MapPin, Eye } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { AREAS, CATEGORIES } from "@/lib/constants";
 import { getAllProviders, getAllAudits } from "@/lib/utils";
@@ -52,7 +52,7 @@ export default function AboutPage() {
               desc: "We cover Kalyani Nagar, Viman Nagar, Kharadi, and Hadapsar in depth. Not a thin nationwide directory - a deep, curated local resource.",
             },
             {
-              icon: <Zap className="w-6 h-6" aria-hidden="true" />,
+              icon: <Siren className="w-6 h-6" aria-hidden="true" />,
               title: "Emergency Ready",
               desc: "When seconds matter, our 24/7 emergency finder gets you to the nearest available vet instantly. No browsing, no searching - just one tap.",
             },

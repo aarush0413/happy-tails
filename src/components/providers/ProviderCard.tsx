@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Star, MapPin, Clock, Phone, Zap, Home, ChevronDown, Scale, Heart } from "lucide-react";
+import { Star, MapPin, Clock, Phone, Siren, Home, ChevronDown, Scale, Heart } from "lucide-react";
 import { Provider } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
 import { VerdictIcon } from "@/components/ui/VerdictIcon";
@@ -73,7 +73,7 @@ export function ProviderCard({ provider, index = 0 }: ProviderCardProps) {
           {isEmergency && (
             <div className="absolute -top-2.5 left-4">
               <Badge variant="emergency">
-                <Zap className="w-3 h-3" aria-hidden="true" /> 24/7
+                <Siren className="w-3 h-3" aria-hidden="true" /> 24/7
               </Badge>
             </div>
           )}

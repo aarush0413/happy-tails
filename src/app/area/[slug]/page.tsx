@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import { MapPin, Zap } from "lucide-react";
+import { MapPin, Siren } from "lucide-react";
 import { AREAS, LAST_VERIFIED, SITE_URL } from "@/lib/constants";
 import { getProvidersByArea, computeAreaStats } from "@/lib/utils";
 import { AreaSlug } from "@/lib/types";
@@ -49,7 +49,7 @@ export default async function AreaPage({ params }: Props) {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-18">
+      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: area.name }]} />
           <div className="flex items-center gap-2 mt-2 mb-4">
@@ -119,7 +119,7 @@ export default async function AreaPage({ params }: Props) {
               </div>
               {area.stats.emergency !== "No (limited)" && (
                 <div className="flex items-center gap-2">
-                  <Zap className="w-4 h-4 text-red-500" aria-hidden="true" />
+                  <Siren className="w-4 h-4 text-red-500" aria-hidden="true" />
                   <span className="text-xs text-bluey-navy/40">
                     {area.stats.emergency}
                   </span>

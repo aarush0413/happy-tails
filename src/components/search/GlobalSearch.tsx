@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
-import { Search, X, MapPin, Star, Zap, ArrowRight } from "lucide-react";
+import { Search, X, MapPin, Star, Siren, ArrowRight } from "lucide-react";
 import { Provider } from "@/lib/types";
 import { formatRating as formatRatingUtil, getAreaLabel } from "@/lib/utils";
 
@@ -149,7 +149,7 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
                                 <span className="text-sm font-medium text-bluey-navy truncate">{p.name}</span>
                                 {p.emergency24_7 && (
                                   <span className="inline-flex items-center gap-0.5 text-[9px] uppercase tracking-wider font-medium text-red-500 bg-red-50 px-1.5 py-0.5 rounded-full">
-                                    <Zap className="w-2.5 h-2.5" aria-hidden="true" /> 24/7
+                                    <Siren className="w-2.5 h-2.5" aria-hidden="true" /> 24/7
                                   </span>
                                 )}
                               </div>

@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
-  MapPin, Clock, Phone, Star, Zap, Home, ExternalLink, Flag, ShieldCheck,
+  MapPin, Clock, Phone, Star, Siren, Home, ExternalLink, Flag, ShieldCheck,
 } from "lucide-react";
 import {
   getAllProviders, getProviderById, getSimilarProviders, getAuditForProvider,
@@ -102,7 +102,7 @@ export default async function ProviderPage({ params }: Props) {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbSchema) }}
       />
 
-      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-10">
+      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white dark:to-[#0A0F1C] py-10">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="mb-4">
             <Breadcrumb
@@ -149,7 +149,7 @@ export default async function ProviderPage({ params }: Props) {
                 {provider.priority === "High" && <Badge variant="gold">Top Pick</Badge>}
                 {provider.emergency24_7 && (
                   <Badge variant="emergency">
-                    <Zap className="w-3 h-3" aria-hidden="true" /> 24/7 Emergency
+                    <Siren className="w-3 h-3" aria-hidden="true" /> 24/7 Emergency
                   </Badge>
                 )}
                 {provider.atHome && (

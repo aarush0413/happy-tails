@@ -1,5 +1,5 @@
 import { Metadata } from "next";
-import { Phone, Zap, AlertCircle } from "lucide-react";
+import { Phone, Siren, AlertCircle } from "lucide-react";
 import { getEmergencyProviders } from "@/lib/utils";
 import { EmergencyList } from "@/components/emergency/EmergencyList";
 
@@ -14,11 +14,11 @@ export default function EmergencyPage() {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-red-900 to-[#0A0F1C] text-white py-14 sm:py-18">
+      <section className="bg-gradient-to-b from-red-900 to-[#0A0F1C] text-white py-14 sm:py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-3 mb-4">
             <div className="w-11 h-11 rounded-xl bg-white/10 flex items-center justify-center">
-              <Zap className="w-6 h-6 text-red-300" aria-hidden="true" />
+              <Siren className="w-6 h-6 text-red-300" aria-hidden="true" />
             </div>
             <div>
               <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight">

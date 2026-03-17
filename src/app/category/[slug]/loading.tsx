@@ -3,7 +3,7 @@ import { Skeleton, ProviderCardSkeleton } from "@/components/ui/Skeleton";
 export default function CategoryLoading() {
   return (
     <div>
-      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-18">
+      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Skeleton className="h-4 w-32 mb-4 bg-white/10" />
           <Skeleton className="h-10 w-64 mb-3 bg-white/10" />
