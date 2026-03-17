@@ -1,11 +1,11 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CATEGORIES } from "@/lib/constants";
+import { CATEGORIES, LAST_VERIFIED } from "@/lib/constants";
 import { getProvidersByCategory, getCategoryLabel } from "@/lib/utils";
 import { CategorySlug } from "@/lib/types";
 import { FilterBar } from "@/components/filters/FilterBar";
 import { AdBanner } from "@/components/ads/AdBanner";
-import { Button } from "@/components/ui/Button";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import Link from "next/link";
 
 interface Props {
@@ -37,6 +37,7 @@ export default async function CategoryPage({ params }: Props) {
     <div>
       <section className="bg-gradient-to-b from-bluey-ice to-white py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Breadcrumb items={[{ label: category.name }]} />
           <div className="max-w-2xl">
             <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-bluey-navy tracking-tight">
               {category.name}
@@ -48,12 +49,12 @@ export default async function CategoryPage({ params }: Props) {
               {providers.length} providers in East Pune
             </p>
           </div>
-          <div className="mt-6 flex gap-2 overflow-x-auto pb-2">
+          <div className="mt-6 flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
             {CATEGORIES.map((c) => (
               <Link
                 key={c.slug}
                 href={`/category/${c.slug}`}
-                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
+                className={`flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
                   c.slug === slug
                     ? "bg-bluey-primary text-white border-bluey-primary"
                     : "bg-white text-bluey-navy border-bluey-pale hover:border-bluey-light"
@@ -63,6 +64,9 @@ export default async function CategoryPage({ params }: Props) {
               </Link>
             ))}
           </div>
+          <p className="mt-3 text-[10px] text-bluey-navy/30">
+            Data verified as of {LAST_VERIFIED}
+          </p>
         </div>
       </section>
 

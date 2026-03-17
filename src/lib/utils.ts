@@ -128,6 +128,34 @@ export function getAllAudits(): ReviewAudit[] {
   return audits;
 }
 
+export function getPhoneNumber(contact: string): string | null {
+  if (!contact || contact === "N/A") return null;
+  const cleaned = contact.split("/")[0].replace(/[^0-9+]/g, "");
+  if (cleaned.length >= 7) return cleaned;
+  return null;
+}
+
+export function getContactType(contact: string): { type: "phone" | "website" | "platform" | "none"; label: string; href: string } {
+  if (!contact || contact === "N/A") return { type: "none", label: "Contact unavailable", href: "" };
+
+  const phone = getPhoneNumber(contact);
+  if (phone) return { type: "phone", label: contact, href: `tel:${phone}` };
+
+  const lower = contact.toLowerCase();
+  if (lower.includes("justdial")) return { type: "platform", label: "Find on JustDial", href: "https://www.justdial.com" };
+  if (lower.includes("lybrate")) return { type: "platform", label: "Book on Lybrate", href: "https://www.lybrate.com" };
+  if (lower.includes("woofly")) return { type: "platform", label: "Visit Woofly", href: "https://www.woofly.in" };
+
+  const urlMatch = contact.match(/(?:via\s+)?(\S+\.\S+)/i);
+  if (urlMatch) {
+    const domain = urlMatch[1];
+    const url = domain.startsWith("http") ? domain : `https://${domain}`;
+    return { type: "website", label: `Visit ${domain}`, href: url };
+  }
+
+  return { type: "none", label: contact, href: "" };
+}
+
 export function formatRating(rating: string): string {
   const num = parseFloat(rating);
   if (isNaN(num)) return "N/A";

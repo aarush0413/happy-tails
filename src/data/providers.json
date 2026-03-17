@@ -214,6 +214,7 @@
     "contact": "+91-9665284123 / 7558333990",
     "timings": "9 AM–10 PM (all days)",
     "emergency24_7": true,
+    "emergencyNote": "24/7 emergency phone line available; walk-in clinic hours 9 AM–10 PM",
     "consultationFee": "Varies",
     "services": "Vaccinations, Major & minor surgeries, Health checkups, 24/7 emergency, Grooming, Microchipping",
     "rating": "4.4",
@@ -348,13 +349,14 @@
     "address": "Uday Baug, Ghorpadi, Pune 411013 (Hadapsar adjacent)",
     "doctors": "Dr. Leila Fernandez, Dr. Phiroz Khambatta",
     "contact": "Via raintreevet.in",
-    "timings": "Varies",
+    "timings": "By appointment (call/website)",
     "emergency24_7": true,
+    "emergencyNote": "24/7 emergency available — contact via website raintreevet.in",
     "consultationFee": "Varies",
     "services": "Vet care, Rehabilitation, Physiotherapy, Surgery, 24/7 emergency, Holistic rehab",
     "rating": "N/A",
     "priority": "Medium",
-    "notes": "Rehab specialist; unique niche; 24/7"
+    "notes": "Rehab specialist; unique niche; 24/7. Book via raintreevet.in"
   },
   {
     "id": "vet-22",

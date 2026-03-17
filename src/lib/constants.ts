@@ -1,5 +1,7 @@
 import { Category, Area, AreaSlug, CategorySlug } from "./types";
 
+export const LAST_VERIFIED = "March 2026";
+
 export const SITE_NAME = "Happy Tails";
 export const SITE_DESCRIPTION =
   "East Pune's premium pet services directory. Find verified vets, groomers, boarding, training, walking & transport for your furry friends.";
@@ -21,49 +23,49 @@ export const CATEGORIES: Category[] = [
     slug: "vet",
     description: "Trusted vets for checkups, vaccinations, surgery & emergency care",
     icon: "Stethoscope",
-    count: 23,
+    count: 22,
   },
   {
     name: "Grooming & Spa",
     slug: "grooming",
     description: "Professional grooming, spa treatments & at-home services",
     icon: "Scissors",
-    count: 21,
+    count: 20,
   },
   {
     name: "Pet Stores",
     slug: "store",
     description: "Premium food, accessories, toys & health products",
     icon: "ShoppingBag",
-    count: 18,
+    count: 17,
   },
   {
     name: "Boarding & Daycare",
     slug: "boarding",
     description: "Safe boarding, daycare & cage-free stays for your pets",
     icon: "Home",
-    count: 16,
+    count: 15,
   },
   {
     name: "Training",
     slug: "training",
     description: "Obedience, behaviour correction & specialised dog training",
     icon: "GraduationCap",
-    count: 10,
+    count: 9,
   },
   {
     name: "Walking & Sitting",
     slug: "walking",
     description: "Professional dog walkers & trusted pet sitters",
     icon: "Footprints",
-    count: 7,
+    count: 6,
   },
   {
     name: "Pet Transport",
     slug: "transport",
     description: "Safe local, domestic & international pet relocation",
     icon: "Truck",
-    count: 6,
+    count: 5,
   },
 ];
 

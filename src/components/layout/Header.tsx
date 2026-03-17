@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { Menu, X, PawPrint, AlertCircle } from "lucide-react";
 import { CATEGORIES } from "@/lib/constants";
+import { GlobalSearchWrapper } from "@/components/search/GlobalSearchWrapper";
 
 const NAV_ITEMS = [
   { label: "Explore", href: "/category/vet" },
@@ -29,6 +30,7 @@ export function Header() {
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
+            <GlobalSearchWrapper />
             <div
               className="relative"
               onMouseEnter={() => setCatOpen(true)}
@@ -70,12 +72,15 @@ export function Header() {
             ))}
           </nav>
 
-          <button
-            className="md:hidden p-2 rounded-lg hover:bg-bluey-ice transition-colors"
-            onClick={() => setMobileOpen(!mobileOpen)}
-          >
-            {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
-          </button>
+          <div className="flex md:hidden items-center gap-1">
+            <GlobalSearchWrapper />
+            <button
+              className="p-2 rounded-lg hover:bg-bluey-ice transition-colors"
+              onClick={() => setMobileOpen(!mobileOpen)}
+            >
+              {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+            </button>
+          </div>
         </div>
       </div>
 

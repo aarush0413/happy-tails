@@ -1,12 +1,12 @@
 import Link from "next/link";
-import { PawPrint, Heart } from "lucide-react";
-import { CATEGORIES, AREAS } from "@/lib/constants";
+import { PawPrint, Heart, Mail, Instagram, Facebook, Twitter } from "lucide-react";
+import { CATEGORIES, AREAS, LAST_VERIFIED } from "@/lib/constants";
 
 export function Footer() {
   return (
     <footer className="bg-bluey-navy text-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-10">
+        <div className="grid grid-cols-1 md:grid-cols-5 gap-10">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-2 mb-4">
               <PawPrint className="w-7 h-7 text-bluey-gold" />
@@ -18,6 +18,35 @@ export function Footer() {
               East Pune&apos;s premium pet services directory. Curated, verified, and
               trusted by pet parents.
             </p>
+            <div className="flex items-center gap-3 mt-4">
+              <a
+                href="https://instagram.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                aria-label="Follow us on Instagram"
+              >
+                <Instagram className="w-4 h-4" />
+              </a>
+              <a
+                href="https://facebook.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                aria-label="Follow us on Facebook"
+              >
+                <Facebook className="w-4 h-4" />
+              </a>
+              <a
+                href="https://twitter.com"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
+                aria-label="Follow us on Twitter"
+              >
+                <Twitter className="w-4 h-4" />
+              </a>
+            </div>
           </div>
 
           <div>
@@ -85,7 +114,45 @@ export function Footer() {
                   About Us
                 </Link>
               </li>
+              <li>
+                <Link
+                  href="/privacy"
+                  className="text-sm text-blue-200/70 hover:text-white transition-colors"
+                >
+                  Privacy Policy
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/terms"
+                  className="text-sm text-blue-200/70 hover:text-white transition-colors"
+                >
+                  Terms of Service
+                </Link>
+              </li>
             </ul>
+          </div>
+
+          <div>
+            <h3 className="text-sm font-bold uppercase tracking-wider text-bluey-gold mb-4">
+              Contact Us
+            </h3>
+            <ul className="space-y-2.5">
+              <li>
+                <a
+                  href="mailto:hello@happytails.in"
+                  className="flex items-center gap-2 text-sm text-blue-200/70 hover:text-white transition-colors"
+                >
+                  <Mail className="w-4 h-4" /> hello@happytails.in
+                </a>
+              </li>
+              <li>
+                <p className="text-sm text-blue-200/70">East Pune, Maharashtra</p>
+              </li>
+            </ul>
+            <p className="text-[10px] text-blue-200/30 mt-4">
+              Data verified as of {LAST_VERIFIED}
+            </p>
           </div>
         </div>
 

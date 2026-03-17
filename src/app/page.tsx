@@ -3,14 +3,14 @@ import Image from "next/image";
 import {
   PawPrint, Stethoscope, Scissors, ShoppingBag, Home, GraduationCap,
   Footprints, Truck, ArrowRight, Star, MapPin, Zap, Shield, Phone,
-  AlertCircle, ChevronRight, Heart,
+  AlertCircle, ChevronRight, Heart, Lightbulb,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { CATEGORIES, AREAS } from "@/lib/constants";
-import { getFeaturedProviders, getEmergencyProviders, formatRating, getAreaLabel } from "@/lib/utils";
-import { getRandomPetFact } from "@/lib/petApi";
+import { getFeaturedProviders, getEmergencyProviders, getAllProviders, formatRating, getAreaLabel } from "@/lib/utils";
+import { getRandomPetCareTip } from "@/lib/petApi";
 
 const PET_PHOTOS = {
   hero: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=75&fit=crop",
@@ -38,6 +38,7 @@ const ICON_MAP: Record<string, React.ReactNode> = {
 export default function HomePage() {
   const featured = getFeaturedProviders();
   const emergencyProviders = getEmergencyProviders();
+  const totalProviders = getAllProviders().length;
 
   return (
     <div>
@@ -51,7 +52,7 @@ export default function HomePage() {
         <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block">
           <Image
             src={PET_PHOTOS.hero}
-            alt="Happy golden retriever"
+            alt="Happy golden retriever smiling at the camera"
             fill
             className="object-cover opacity-[0.15] blur-[2px]"
             priority
@@ -63,7 +64,7 @@ export default function HomePage() {
             <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-bluey-pale/60">
               <PawPrint className="w-4 h-4 text-bluey-primary" />
               <span className="text-sm font-semibold text-bluey-navy">
-                101 verified providers across East Pune
+                {totalProviders} verified providers across East Pune
               </span>
             </div>
             <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight text-bluey-navy leading-[1.1]">
@@ -92,7 +93,7 @@ export default function HomePage() {
 
           <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
-              { label: "Providers", value: "101" },
+              { label: "Providers", value: String(totalProviders) },
               { label: "Categories", value: "7" },
               { label: "Areas", value: "4" },
               { label: "24/7 Emergency", value: `${emergencyProviders.length}` },
@@ -104,7 +105,7 @@ export default function HomePage() {
                 <p className="text-2xl sm:text-3xl font-black text-bluey-primary">
                   {stat.value}
                 </p>
-                <p className="text-xs sm:text-sm text-bluey-navy/50 font-medium mt-1">
+                <p className="text-xs sm:text-sm text-bluey-navy/60 font-medium mt-1">
                   {stat.label}
                 </p>
               </div>
@@ -141,8 +142,8 @@ export default function HomePage() {
           <h2 className="text-3xl sm:text-4xl font-black text-bluey-navy tracking-tight">
             What does your pet need?
           </h2>
-          <p className="mt-3 text-bluey-navy/50 text-lg">
-            7 categories. 101 verified providers. One platform.
+          <p className="mt-3 text-bluey-navy/60 text-lg">
+            7 categories. {totalProviders} verified providers. One platform.
           </p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
@@ -156,7 +157,7 @@ export default function HomePage() {
                 {ICON_MAP[cat.icon]}
               </div>
               <h3 className="font-bold text-bluey-navy text-sm">{cat.name}</h3>
-              <p className="text-xs text-bluey-navy/40 mt-1">{cat.count} providers</p>
+              <p className="text-xs text-bluey-navy/50 mt-1">{cat.count} providers</p>
             </Link>
           ))}
           <Link
@@ -172,23 +173,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Photo Banner 1 */}
+      {/* Photo Banner */}
       <section className="relative h-48 sm:h-64 overflow-hidden">
         <Image
           src={PET_PHOTOS.banner1}
-          alt="Two happy dogs running in a park"
+          alt="Two dogs running happily through a park"
           fill
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-bluey-primary/80 to-bluey-primary/40" />
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div>
-            <Heart className="w-8 h-8 text-white/80 mx-auto mb-3" />
+            <Heart className="w-8 h-8 text-white/80 mx-auto mb-3" aria-hidden="true" />
             <p className="text-2xl sm:text-3xl font-black text-white tracking-tight">
               Because every tail deserves to wag
-            </p>
-            <p className="mt-2 text-white/80 text-sm sm:text-base">
-              101 verified providers across East Pune
             </p>
           </div>
         </div>
@@ -200,7 +198,7 @@ export default function HomePage() {
           <h2 className="text-3xl sm:text-4xl font-black text-bluey-navy tracking-tight">
             Explore by area
           </h2>
-          <p className="mt-3 text-bluey-navy/50 text-lg">
+          <p className="mt-3 text-bluey-navy/60 text-lg">
             Comprehensive coverage across East Pune
           </p>
         </div>
@@ -221,7 +219,7 @@ export default function HomePage() {
                   {area.readiness}
                 </Badge>
               </div>
-              <p className="text-sm text-bluey-navy/50 mb-4">
+              <p className="text-sm text-bluey-navy/60 mb-4">
                 {area.description}
               </p>
               <div className="grid grid-cols-2 gap-2 mb-4">
@@ -229,7 +227,7 @@ export default function HomePage() {
                   <p className="text-xl font-black text-bluey-primary">
                     {area.stats.total}
                   </p>
-                  <p className="text-[10px] text-bluey-navy/40 font-medium">
+                  <p className="text-[10px] text-bluey-navy/50 font-medium">
                     Providers
                   </p>
                 </div>
@@ -237,7 +235,7 @@ export default function HomePage() {
                   <p className="text-xl font-black text-bluey-gold">
                     {area.stats.topRated}
                   </p>
-                  <p className="text-[10px] text-bluey-navy/40 font-medium">
+                  <p className="text-[10px] text-bluey-navy/50 font-medium">
                     Top Rated
                   </p>
                 </div>
@@ -253,7 +251,7 @@ export default function HomePage() {
       {/* Pet Photo Gallery Strip */}
       <section className="py-10 overflow-hidden bg-bluey-ice/20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
-          <p className="text-center text-sm font-semibold text-bluey-navy/40 uppercase tracking-wider">
+          <p className="text-center text-sm font-semibold text-bluey-navy/50 uppercase tracking-wider">
             Happy pets of East Pune
           </p>
         </div>
@@ -265,7 +263,7 @@ export default function HomePage() {
             >
               <Image
                 src={src}
-                alt={`Happy pet ${i + 1}`}
+                alt={`Happy pet from East Pune ${i + 1}`}
                 fill
                 className="object-cover"
               />
@@ -282,7 +280,7 @@ export default function HomePage() {
               <h2 className="text-3xl sm:text-4xl font-black text-bluey-navy tracking-tight">
                 Top-rated providers
               </h2>
-              <p className="mt-2 text-bluey-navy/50 text-lg">
+              <p className="mt-2 text-bluey-navy/60 text-lg">
                 Handpicked and verified for quality
               </p>
             </div>
@@ -304,7 +302,7 @@ export default function HomePage() {
                     </h3>
                     <div className="flex items-center gap-1.5 mt-1">
                       <MapPin className="w-3.5 h-3.5 text-bluey-light flex-shrink-0" />
-                      <span className="text-xs text-bluey-navy/50">
+                      <span className="text-xs text-bluey-navy/60">
                         {getAreaLabel(provider.area)}
                       </span>
                     </div>
@@ -324,7 +322,7 @@ export default function HomePage() {
                     </Badge>
                   )}
                 </div>
-                <p className="text-xs text-bluey-navy/50 line-clamp-2 leading-relaxed">
+                <p className="text-xs text-bluey-navy/60 line-clamp-2 leading-relaxed">
                   {provider.services}
                 </p>
               </Link>
@@ -337,14 +335,14 @@ export default function HomePage() {
       <section className="relative h-48 sm:h-64 overflow-hidden">
         <Image
           src={PET_PHOTOS.banner2}
-          alt="Cute puppy looking up"
+          alt="Cute puppy looking up with bright eyes"
           fill
           className="object-cover"
         />
         <div className="absolute inset-0 bg-gradient-to-l from-bluey-primary/80 to-bluey-primary/40" />
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div>
-            <PawPrint className="w-8 h-8 text-white/80 mx-auto mb-3" />
+            <PawPrint className="w-8 h-8 text-white/80 mx-auto mb-3" aria-hidden="true" />
             <p className="text-2xl sm:text-3xl font-black text-white tracking-tight">
               Your pet deserves the best
             </p>
@@ -385,7 +383,7 @@ export default function HomePage() {
                 {item.icon}
               </div>
               <h3 className="text-lg font-bold text-bluey-navy">{item.title}</h3>
-              <p className="mt-2 text-sm text-bluey-navy/50 leading-relaxed max-w-xs mx-auto">
+              <p className="mt-2 text-sm text-bluey-navy/60 leading-relaxed max-w-xs mx-auto">
                 {item.desc}
               </p>
             </div>
@@ -393,17 +391,20 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Pet Fun Fact */}
+      {/* Pet Care Tip */}
       {(() => {
-        const { fact, type } = getRandomPetFact();
+        const { tip, category } = getRandomPetCareTip();
         return (
           <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
             <div className="bg-bluey-ice/40 rounded-2xl p-6 border border-bluey-pale/40 text-center">
-              <p className="text-xs font-bold text-bluey-primary uppercase tracking-wider mb-2">
-                {type === "dog" ? "Dog" : "Cat"} Fact
-              </p>
-              <p className="text-base text-bluey-navy/70 leading-relaxed italic">
-                &ldquo;{fact}&rdquo;
+              <div className="flex items-center justify-center gap-2 mb-2">
+                <Lightbulb className="w-4 h-4 text-bluey-primary" aria-hidden="true" />
+                <p className="text-xs font-bold text-bluey-primary uppercase tracking-wider">
+                  Did You Know? &middot; {category}
+                </p>
+              </div>
+              <p className="text-base text-bluey-navy/70 leading-relaxed">
+                {tip}
               </p>
             </div>
           </section>

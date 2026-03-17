@@ -45,13 +45,5 @@ export function AdBanner({ slot, format = "horizontal", className = "" }: AdBann
     );
   }
 
-  return (
-    <div
-      className={`w-full ${heightMap[format]} bg-bluey-ice/30 rounded-xl border border-dashed border-bluey-pale flex items-center justify-center ${className}`}
-    >
-      <p className="text-xs text-bluey-navy/30 font-medium">
-        Ad Space &middot; Google AdSense
-      </p>
-    </div>
-  );
+  return null;
 }

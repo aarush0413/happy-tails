@@ -2,12 +2,13 @@ import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { MapPin, ChevronRight, Zap } from "lucide-react";
-import { AREAS, CATEGORIES } from "@/lib/constants";
+import { AREAS, CATEGORIES, LAST_VERIFIED } from "@/lib/constants";
 import { getProvidersByArea, getAreaLabel } from "@/lib/utils";
 import { AreaSlug } from "@/lib/types";
 import { FilterBar } from "@/components/filters/FilterBar";
 import { Badge } from "@/components/ui/Badge";
 import { AdBanner } from "@/components/ads/AdBanner";
+import { Breadcrumb } from "@/components/ui/Breadcrumb";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -49,6 +50,7 @@ export default async function AreaPage({ params }: Props) {
     <div>
       <section className="bg-gradient-to-b from-bluey-ice to-white py-12 sm:py-16">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <Breadcrumb items={[{ label: area.name }]} />
           <div className="flex items-center gap-2 mb-4">
             <MapPin className="w-5 h-5 text-bluey-primary" />
             <span className="text-sm font-semibold text-bluey-primary">East Pune</span>
@@ -58,12 +60,12 @@ export default async function AreaPage({ params }: Props) {
           </h1>
           <p className="mt-3 text-lg text-bluey-navy/50">{area.description}</p>
 
-          <div className="mt-6 flex gap-2 overflow-x-auto pb-2">
+          <div className="mt-6 flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
             {AREAS.map((a) => (
               <Link
                 key={a.slug}
                 href={`/area/${a.slug}`}
-                className={`flex-shrink-0 px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
+                className={`flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
                   a.slug === slug
                     ? "bg-bluey-primary text-white border-bluey-primary"
                     : "bg-white text-bluey-navy border-bluey-pale hover:border-bluey-light"
@@ -73,6 +75,9 @@ export default async function AreaPage({ params }: Props) {
               </Link>
             ))}
           </div>
+          <p className="mt-3 text-[10px] text-bluey-navy/30">
+            Data verified as of {LAST_VERIFIED}
+          </p>
 
           <div className="mt-8 bg-white rounded-2xl border border-bluey-pale/60 p-6">
             <div className="flex items-center justify-between mb-4">

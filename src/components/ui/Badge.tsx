@@ -5,9 +5,10 @@ interface BadgeProps {
   variant?: "default" | "primary" | "gold" | "emergency" | "verdict";
   verdict?: string;
   className?: string;
+  "aria-label"?: string;
 }
 
-export function Badge({ children, variant = "default", verdict, className = "" }: BadgeProps) {
+export function Badge({ children, variant = "default", verdict, className = "", "aria-label": ariaLabel }: BadgeProps) {
   const base = "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold border";
 
   const variants: Record<string, string> = {
@@ -21,5 +22,5 @@ export function Badge({ children, variant = "default", verdict, className = "" }
     ? `${base} ${getVerdictColor(verdict)} ${className}`
     : `${base} ${variants[variant]} ${className}`;
 
-  return <span className={cls}>{children}</span>;
+  return <span className={cls} role={ariaLabel ? "img" : undefined} aria-label={ariaLabel}>{children}</span>;
 }

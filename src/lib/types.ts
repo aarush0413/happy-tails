@@ -9,6 +9,7 @@ export interface Provider {
   contact: string;
   timings: string;
   emergency24_7: boolean;
+  emergencyNote?: string;
   consultationFee: string;
   services: string;
   rating: string;

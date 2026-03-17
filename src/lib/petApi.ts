@@ -67,32 +67,21 @@ export async function getRandomCatImages(limit = 6): Promise<PetImage[]> {
   }
 }
 
-const DOG_FACTS = [
-  "A dog's nose print is unique, much like a human fingerprint.",
-  "Dogs can understand up to 250 words and gestures.",
-  "Puppies are born deaf and don't hear until about 3 weeks old.",
-  "A dog's sense of smell is 10,000 to 100,000 times more acute than a human's.",
-  "Dogs have three eyelids, including one to keep their eyes moist.",
-  "Greyhounds can run up to 45 mph, making them the fastest dog breed.",
-  "Dogs curl up to sleep to protect their organs - an instinct from wild days.",
-  "Dalmatians are born completely white and develop spots as they grow.",
+const PET_CARE_TIPS = [
+  { tip: "Dogs need dental checkups every 6 months to prevent gum disease and tooth loss.", category: "Dental Care" },
+  { tip: "Regular vaccinations protect your pet from deadly diseases like Parvo, Rabies, and Distemper.", category: "Vaccinations" },
+  { tip: "Cats should be dewormed every 3 months, even indoor cats can get parasites.", category: "Parasite Control" },
+  { tip: "Never give your dog chocolate, grapes, onions, or xylitol — they're toxic to pets.", category: "Food Safety" },
+  { tip: "Puppies need socialization before 14 weeks of age for healthy behavioural development.", category: "Training" },
+  { tip: "Regular grooming prevents matting, skin infections, and helps you spot lumps early.", category: "Grooming" },
+  { tip: "Pets over 7 years old should have a full health checkup every 6 months.", category: "Senior Care" },
+  { tip: "Keep your pet's nails trimmed — overgrown nails can cause pain and walking problems.", category: "Nail Care" },
+  { tip: "Always keep fresh water available. Dogs need about 30ml per kg of body weight daily.", category: "Hydration" },
+  { tip: "A microchip costs under ₹1,000 and is the best way to reunite with a lost pet.", category: "Microchipping" },
+  { tip: "Don't skip flea and tick prevention, especially during monsoon season in Pune.", category: "Parasite Control" },
+  { tip: "Spaying/neutering prevents certain cancers and reduces stray overpopulation.", category: "Spay/Neuter" },
 ];
 
-const CAT_FACTS = [
-  "Cats spend 70% of their lives sleeping.",
-  "A cat's purr vibrates at 25-150 Hz, which can promote healing.",
-  "Cats have over 20 vocalizations, including the meow, just for humans.",
-  "A group of cats is called a 'clowder'.",
-  "Cats can rotate their ears 180 degrees.",
-  "Adult cats only meow to communicate with humans, not other cats.",
-  "A cat's brain is 90% similar to a human's.",
-  "Cats can jump up to six times their length.",
-];
-
-export function getRandomPetFact(): { fact: string; type: "dog" | "cat" } {
-  const allFacts = [
-    ...DOG_FACTS.map((f) => ({ fact: f, type: "dog" as const })),
-    ...CAT_FACTS.map((f) => ({ fact: f, type: "cat" as const })),
-  ];
-  return allFacts[Math.floor(Math.random() * allFacts.length)];
+export function getRandomPetCareTip(): { tip: string; category: string } {
+  return PET_CARE_TIPS[Math.floor(Math.random() * PET_CARE_TIPS.length)];
 }
