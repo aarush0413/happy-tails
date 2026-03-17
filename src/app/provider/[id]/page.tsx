@@ -7,6 +7,7 @@ import {
 import {
   getAllProviders, getProviderById, getSimilarProviders, getAuditForProvider,
   formatRating, getAreaLabel, getCategoryLabel, getPhoneNumber, getContactType, hasRedFlags,
+  parseReviewCount,
 } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 import { VerdictIcon } from "@/components/ui/VerdictIcon";
@@ -75,7 +76,9 @@ export default async function ProviderPage({ params }: Props) {
             ratingValue: rating,
             bestRating: "5",
             worstRating: "1",
-            reviewCount: 1,
+            ...(audit && parseReviewCount(audit.reviewCount)
+              ? { reviewCount: parseReviewCount(audit.reviewCount) }
+              : {}),
           },
         }
       : {}),
@@ -172,12 +175,12 @@ export default async function ProviderPage({ params }: Props) {
                 <div
                   className={`mt-6 p-5 rounded-xl border ${
                     audit.verdict.startsWith("LEGIT")
-                      ? "bg-green-50 border-green-200/60"
+                      ? "bg-green-50 dark:bg-green-950/30 border-green-200/60 dark:border-green-800/40"
                       : audit.verdict === "CAUTION"
-                      ? "bg-orange-50 border-orange-200/60"
+                      ? "bg-orange-50 dark:bg-orange-950/30 border-orange-200/60 dark:border-orange-800/40"
                       : audit.verdict === "BLACKLIST" || audit.verdict === "AVOID"
-                      ? "bg-red-50 border-red-200/60"
-                      : "bg-gray-50 border-gray-200/60"
+                      ? "bg-red-50 dark:bg-red-950/30 border-red-200/60 dark:border-red-800/40"
+                      : "bg-gray-50 dark:bg-gray-950/30 border-gray-200/60 dark:border-gray-800/40"
                   }`}
                 >
                   <div className="flex items-center gap-2 mb-2">
@@ -291,7 +294,7 @@ export default async function ProviderPage({ params }: Props) {
                   ) : null}
 
                   <a
-                    href={`mailto:aarush@happytails.in?subject=${encodeURIComponent(`Report: Incorrect info for ${provider.name}`)}&body=${encodeURIComponent(`Hi,\n\nI found incorrect information on the listing for "${provider.name}" (ID: ${provider.id}).\n\nWhat's wrong:\n\n\nCorrect information:\n\n`)}`}
+                    href={`mailto:hello@happytails.in?subject=${encodeURIComponent(`Report: Incorrect info for ${provider.name}`)}&body=${encodeURIComponent(`Hi,\n\nI found incorrect information on the listing for "${provider.name}" (ID: ${provider.id}).\n\nWhat's wrong:\n\n\nCorrect information:\n\n`)}`}
                     className="w-full inline-flex items-center justify-center gap-2 px-4 py-2 text-[10px] text-bluey-navy/30 hover:text-red-500 uppercase tracking-wider font-medium rounded-lg border border-bluey-pale/40 hover:border-red-200 transition-colors"
                   >
                     <Flag className="w-3 h-3" aria-hidden="true" /> Report incorrect info
@@ -324,17 +327,6 @@ export default async function ProviderPage({ params }: Props) {
                 </div>
               )}
             </div>
-          </div>
-        </div>
-      </section>
-
-      <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 pt-10">
-        <div className="bg-bluey-ice rounded-xl border border-dashed border-bluey-pale/60 p-8 text-center">
-          <div className="flex items-center justify-center gap-2 text-bluey-navy/20">
-            <svg className="w-7 h-7" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-            </svg>
-            <p className="text-xs font-medium uppercase tracking-wider">Photos coming soon</p>
           </div>
         </div>
       </section>

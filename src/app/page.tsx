@@ -22,15 +22,7 @@ export const metadata: Metadata = {
 
 const PET_PHOTOS = {
   hero: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=75&fit=crop",
-  banner1: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&q=75&fit=crop",
-  banner2: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=1200&q=75&fit=crop",
-  gallery: [
-    { src: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&q=75&fit=crop", alt: "Golden retriever with a happy expression" },
-    { src: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=75&fit=crop", alt: "Cat relaxing comfortably indoors" },
-    { src: "https://images.unsplash.com/photo-1587559070757-f72a388edbba?w=400&q=75&fit=crop", alt: "Puppy playing in a sunny garden" },
-    { src: "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=400&q=75&fit=crop", alt: "Dog enjoying a walk in the park" },
-    { src: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&q=75&fit=crop", alt: "Friendly dog posing for the camera" },
-  ],
+  banner: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&q=75&fit=crop",
 };
 
 const ICON_MAP: Record<string, React.ReactNode> = {
@@ -218,7 +210,7 @@ export default function HomePage() {
       {/* Cinematic Banner */}
       <section className="relative h-56 sm:h-72 overflow-hidden">
         <Image
-          src={PET_PHOTOS.banner1}
+            src={PET_PHOTOS.banner}
           alt="Two dogs running happily through a park"
           fill
           sizes="100vw"
@@ -295,34 +287,6 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Gallery Strip */}
-      <section className="py-12 overflow-hidden bg-bluey-ice/30">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
-          <p className="text-center text-[10px] uppercase tracking-[0.25em] text-bluey-navy/30 font-medium">
-            Happy pets of East Pune
-          </p>
-        </div>
-        <div className="overflow-hidden">
-          <div className="flex gap-4 px-4 animate-scroll-left" style={{ width: "max-content" }}>
-            {[...PET_PHOTOS.gallery, ...PET_PHOTOS.gallery].map((photo, i) => (
-              <div
-                key={i}
-                className="flex-shrink-0 w-56 h-40 sm:w-64 sm:h-48 relative rounded-xl overflow-hidden"
-              >
-                <Image
-                  src={photo.src}
-                  alt={photo.alt}
-                  fill
-                  sizes="(max-width: 640px) 224px, 256px"
-                  loading="lazy"
-                  className="object-cover hover:scale-105 transition-transform duration-700"
-                />
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
       {/* Featured Providers */}
       <section className="py-24">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -341,29 +305,6 @@ export default function HomePage() {
             </Button>
           </div>
           <FeaturedProviders providers={featured.slice(0, 6)} />
-        </div>
-      </section>
-
-      {/* Cinematic Banner 2 */}
-      <section className="relative h-56 sm:h-72 overflow-hidden">
-        <Image
-          src={PET_PHOTOS.banner2}
-          alt="Cute puppy looking up with bright eyes"
-          fill
-          sizes="100vw"
-          loading="lazy"
-          className="object-cover"
-        />
-        <div className="absolute inset-0 bg-[#0A0F1C]/70" />
-        <div className="relative h-full flex items-center justify-center text-center px-4">
-          <div>
-            <p className="font-display text-2xl sm:text-4xl font-semibold text-white tracking-tight">
-              Your pet deserves the best
-            </p>
-            <p className="mt-3 text-white/40 text-sm">
-              Verified vets, groomers & more — one tap away
-            </p>
-          </div>
         </div>
       </section>
 

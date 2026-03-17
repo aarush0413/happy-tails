@@ -27,9 +27,9 @@ export default function PricingPage() {
             expect before you book.
           </p>
           <div className="flex flex-wrap gap-2 mt-6">
-            <Badge className="!text-[10px] !tracking-wider !uppercase bg-green-50 text-green-700 border-green-200/60">Budget</Badge>
-            <Badge className="!text-[10px] !tracking-wider !uppercase bg-blue-50 text-blue-700 border-blue-200/60">Mid-Range</Badge>
-            <Badge className="!text-[10px] !tracking-wider !uppercase bg-purple-50 text-purple-700 border-purple-200/60">Premium</Badge>
+            <Badge className="!text-[10px] !tracking-wider !uppercase bg-green-50 dark:bg-green-950/30 text-green-700 dark:text-green-400 border-green-200/60 dark:border-green-800/40">Budget</Badge>
+            <Badge className="!text-[10px] !tracking-wider !uppercase bg-blue-50 dark:bg-blue-950/30 text-blue-700 dark:text-blue-400 border-blue-200/60 dark:border-blue-800/40">Mid-Range</Badge>
+            <Badge className="!text-[10px] !tracking-wider !uppercase bg-purple-50 dark:bg-purple-950/30 text-purple-700 dark:text-purple-400 border-purple-200/60 dark:border-purple-800/40">Premium</Badge>
           </div>
         </div>
       </section>
@@ -52,13 +52,13 @@ export default function PricingPage() {
                           <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-bluey-navy/40">
                             Service
                           </th>
-                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-green-600">
+                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-green-600 dark:text-green-400">
                             Budget
                           </th>
-                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-blue-600">
+                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-blue-600 dark:text-blue-400">
                             Mid
                           </th>
-                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-purple-600">
+                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-purple-600 dark:text-purple-400">
                             Premium
                           </th>
                           <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-bluey-navy/30">
@@ -79,17 +79,17 @@ export default function PricingPage() {
                               {item.subService}
                             </td>
                             <td className="px-5 py-3.5">
-                              <span className="text-xs text-green-700 font-medium">
+                              <span className="text-xs text-green-700 dark:text-green-400 font-medium">
                                 {item.budget}
                               </span>
                             </td>
                             <td className="px-5 py-3.5">
-                              <span className="text-xs text-blue-700 font-medium">
+                              <span className="text-xs text-blue-700 dark:text-blue-400 font-medium">
                                 {item.mid}
                               </span>
                             </td>
                             <td className="px-5 py-3.5">
-                              <span className="text-xs text-purple-700 font-medium">
+                              <span className="text-xs text-purple-700 dark:text-purple-400 font-medium">
                                 {item.premium}
                               </span>
                             </td>

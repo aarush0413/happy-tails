@@ -228,3 +228,13 @@ export function getAreaLabel(slug: AreaSlug | string): string {
   };
   return map[slug] || slug;
 }
+
+export function parseReviewCount(raw: string): number | null {
+  if (!raw || raw === "N/A" || raw.includes("N/A")) return null;
+  const cleaned = raw.replace(/,/g, "");
+  const match = cleaned.match(/(\d+)\s*K\+?/i);
+  if (match) return parseInt(match[1]) * 1000;
+  const numMatch = cleaned.match(/(\d+)/);
+  if (numMatch) return parseInt(numMatch[1]);
+  return null;
+}

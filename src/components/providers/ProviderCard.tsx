@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Star, MapPin, Clock, Phone, Siren, Home, ChevronDown, Scale, Heart } from "lucide-react";
+import { Star, MapPin, Clock, Siren, Home, ChevronDown, Scale, Heart } from "lucide-react";
 import { Provider } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
 import { VerdictIcon } from "@/components/ui/VerdictIcon";
@@ -34,9 +34,14 @@ export function ProviderCard({ provider, index = 0 }: ProviderCardProps) {
       <Link href={`/provider/${provider.id}`} className="block group">
         <div className="relative bg-white rounded-xl border-0 shadow-sm p-6 h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
           <div className="absolute top-3 right-3 flex items-center gap-1 z-10">
+            {index === 0 && !inCompare && (
+              <span className="text-[9px] text-bluey-navy/30 uppercase tracking-wider font-medium animate-fadeOut mr-0.5">
+                Compare
+              </span>
+            )}
             <button
               type="button"
-              className={`p-1.5 rounded-lg transition-all duration-200 ${
+              className={`p-2 rounded-lg transition-all duration-200 ${
                 inCompare
                   ? "bg-bluey-primary text-white"
                   : "text-bluey-navy/20 hover:text-bluey-primary hover:bg-bluey-ice"
@@ -47,13 +52,13 @@ export function ProviderCard({ provider, index = 0 }: ProviderCardProps) {
                 inCompare ? removeFromCompare(provider.id) : addToCompare(provider);
               }}
               aria-label={inCompare ? `Remove ${provider.name} from compare` : `Add ${provider.name} to compare`}
-              title="Compare"
+              title="Compare providers side by side"
             >
               <Scale className="w-3.5 h-3.5" aria-hidden="true" />
             </button>
             <button
               type="button"
-              className={`p-1.5 rounded-lg transition-all duration-200 ${
+              className={`p-2 rounded-lg transition-all duration-200 ${
                 isFav
                   ? "text-red-500"
                   : "text-bluey-navy/20 hover:text-red-500"
@@ -64,7 +69,7 @@ export function ProviderCard({ provider, index = 0 }: ProviderCardProps) {
                 toggleFavorite(provider.id);
               }}
               aria-label={isFav ? `Remove ${provider.name} from favorites` : `Save ${provider.name} to favorites`}
-              title="Favorite"
+              title="Save to favorites"
             >
               <Heart className={`w-3.5 h-3.5 ${isFav ? "fill-red-500" : ""}`} aria-hidden="true" />
             </button>
@@ -146,12 +151,6 @@ export function ProviderCard({ provider, index = 0 }: ProviderCardProps) {
             )}
           </div>
 
-          {audit && (
-            <p className="text-[11px] text-bluey-navy/40 mb-2 line-clamp-1 leading-relaxed">
-              {audit.keyFindings.substring(0, 90)}{audit.keyFindings.length > 90 ? "..." : ""}
-            </p>
-          )}
-
           {provider.consultationFee && (
             <p className="text-sm font-medium text-bluey-primary mb-2">
               {provider.consultationFee === "Varies" ? "Contact for pricing" : provider.consultationFee}
@@ -159,24 +158,16 @@ export function ProviderCard({ provider, index = 0 }: ProviderCardProps) {
           )}
 
           <div className={`${expanded ? "block" : "hidden"} md:block`}>
-            <p className="text-xs text-bluey-navy/40 line-clamp-2 mb-3 leading-relaxed">
+            <p className="text-xs text-bluey-navy/40 line-clamp-1 mb-3 leading-relaxed">
               {provider.services}
             </p>
 
-            <div className="flex items-center gap-4 pt-3 border-t border-bluey-pale/40">
-              {provider.timings && (
-                <div className="flex items-center gap-1 text-xs text-bluey-navy/40">
-                  <Clock className="w-3 h-3" aria-hidden="true" />
-                  <span className="truncate max-w-[140px]">{provider.timings}</span>
-                </div>
-              )}
-              {provider.contact && provider.contact !== "N/A" && (
-                <div className="flex items-center gap-1 text-xs text-bluey-navy/40">
-                  <Phone className="w-3 h-3" aria-hidden="true" />
-                  <span className="truncate max-w-[120px]">{provider.contact}</span>
-                </div>
-              )}
-            </div>
+            {provider.timings && (
+              <div className="flex items-center gap-1 text-xs text-bluey-navy/40 pt-3 border-t border-bluey-pale/40">
+                <Clock className="w-3 h-3" aria-hidden="true" />
+                <span className="truncate">{provider.timings}</span>
+              </div>
+            )}
           </div>
 
           <button

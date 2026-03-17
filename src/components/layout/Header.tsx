@@ -196,40 +196,48 @@ export function Header() {
         </div>
       </div>
 
-      {mobileOpen && (
-        <div ref={mobileMenuRef} className="md:hidden border-t border-bluey-pale/40 bg-white" role="dialog" aria-label="Mobile navigation">
-          <nav className="px-4 py-4 space-y-0.5" aria-label="Mobile navigation">
-            <p className="px-3 py-2 text-[10px] font-medium text-bluey-navy/30 uppercase tracking-[0.2em]" aria-hidden="true">
-              Services
-            </p>
-            {CATEGORIES.map((cat) => (
-              <Link
-                key={cat.slug}
-                href={`/category/${cat.slug}`}
-                className="block px-3 py-2.5 text-sm text-bluey-navy/70 hover:text-bluey-navy hover:bg-bluey-ice rounded-lg focus:bg-bluey-ice focus:outline-none transition-colors"
-                onClick={() => setMobileOpen(false)}
-              >
-                {cat.name}
-              </Link>
-            ))}
-            <div className="border-t border-bluey-pale/40 my-3" role="separator" />
-            {NAV_ITEMS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={`block px-3 py-2.5 text-sm font-medium rounded-lg focus:outline-none transition-colors ${
-                  item.highlight
-                    ? "bg-bluey-navy text-white text-center mt-2"
-                    : "text-bluey-navy/70 hover:text-bluey-navy hover:bg-bluey-ice"
-                }`}
-                onClick={() => setMobileOpen(false)}
-              >
-                {item.label}
-              </Link>
-            ))}
-          </nav>
-        </div>
-      )}
+      <div
+        ref={mobileMenuRef}
+        className={`md:hidden border-t border-bluey-pale/40 bg-white overflow-hidden transition-all duration-300 ease-in-out ${
+          mobileOpen ? "max-h-[80vh] opacity-100" : "max-h-0 opacity-0"
+        }`}
+        role="dialog"
+        aria-label="Mobile navigation"
+        aria-hidden={!mobileOpen}
+      >
+        <nav className="px-4 py-4 space-y-0.5" aria-label="Mobile navigation">
+          <p className="px-3 py-2 text-[10px] font-medium text-bluey-navy/30 uppercase tracking-[0.2em]" aria-hidden="true">
+            Services
+          </p>
+          {CATEGORIES.map((cat) => (
+            <Link
+              key={cat.slug}
+              href={`/category/${cat.slug}`}
+              className="block px-3 py-2.5 text-sm text-bluey-navy/70 hover:text-bluey-navy hover:bg-bluey-ice rounded-lg focus:bg-bluey-ice focus:outline-none transition-colors"
+              onClick={() => setMobileOpen(false)}
+              tabIndex={mobileOpen ? 0 : -1}
+            >
+              {cat.name}
+            </Link>
+          ))}
+          <div className="border-t border-bluey-pale/40 my-3" role="separator" />
+          {NAV_ITEMS.map((item) => (
+            <Link
+              key={item.href}
+              href={item.href}
+              className={`block px-3 py-2.5 text-sm font-medium rounded-lg focus:outline-none transition-colors ${
+                item.highlight
+                  ? "bg-bluey-navy text-white text-center mt-2"
+                  : "text-bluey-navy/70 hover:text-bluey-navy hover:bg-bluey-ice"
+              }`}
+              onClick={() => setMobileOpen(false)}
+              tabIndex={mobileOpen ? 0 : -1}
+            >
+              {item.label}
+            </Link>
+          ))}
+        </nav>
+      </div>
     </header>
   );
 }

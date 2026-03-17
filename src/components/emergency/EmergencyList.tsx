@@ -11,10 +11,10 @@ import { formatRating, getAreaLabel, getPhoneNumber, getContactType } from "@/li
 import { Badge } from "@/components/ui/Badge";
 
 const TRIAGE_OPTIONS = [
-  { icon: Droplets, label: "Bleeding", desc: "Heavy or uncontrolled bleeding", color: "text-red-600 bg-red-50 border-red-100", keywords: ["surgery", "emergency", "icu"] },
-  { icon: Wind, label: "Can't breathe", desc: "Choking, labored breathing", color: "text-orange-600 bg-orange-50 border-orange-100", keywords: ["emergency", "critical", "icu"] },
-  { icon: Brain, label: "Seizure", desc: "Convulsions, tremors, collapse", color: "text-purple-600 bg-purple-50 border-purple-100", keywords: ["emergency", "critical", "neurolog"] },
-  { icon: XCircle, label: "Poisoning", desc: "Ingested toxic substance", color: "text-red-700 bg-red-50 border-red-100", keywords: ["emergency", "critical", "diagnostics"] },
+  { icon: Droplets, label: "Bleeding", desc: "Heavy or uncontrolled bleeding", color: "text-red-600 bg-red-50 dark:bg-red-950/30 border-red-100 dark:border-red-800/40", keywords: ["surgery", "emergency", "icu"] },
+  { icon: Wind, label: "Can't breathe", desc: "Choking, labored breathing", color: "text-orange-600 bg-orange-50 dark:bg-orange-950/30 border-orange-100 dark:border-orange-800/40", keywords: ["emergency", "critical", "icu"] },
+  { icon: Brain, label: "Seizure", desc: "Convulsions, tremors, collapse", color: "text-purple-600 bg-purple-50 dark:bg-purple-950/30 border-purple-100 dark:border-purple-800/40", keywords: ["emergency", "critical", "neurolog"] },
+  { icon: XCircle, label: "Poisoning", desc: "Ingested toxic substance", color: "text-red-700 bg-red-50 dark:bg-red-950/30 border-red-100 dark:border-red-800/40", keywords: ["emergency", "critical", "diagnostics"] },
 ];
 
 const AREA_COORDS: Record<string, { lat: number; lng: number }> = {
