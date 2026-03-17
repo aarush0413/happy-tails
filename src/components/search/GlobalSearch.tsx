@@ -4,6 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, MapPin, Star, Zap, ArrowRight } from "lucide-react";
 import { Provider } from "@/lib/types";
+import { formatRating as formatRatingUtil, getAreaLabel } from "@/lib/utils";
 
 interface GlobalSearchProps {
   providers: Provider[];
@@ -76,19 +77,6 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
     }
   }
 
-  const formatRating = (r: string) => {
-    const n = parseFloat(r);
-    return isNaN(n) ? null : n.toFixed(1);
-  };
-
-  const areaLabels: Record<string, string> = {
-    "kalyani-nagar": "Kalyani Nagar",
-    "viman-nagar": "Viman Nagar",
-    kharadi: "Kharadi",
-    hadapsar: "Hadapsar",
-    "all-areas": "All Areas",
-  };
-
   return (
     <>
       <button
@@ -134,7 +122,8 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
                   ) : (
                     <ul role="listbox">
                       {results.map((p, i) => {
-                        const r = formatRating(p.rating);
+                        const rFormatted = formatRatingUtil(p.rating);
+                        const r = rFormatted !== "N/A" ? rFormatted : null;
                         return (
                           <li
                             key={p.id}
@@ -157,7 +146,7 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
                               <div className="flex items-center gap-3 mt-0.5">
                                 <span className="flex items-center gap-1 text-xs text-bluey-navy/50">
                                   <MapPin className="w-3 h-3" />
-                                  {areaLabels[p.area] || p.area}
+                                  {getAreaLabel(p.area)}
                                 </span>
                                 {r && (
                                   <span className="flex items-center gap-0.5 text-xs text-amber-700">

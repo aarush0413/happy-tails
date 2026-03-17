@@ -1,7 +1,8 @@
 import { Metadata } from "next";
-import { PawPrint, Shield, Star, Zap, MapPin, Heart, Users, Eye } from "lucide-react";
+import { PawPrint, Shield, Zap, MapPin, Heart, Eye } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { AREAS, CATEGORIES } from "@/lib/constants";
+import { getAllProviders, getAllAudits } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "About Happy Tails",
@@ -9,6 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default function AboutPage() {
+  const totalProviders = getAllProviders().length;
+  const totalAudits = getAllAudits().length;
+
   return (
     <div>
       <section className="bg-gradient-to-b from-bluey-ice to-white py-16 sm:py-24">
@@ -77,10 +81,10 @@ export default function AboutPage() {
           </h2>
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6">
             {[
-              { value: "101", label: "Verified Providers" },
-              { value: "7", label: "Service Categories" },
-              { value: "4", label: "Areas Covered" },
-              { value: "20", label: "Audit Reviews" },
+              { value: String(totalProviders), label: "Verified Providers" },
+              { value: String(CATEGORIES.length), label: "Service Categories" },
+              { value: String(AREAS.length), label: "Areas Covered" },
+              { value: String(totalAudits), label: "Audit Reviews" },
             ].map((stat) => (
               <div key={stat.label} className="text-center">
                 <p className="text-4xl sm:text-5xl font-black text-bluey-gold">

@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
   MapPin, Clock, Phone, Star, Zap, AlertTriangle,
-  ShieldCheck, Home, ExternalLink, Calendar, XCircle, Ban,
+  ShieldCheck, Home, ExternalLink, XCircle, Ban,
 } from "lucide-react";
 import {
   getAllProviders, getProviderById, getSimilarProviders, getAuditForProvider,
@@ -12,7 +12,7 @@ import {
 import { Badge } from "@/components/ui/Badge";
 import { ShareButton } from "@/components/ui/ShareButton";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
-import { LAST_VERIFIED } from "@/lib/constants";
+import { LAST_VERIFIED, SITE_URL } from "@/lib/constants";
 
 interface Props {
   params: Promise<{ id: string }>;
@@ -46,14 +46,6 @@ function getVerdictIcon(verdict: string) {
   return <AlertTriangle className="w-5 h-5 text-orange-600" />;
 }
 
-function hasBookingOption(provider: { notes: string; services: string }): { available: boolean; platform: string; href: string } {
-  const text = `${provider.notes} ${provider.services}`.toLowerCase();
-  if (text.includes("lybrate")) return { available: true, platform: "Lybrate", href: "https://www.lybrate.com" };
-  if (text.includes("book online") || text.includes("online booking"))
-    return { available: true, platform: "Online", href: "#" };
-  return { available: false, platform: "", href: "" };
-}
-
 export default async function ProviderPage({ params }: Props) {
   const { id } = await params;
   const provider = getProviderById(id);
@@ -64,7 +56,6 @@ export default async function ProviderPage({ params }: Props) {
   const rating = formatRating(provider.rating);
   const phone = getPhoneNumber(provider.contact);
   const contact = getContactType(provider.contact);
-  const booking = hasBookingOption(provider);
 
   const servicesList = provider.services
     .split(",")
@@ -124,7 +115,7 @@ export default async function ProviderPage({ params }: Props) {
                     <ShareButton
                       title={`${provider.name} - Happy Tails`}
                       text={`Check out ${provider.name} on Happy Tails!`}
-                      url={`https://happy-tails-coral.vercel.app/provider/${provider.id}`}
+                      url={`${SITE_URL}/provider/${provider.id}`}
                       variant="icon"
                     />
                   </div>
@@ -285,16 +276,6 @@ export default async function ProviderPage({ params }: Props) {
                     </a>
                   ) : null}
 
-                  {booking.available && (
-                    <a
-                      href={booking.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 bg-green-600 text-white font-bold rounded-xl hover:bg-green-700 transition-colors"
-                    >
-                      <Calendar className="w-4 h-4" /> Book on {booking.platform}
-                    </a>
-                  )}
                 </div>
 
                 <p className="text-[10px] text-bluey-navy/30 mt-3 text-center">

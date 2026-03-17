@@ -8,7 +8,7 @@ import {
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ShareButton } from "@/components/ui/ShareButton";
-import { CATEGORIES, AREAS } from "@/lib/constants";
+import { CATEGORIES, AREAS, SITE_URL } from "@/lib/constants";
 import { getFeaturedProviders, getEmergencyProviders, getAllProviders, formatRating, getAreaLabel } from "@/lib/utils";
 import { getRandomPetCareTip } from "@/lib/petApi";
 
@@ -84,7 +84,7 @@ export default function HomePage() {
                 <AlertCircle className="w-5 h-5" /> Emergency 24/7
               </Button>
               <ShareButton
-                url="https://happy-tails-coral.vercel.app"
+                url={SITE_URL}
                 variant="icon"
                 className="mt-1"
               />
@@ -94,8 +94,8 @@ export default function HomePage() {
           <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4">
             {[
               { label: "Providers", value: String(totalProviders) },
-              { label: "Categories", value: "7" },
-              { label: "Areas", value: "4" },
+              { label: "Categories", value: String(CATEGORIES.length) },
+              { label: "Areas", value: String(AREAS.length) },
               { label: "24/7 Emergency", value: `${emergencyProviders.length}` },
             ].map((stat) => (
               <div
@@ -129,7 +129,7 @@ export default function HomePage() {
                 </p>
               </div>
             </div>
-            <Button href="/emergency" variant="ghost" className="!text-white !hover:bg-white/10 border border-white/30">
+            <Button href="/emergency" variant="ghost" className="!text-white hover:!bg-white/10 border border-white/30">
               Find Emergency Vet <ArrowRight className="w-4 h-4" />
             </Button>
           </div>
@@ -143,7 +143,7 @@ export default function HomePage() {
             What does your pet need?
           </h2>
           <p className="mt-3 text-bluey-navy/60 text-lg">
-            7 categories. {totalProviders} verified providers. One platform.
+            {CATEGORIES.length} categories. {totalProviders} verified providers. One platform.
           </p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">

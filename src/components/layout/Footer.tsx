@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { PawPrint, Heart, Mail, Instagram, Facebook, Twitter } from "lucide-react";
+import { PawPrint, Heart, Mail } from "lucide-react";
 import { CATEGORIES, AREAS, LAST_VERIFIED } from "@/lib/constants";
 
 export function Footer() {
@@ -18,35 +18,12 @@ export function Footer() {
               East Pune&apos;s premium pet services directory. Curated, verified, and
               trusted by pet parents.
             </p>
-            <div className="flex items-center gap-3 mt-4">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                aria-label="Follow us on Instagram"
-              >
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a
-                href="https://facebook.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                aria-label="Follow us on Facebook"
-              >
-                <Facebook className="w-4 h-4" />
-              </a>
-              <a
-                href="https://twitter.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center hover:bg-white/20 transition-colors"
-                aria-label="Follow us on Twitter"
-              >
-                <Twitter className="w-4 h-4" />
-              </a>
-            </div>
+            <a
+              href="mailto:hello@happytails.in"
+              className="flex items-center gap-2 mt-4 text-sm text-blue-200/70 hover:text-white transition-colors"
+            >
+              <Mail className="w-4 h-4" /> hello@happytails.in
+            </a>
           </div>
 
           <div>
