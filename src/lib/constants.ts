@@ -7,16 +7,6 @@ export const SITE_DESCRIPTION =
   "East Pune's premium pet services directory. Find verified vets, groomers, boarding, training, walking & transport for your furry friends.";
 export const SITE_URL = "https://happy-tails-coral.vercel.app";
 
-export const COLORS = {
-  primaryBlue: "#0096DB",
-  lightBlue: "#82CAFC",
-  paleBlue: "#D4EBFB",
-  white: "#FFFFFD",
-  iceWhite: "#E5F7FF",
-  darkNavy: "#3F3F65",
-  gold: "#EBCE72",
-} as const;
-
 export const CATEGORIES: Category[] = [
   {
     name: "Veterinary Clinics",
@@ -126,14 +116,14 @@ export function getAreaBySlug(slug: AreaSlug): Area | undefined {
 
 export function getVerdictColor(verdict: string): string {
   switch (verdict) {
-    case "LEGIT": return "text-green-700 bg-green-50 border-green-200";
-    case "LEGIT with NOTES": return "text-blue-700 bg-blue-50 border-blue-200";
-    case "LEGIT but VERIFY": return "text-yellow-700 bg-yellow-50 border-yellow-200";
-    case "LEGIT but NEW": return "text-cyan-700 bg-cyan-50 border-cyan-200";
-    case "CAUTION": return "text-orange-700 bg-orange-50 border-orange-200";
-    case "WEAK": return "text-gray-700 bg-gray-50 border-gray-200";
-    case "AVOID": return "text-red-600 bg-red-50 border-red-200";
-    case "BLACKLIST": return "text-red-800 bg-red-100 border-red-300";
-    default: return "text-gray-600 bg-gray-50 border-gray-200";
+    case "LEGIT": return "text-green-700 bg-green-50/60 border-green-200/60";
+    case "LEGIT with NOTES": return "text-blue-700 bg-blue-50/60 border-blue-200/60";
+    case "LEGIT but VERIFY": return "text-yellow-700 bg-yellow-50/60 border-yellow-200/60";
+    case "LEGIT but NEW": return "text-cyan-700 bg-cyan-50/60 border-cyan-200/60";
+    case "CAUTION": return "text-orange-700 bg-orange-50/60 border-orange-200/60";
+    case "WEAK": return "text-gray-600 bg-gray-50/60 border-gray-200/60";
+    case "AVOID": return "text-red-600 bg-red-50/60 border-red-200/60";
+    case "BLACKLIST": return "text-red-700 bg-red-50/60 border-red-200/60";
+    default: return "text-gray-500 bg-gray-50/60 border-gray-200/60";
   }
 }

@@ -61,7 +61,7 @@ export function ShareButton({
       const dataUrl = await QRCode.toDataURL(shareUrl, {
         width: 256,
         margin: 2,
-        color: { dark: "#3F3F65", light: "#FFFFFD" },
+        color: { dark: "#0A0F1C", light: "#FAFAF7" },
       });
       setQrDataUrl(dataUrl);
       setShowQR(true);
@@ -76,7 +76,7 @@ export function ShareButton({
       <>
         <button
           onClick={handleNativeShare}
-          className={`p-2 rounded-xl bg-bluey-ice hover:bg-bluey-pale text-bluey-primary transition-colors ${className}`}
+          className={`p-2 rounded-lg bg-bluey-ice hover:bg-bluey-pale text-bluey-navy/40 hover:text-bluey-navy transition-colors ${className}`}
           aria-label="Share"
         >
           <Share2 className="w-5 h-5" />
@@ -91,14 +91,14 @@ export function ShareButton({
       <div className={`relative inline-flex ${className}`}>
         <button
           onClick={handleNativeShare}
-          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-bluey-primary text-white font-semibold text-sm hover:bg-bluey-primary/90 transition-colors"
+          className="inline-flex items-center gap-2 px-4 py-2.5 rounded-lg bg-bluey-primary text-white text-xs uppercase tracking-[0.05em] font-medium hover:bg-bluey-light transition-colors"
         >
           <Share2 className="w-4 h-4" />
           Share
         </button>
 
         {showMenu && (
-          <div className="absolute top-full right-0 mt-2 bg-white rounded-xl shadow-lg border border-bluey-pale p-2 min-w-[180px] z-50">
+          <div className="absolute top-full right-0 mt-2 bg-white rounded-lg shadow-lg border border-bluey-pale/40 p-2 min-w-[180px] z-50">
             <button
               onClick={() => { handleCopy(); setShowMenu(false); }}
               className="w-full flex items-center gap-2.5 px-3 py-2 text-sm text-bluey-navy hover:bg-bluey-ice rounded-lg transition-colors"
@@ -130,7 +130,7 @@ function QRModal({ qrDataUrl, url, onClose }: { qrDataUrl: string; url: string; 
   return (
     <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4" onClick={onClose}>
       <div
-        className="bg-white rounded-2xl p-6 max-w-xs w-full text-center relative"
+        className="bg-white rounded-xl p-6 max-w-xs w-full text-center relative"
         onClick={(e) => e.stopPropagation()}
       >
         <button
@@ -139,8 +139,8 @@ function QRModal({ qrDataUrl, url, onClose }: { qrDataUrl: string; url: string; 
         >
           <X className="w-5 h-5 text-bluey-navy/50" />
         </button>
-        <h3 className="text-lg font-bold text-bluey-navy mb-1">Share Happy Tails</h3>
-        <p className="text-xs text-bluey-navy/50 mb-4">Scan this QR code</p>
+        <h3 className="font-display text-lg font-semibold text-bluey-navy mb-1">Share Happy Tails</h3>
+        <p className="text-[10px] text-bluey-navy/30 uppercase tracking-wider mb-4">Scan this QR code</p>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img src={qrDataUrl} alt="QR Code" className="mx-auto rounded-xl mb-3" width={256} height={256} />
         <p className="text-[10px] text-bluey-navy/40 break-all">{url}</p>

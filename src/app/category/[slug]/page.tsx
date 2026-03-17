@@ -1,6 +1,6 @@
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { CATEGORIES, LAST_VERIFIED } from "@/lib/constants";
+import { CATEGORIES, LAST_VERIFIED, SITE_URL } from "@/lib/constants";
 import { getProvidersByCategory, getCategoryLabel } from "@/lib/utils";
 import { CategorySlug } from "@/lib/types";
 import { FilterBar } from "@/components/filters/FilterBar";
@@ -23,6 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return {
     title: `${category.name} in East Pune`,
     description: category.description,
+    alternates: { canonical: `${SITE_URL}/category/${slug}` },
   };
 }
 
@@ -35,18 +36,18 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-bluey-ice to-white py-12 sm:py-16">
+      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-18">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: category.name }]} />
-          <div className="max-w-2xl">
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black text-bluey-navy tracking-tight">
+          <div className="max-w-2xl mt-2">
+            <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight">
               {category.name}
             </h1>
-            <p className="mt-3 text-lg text-bluey-navy/50">
+            <p className="mt-3 text-white/50 text-sm">
               {category.description}
             </p>
-            <p className="mt-2 text-sm text-bluey-navy/40">
-              {providers.length} providers in East Pune
+            <p className="mt-2 text-[10px] text-white/30 uppercase tracking-wider">
+              {providers.length} providers &middot; East Pune &middot; Verified {LAST_VERIFIED}
             </p>
           </div>
           <div className="mt-6 flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
@@ -54,19 +55,16 @@ export default async function CategoryPage({ params }: Props) {
               <Link
                 key={c.slug}
                 href={`/category/${c.slug}`}
-                className={`flex-shrink-0 snap-start px-4 py-2 rounded-full text-sm font-semibold border transition-colors ${
+                className={`flex-shrink-0 snap-start px-4 py-2 rounded-full text-xs uppercase tracking-[0.05em] font-medium border transition-colors ${
                   c.slug === slug
-                    ? "bg-bluey-primary text-white border-bluey-primary"
-                    : "bg-white text-bluey-navy border-bluey-pale hover:border-bluey-light"
+                    ? "bg-white text-bluey-navy border-white"
+                    : "text-white/60 border-white/20 hover:border-white/40"
                 }`}
               >
                 {c.name}
               </Link>
             ))}
           </div>
-          <p className="mt-3 text-[10px] text-bluey-navy/30">
-            Data verified as of {LAST_VERIFIED}
-          </p>
         </div>
       </section>
 

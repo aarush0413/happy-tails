@@ -20,25 +20,53 @@ type VerdictFilter = "" | "LEGIT" | "CAUTION" | "WEAK";
 
 function isOpenNow(timings: string): boolean {
   if (!timings) return false;
-  const lower = timings.toLowerCase();
-  if (lower.includes("24/7") || lower.includes("24 hr") || lower.includes("24hr")) return true;
+  const lower = timings.toLowerCase().trim();
 
-  const timeRangeMatch = timings.match(/(\d{1,2})\s*(am|pm).*?(\d{1,2})\s*(am|pm)/i);
-  if (!timeRangeMatch) return false;
+  if (lower.includes("24/7") || lower.includes("24 hr") || lower.includes("24hr") || lower === "open 24/7") return true;
+
+  if (lower === "varies" || lower.includes("by appointment") || lower === "n/a" || lower === "") return false;
 
   const now = new Date();
   const currentHour = now.getHours();
-  let openHour = parseInt(timeRangeMatch[1]);
-  const openPeriod = timeRangeMatch[2].toLowerCase();
-  let closeHour = parseInt(timeRangeMatch[3]);
-  const closePeriod = timeRangeMatch[4].toLowerCase();
+  const currentMin = now.getMinutes();
+  const currentTime = currentHour * 60 + currentMin;
 
-  if (openPeriod === "pm" && openHour !== 12) openHour += 12;
-  if (openPeriod === "am" && openHour === 12) openHour = 0;
-  if (closePeriod === "pm" && closeHour !== 12) closeHour += 12;
-  if (closePeriod === "am" && closeHour === 12) closeHour = 0;
+  const tillMatch = lower.match(/till\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)/i);
+  if (tillMatch) {
+    let closeHour = parseInt(tillMatch[1]);
+    const closeMin = tillMatch[2] ? parseInt(tillMatch[2]) : 0;
+    const period = tillMatch[3].toLowerCase();
+    if (period === "pm" && closeHour !== 12) closeHour += 12;
+    if (period === "am" && closeHour === 12) closeHour = 0;
+    return currentTime < closeHour * 60 + closeMin;
+  }
 
-  return currentHour >= openHour && currentHour < closeHour;
+  const ranges = timings.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)\s*[-–]\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)/gi);
+  if (!ranges || ranges.length === 0) return false;
+
+  for (const range of ranges) {
+    const m = range.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)\s*[-–]\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)/i);
+    if (!m) continue;
+
+    let openH = parseInt(m[1]);
+    const openM = m[2] ? parseInt(m[2]) : 0;
+    const openP = m[3].toLowerCase();
+    let closeH = parseInt(m[4]);
+    const closeM = m[5] ? parseInt(m[5]) : 0;
+    const closeP = m[6].toLowerCase();
+
+    if (openP === "pm" && openH !== 12) openH += 12;
+    if (openP === "am" && openH === 12) openH = 0;
+    if (closeP === "pm" && closeH !== 12) closeH += 12;
+    if (closeP === "am" && closeH === 12) closeH = 0;
+
+    const openTime = openH * 60 + openM;
+    const closeTime = closeH * 60 + closeM;
+
+    if (currentTime >= openTime && currentTime < closeTime) return true;
+  }
+
+  return false;
 }
 
 function parsePriceNum(fee: string): number {
@@ -46,6 +74,8 @@ function parsePriceNum(fee: string): number {
   if (!match) return Infinity;
   return parseInt(match[1].replace(/,/g, ""));
 }
+
+const selectCls = "px-4 py-2.5 bg-white rounded-lg border border-bluey-pale/60 text-sm text-bluey-navy focus:outline-none focus:ring-2 focus:ring-bluey-primary/20 focus:border-bluey-primary/40 transition-all";
 
 export function FilterBar({
   initialProviders,
@@ -163,13 +193,13 @@ export function FilterBar({
     <div>
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-bluey-light" />
+          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-bluey-navy/30" aria-hidden="true" />
           <input
             type="text"
             placeholder="Search providers, services..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-bluey-ice/50 border border-bluey-pale rounded-xl text-sm text-bluey-navy placeholder:text-bluey-navy/40 focus:outline-none focus:ring-2 focus:ring-bluey-primary/30 focus:border-bluey-primary transition-all"
+            className="w-full pl-10 pr-4 py-3 bg-white border border-bluey-pale/60 rounded-lg text-sm text-bluey-navy placeholder:text-bluey-navy/30 focus:outline-none focus:ring-2 focus:ring-bluey-primary/20 focus:border-bluey-primary/40 transition-all"
             aria-label="Search providers and services"
           />
         </div>
@@ -177,7 +207,7 @@ export function FilterBar({
           <select
             value={sortBy}
             onChange={(e) => setSortBy(e.target.value as SortOption)}
-            className="px-4 py-3 bg-white rounded-xl border border-bluey-pale text-sm text-bluey-navy focus:outline-none focus:ring-2 focus:ring-bluey-primary/30"
+            className={selectCls}
             aria-label="Sort providers"
           >
             <option value="default">Sort by</option>
@@ -187,30 +217,30 @@ export function FilterBar({
           </select>
           <button
             onClick={() => setShowFilters(!showFilters)}
-            className={`inline-flex items-center gap-2 px-5 py-3 rounded-xl text-sm font-semibold border transition-all ${
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs uppercase tracking-[0.05em] font-medium border transition-all ${
               showFilters
                 ? "bg-bluey-primary text-white border-bluey-primary"
-                : "bg-white text-bluey-navy border-bluey-pale hover:border-bluey-light"
+                : "bg-white text-bluey-navy/60 border-bluey-pale/60 hover:border-bluey-navy/20"
             }`}
             aria-label="Toggle filters"
           >
-            <SlidersHorizontal className="w-4 h-4" />
+            <SlidersHorizontal className="w-4 h-4" aria-hidden="true" />
             Filters
             {hasActiveFilters && (
-              <span className="w-2 h-2 rounded-full bg-bluey-gold" />
+              <span className="w-1.5 h-1.5 rounded-full bg-bluey-gold" />
             )}
           </button>
         </div>
       </div>
 
       {showFilters && (
-        <div className="bg-bluey-ice/30 rounded-2xl p-5 mb-6 border border-bluey-pale/60">
+        <div className="bg-white rounded-xl p-5 mb-6 border border-bluey-pale/40 shadow-sm">
           <div className="flex flex-wrap gap-3">
             {showCategoryFilter && (
               <select
                 value={category}
                 onChange={(e) => setCategory(e.target.value as CategorySlug | "")}
-                className="px-4 py-2.5 bg-white rounded-xl border border-bluey-pale text-sm text-bluey-navy focus:outline-none focus:ring-2 focus:ring-bluey-primary/30"
+                className={selectCls}
                 aria-label="Filter by category"
               >
                 <option value="">All Categories</option>
@@ -225,7 +255,7 @@ export function FilterBar({
               <select
                 value={area}
                 onChange={(e) => setArea(e.target.value as AreaSlug | "")}
-                className="px-4 py-2.5 bg-white rounded-xl border border-bluey-pale text-sm text-bluey-navy focus:outline-none focus:ring-2 focus:ring-bluey-primary/30"
+                className={selectCls}
                 aria-label="Filter by area"
               >
                 <option value="">All Areas</option>
@@ -239,7 +269,7 @@ export function FilterBar({
             <select
               value={minRating}
               onChange={(e) => setMinRating(Number(e.target.value))}
-              className="px-4 py-2.5 bg-white rounded-xl border border-bluey-pale text-sm text-bluey-navy focus:outline-none focus:ring-2 focus:ring-bluey-primary/30"
+              className={selectCls}
               aria-label="Filter by minimum rating"
             >
               <option value={0}>Any Rating</option>
@@ -250,7 +280,7 @@ export function FilterBar({
             <select
               value={verdictFilter}
               onChange={(e) => setVerdictFilter(e.target.value as VerdictFilter)}
-              className="px-4 py-2.5 bg-white rounded-xl border border-bluey-pale text-sm text-bluey-navy focus:outline-none focus:ring-2 focus:ring-bluey-primary/30"
+              className={selectCls}
               aria-label="Filter by trust badge"
             >
               <option value="">Any Trust Level</option>
@@ -258,16 +288,16 @@ export function FilterBar({
               <option value="CAUTION">CAUTION</option>
               <option value="WEAK">WEAK</option>
             </select>
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-xl border border-bluey-pale text-sm text-bluey-navy cursor-pointer hover:border-bluey-light transition-colors">
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-bluey-pale/60 text-sm text-bluey-navy/60 cursor-pointer hover:border-bluey-navy/20 transition-colors">
               <input
                 type="checkbox"
                 checked={openNow}
                 onChange={(e) => setOpenNow(e.target.checked)}
-                className="accent-green-500"
+                className="accent-green-600"
               />
               Open Now
             </label>
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-xl border border-bluey-pale text-sm text-bluey-navy cursor-pointer hover:border-bluey-light transition-colors">
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-bluey-pale/60 text-sm text-bluey-navy/60 cursor-pointer hover:border-bluey-navy/20 transition-colors">
               <input
                 type="checkbox"
                 checked={emergency}
@@ -276,7 +306,7 @@ export function FilterBar({
               />
               24/7 Emergency
             </label>
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-xl border border-bluey-pale text-sm text-bluey-navy cursor-pointer hover:border-bluey-light transition-colors">
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-bluey-pale/60 text-sm text-bluey-navy/60 cursor-pointer hover:border-bluey-navy/20 transition-colors">
               <input
                 type="checkbox"
                 checked={atHome}
@@ -288,9 +318,9 @@ export function FilterBar({
             {hasActiveFilters && (
               <button
                 onClick={clearFilters}
-                className="inline-flex items-center gap-1 px-4 py-2.5 text-sm text-red-600 hover:text-red-700 font-medium"
+                className="inline-flex items-center gap-1 px-4 py-2.5 text-xs text-red-500 hover:text-red-600 uppercase tracking-wider font-medium"
               >
-                <X className="w-3.5 h-3.5" />
+                <X className="w-3.5 h-3.5" aria-hidden="true" />
                 Clear All
               </button>
             )}
@@ -299,22 +329,22 @@ export function FilterBar({
       )}
 
       <div className="flex items-center justify-between mb-4">
-        <p className="text-sm text-bluey-navy/60">
-          <span className="font-bold text-bluey-navy">{filtered.length}</span>{" "}
+        <p className="text-sm text-bluey-navy/40">
+          <span className="font-medium text-bluey-navy">{filtered.length}</span>{" "}
           provider{filtered.length !== 1 ? "s" : ""} found
         </p>
         {sortBy !== "default" && (
-          <p className="text-xs text-bluey-navy/40 flex items-center gap-1">
-            <ArrowUpDown className="w-3 h-3" />
+          <p className="text-[10px] text-bluey-navy/30 uppercase tracking-wider flex items-center gap-1">
+            <ArrowUpDown className="w-3 h-3" aria-hidden="true" />
             Sorted by {sortBy === "rating-desc" ? "rating" : sortBy === "name-asc" ? "name" : "price"}
           </p>
         )}
       </div>
 
       {filtered.length === 0 ? (
-        <div className="text-center py-16">
-          <p className="text-lg font-semibold text-bluey-navy/40">No providers found</p>
-          <p className="text-sm text-bluey-navy/30 mt-1">
+        <div className="text-center py-20">
+          <p className="font-display text-lg font-semibold text-bluey-navy/30">No providers found</p>
+          <p className="text-sm text-bluey-navy/20 mt-2">
             Try adjusting your filters or search query
           </p>
         </div>
@@ -326,12 +356,12 @@ export function FilterBar({
             ))}
           </div>
           {hasMore && (
-            <div className="flex justify-center mt-8">
+            <div className="flex justify-center mt-10">
               <button
                 onClick={() => setVisibleCount((c) => c + ITEMS_PER_PAGE)}
-                className="px-8 py-3 bg-bluey-ice text-bluey-primary font-semibold rounded-xl border border-bluey-pale hover:bg-bluey-primary hover:text-white transition-colors"
+                className="px-8 py-3 bg-white text-bluey-navy/60 text-xs uppercase tracking-[0.1em] font-medium rounded-lg border border-bluey-pale/60 hover:border-bluey-navy/20 hover:text-bluey-navy transition-all"
               >
-                Show {Math.min(ITEMS_PER_PAGE, filtered.length - visibleCount)} more of {filtered.length} providers
+                Show {Math.min(ITEMS_PER_PAGE, filtered.length - visibleCount)} more of {filtered.length}
               </button>
             </div>
           )}

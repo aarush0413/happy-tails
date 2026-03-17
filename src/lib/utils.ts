@@ -1,7 +1,7 @@
 import providersData from "@/data/providers.json";
 import pricingData from "@/data/pricing.json";
 import auditsData from "@/data/audits.json";
-import { Provider, PricingTier, ReviewAudit, CategorySlug, AreaSlug } from "./types";
+import { Provider, PricingTier, ReviewAudit, CategorySlug, AreaSlug, ComputedAreaStats } from "./types";
 
 const providers = providersData as Provider[];
 const pricing = pricingData as PricingTier[];
@@ -109,10 +109,26 @@ export function getSimilarProviders(provider: Provider, limit = 4): Provider[] {
 }
 
 export function getAuditForProvider(name: string): ReviewAudit | undefined {
-  const normalised = name.toLowerCase();
+  const normalised = name.toLowerCase().trim();
+
+  const exact = audits.find(
+    (a) => a.businessName.toLowerCase().trim() === normalised
+  );
+  if (exact) return exact;
+
+  const coreNameMatch = audits.find((a) => {
+    const auditCore = a.businessName.toLowerCase().replace(/\(.*?\)/g, "").trim();
+    const providerCore = normalised.replace(/\(.*?\)/g, "").trim();
+    return auditCore === providerCore || providerCore === auditCore;
+  });
+  if (coreNameMatch) return coreNameMatch;
+
   return audits.find((a) => {
-    const auditName = a.businessName.toLowerCase();
-    return normalised.includes(auditName) || auditName.includes(normalised);
+    const auditName = a.businessName.toLowerCase().trim();
+    return (
+      (normalised.length >= 8 && auditName.startsWith(normalised)) ||
+      (auditName.length >= 8 && normalised.startsWith(auditName))
+    );
   });
 }
 
@@ -173,6 +189,33 @@ export function getCategoryLabel(slug: CategorySlug): string {
     transport: "Pet Transport",
   };
   return map[slug];
+}
+
+export function computeAreaStats(areaSlug: AreaSlug): ComputedAreaStats {
+  const areaProviders = providers.filter(
+    (p) => p.area === areaSlug || p.area === "all-areas"
+  );
+
+  return {
+    vetClinics: areaProviders.filter((p) => p.category === "vet").length,
+    grooming: areaProviders.filter((p) => p.category === "grooming").length,
+    stores: areaProviders.filter((p) => p.category === "store").length,
+    boarding: areaProviders.filter((p) => p.category === "boarding").length,
+    training: areaProviders.filter((p) => p.category === "training").length,
+    walking: areaProviders.filter((p) => p.category === "walking").length,
+    transport: areaProviders.filter((p) => p.category === "transport").length,
+    total: areaProviders.length,
+    topRated: areaProviders.filter((p) => {
+      const r = parseFloat(p.rating);
+      return !isNaN(r) && r >= 4.5;
+    }).length,
+    emergency: areaProviders.filter((p) => p.emergency24_7).length,
+  };
+}
+
+export function hasRedFlags(redFlags: string | undefined): boolean {
+  if (!redFlags) return false;
+  return !redFlags.startsWith("NONE");
 }
 
 export function getAreaLabel(slug: AreaSlug | string): string {

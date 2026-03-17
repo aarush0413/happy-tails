@@ -1,10 +1,19 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
 import { useRouter } from "next/navigation";
 import { Search, X, MapPin, Star, Zap, ArrowRight } from "lucide-react";
 import { Provider } from "@/lib/types";
 import { formatRating as formatRatingUtil, getAreaLabel } from "@/lib/utils";
+
+function useDebounce<T>(value: T, delay: number): T {
+  const [debounced, setDebounced] = useState(value);
+  useEffect(() => {
+    const timer = setTimeout(() => setDebounced(value), delay);
+    return () => clearTimeout(timer);
+  }, [value, delay]);
+  return debounced;
+}
 
 interface GlobalSearchProps {
   providers: Provider[];
@@ -17,20 +26,21 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const router = useRouter();
 
-  const results = query.length >= 2
-    ? providers
-        .filter((p) => {
-          const q = query.toLowerCase();
-          return (
-            p.name.toLowerCase().includes(q) ||
-            p.services.toLowerCase().includes(q) ||
-            p.address.toLowerCase().includes(q) ||
-            p.area.toLowerCase().includes(q) ||
-            p.category.toLowerCase().includes(q)
-          );
-        })
-        .slice(0, 8)
-    : [];
+  const debouncedQuery = useDebounce(query, 200);
+
+  const results = useMemo(() => {
+    if (debouncedQuery.length < 2) return [];
+    const q = debouncedQuery.toLowerCase();
+    return providers
+      .filter((p) =>
+        p.name.toLowerCase().includes(q) ||
+        p.services.toLowerCase().includes(q) ||
+        p.address.toLowerCase().includes(q) ||
+        p.area.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q)
+      )
+      .slice(0, 8);
+  }, [debouncedQuery, providers]);
 
   const close = useCallback(() => {
     setOpen(false);
@@ -81,23 +91,23 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
     <>
       <button
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-bluey-ice/60 border border-bluey-pale rounded-lg text-sm text-bluey-navy/50 hover:border-bluey-light transition-colors"
+        className="flex items-center gap-2 px-3 py-1.5 bg-bluey-ice/50 border border-bluey-pale/40 rounded-lg text-[11px] text-bluey-navy/40 hover:border-bluey-navy/20 transition-colors"
         aria-label="Search providers"
       >
-        <Search className="w-3.5 h-3.5" />
+        <Search className="w-3.5 h-3.5" aria-hidden="true" />
         <span className="hidden sm:inline">Search...</span>
-        <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-white rounded text-[10px] font-mono text-bluey-navy/40 border border-bluey-pale/60">
+        <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-white rounded text-[9px] font-mono text-bluey-navy/30 border border-bluey-pale/40">
           Ctrl K
         </kbd>
       </button>
 
       {open && (
         <div className="fixed inset-0 z-[100]" onClick={close}>
-          <div className="absolute inset-0 bg-black/40 backdrop-blur-sm" />
+          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
           <div className="relative max-w-xl mx-auto mt-[15vh] px-4" onClick={(e) => e.stopPropagation()}>
-            <div className="bg-white rounded-2xl shadow-2xl border border-bluey-pale overflow-hidden">
-              <div className="flex items-center gap-3 px-4 border-b border-bluey-pale/60">
-                <Search className="w-5 h-5 text-bluey-light flex-shrink-0" />
+            <div className="bg-white rounded-xl shadow-2xl border border-bluey-pale/40 overflow-hidden">
+              <div className="flex items-center gap-3 px-4 border-b border-bluey-pale/30">
+                <Search className="w-4 h-4 text-bluey-navy/30 flex-shrink-0" aria-hidden="true" />
                 <input
                   ref={inputRef}
                   type="text"
@@ -105,19 +115,19 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
                   onChange={(e) => setQuery(e.target.value)}
                   onKeyDown={handleKeyDown}
                   placeholder="Search providers, services, areas..."
-                  className="flex-1 py-4 text-base text-bluey-navy placeholder:text-bluey-navy/40 focus:outline-none"
+                  className="flex-1 py-4 text-sm text-bluey-navy placeholder:text-bluey-navy/30 focus:outline-none"
                   aria-label="Search providers, services, areas"
                 />
                 <button onClick={close} className="p-1 hover:bg-bluey-ice rounded-lg transition-colors" aria-label="Close search">
-                  <X className="w-4 h-4 text-bluey-navy/40" />
+                  <X className="w-4 h-4 text-bluey-navy/30" aria-hidden="true" />
                 </button>
               </div>
 
-              {query.length >= 2 && (
+              {debouncedQuery.length >= 2 && (
                 <div className="max-h-[50vh] overflow-y-auto">
                   {results.length === 0 ? (
                     <div className="px-4 py-8 text-center">
-                      <p className="text-sm text-bluey-navy/40">No providers found for &ldquo;{query}&rdquo;</p>
+                      <p className="text-sm text-bluey-navy/30">No providers found for &ldquo;{debouncedQuery}&rdquo;</p>
                     </div>
                   ) : (
                     <ul role="listbox">
@@ -136,27 +146,27 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
                           >
                             <div className="flex-1 min-w-0">
                               <div className="flex items-center gap-2">
-                                <span className="text-sm font-semibold text-bluey-navy truncate">{p.name}</span>
+                                <span className="text-sm font-medium text-bluey-navy truncate">{p.name}</span>
                                 {p.emergency24_7 && (
-                                  <span className="inline-flex items-center gap-0.5 text-[10px] font-bold text-red-600 bg-red-50 px-1.5 py-0.5 rounded-full">
-                                    <Zap className="w-2.5 h-2.5" /> 24/7
+                                  <span className="inline-flex items-center gap-0.5 text-[9px] uppercase tracking-wider font-medium text-red-500 bg-red-50 px-1.5 py-0.5 rounded-full">
+                                    <Zap className="w-2.5 h-2.5" aria-hidden="true" /> 24/7
                                   </span>
                                 )}
                               </div>
                               <div className="flex items-center gap-3 mt-0.5">
-                                <span className="flex items-center gap-1 text-xs text-bluey-navy/50">
-                                  <MapPin className="w-3 h-3" />
+                                <span className="flex items-center gap-1 text-xs text-bluey-navy/40">
+                                  <MapPin className="w-3 h-3" aria-hidden="true" />
                                   {getAreaLabel(p.area)}
                                 </span>
                                 {r && (
-                                  <span className="flex items-center gap-0.5 text-xs text-amber-700">
-                                    <Star className="w-3 h-3 fill-amber-500 text-amber-500" />
+                                  <span className="flex items-center gap-0.5 text-xs text-bluey-navy/60">
+                                    <Star className="w-3 h-3 fill-bluey-gold text-bluey-gold" aria-hidden="true" />
                                     {r}
                                   </span>
                                 )}
                               </div>
                             </div>
-                            <ArrowRight className="w-4 h-4 text-bluey-light flex-shrink-0" />
+                            <ArrowRight className="w-3.5 h-3.5 text-bluey-navy/20 flex-shrink-0" aria-hidden="true" />
                           </li>
                         );
                       })}
@@ -165,13 +175,13 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
                 </div>
               )}
 
-              {query.length < 2 && (
+              {debouncedQuery.length < 2 && (
                 <div className="px-4 py-6 text-center">
-                  <p className="text-sm text-bluey-navy/40">Type at least 2 characters to search</p>
+                  <p className="text-sm text-bluey-navy/30">Type at least 2 characters to search</p>
                 </div>
               )}
 
-              <div className="px-4 py-2 border-t border-bluey-pale/60 flex items-center gap-4 text-[10px] text-bluey-navy/30">
+              <div className="px-4 py-2 border-t border-bluey-pale/30 flex items-center gap-4 text-[9px] text-bluey-navy/20 uppercase tracking-wider">
                 <span><kbd className="px-1 py-0.5 bg-bluey-ice rounded font-mono">↑↓</kbd> Navigate</span>
                 <span><kbd className="px-1 py-0.5 bg-bluey-ice rounded font-mono">Enter</kbd> Select</span>
                 <span><kbd className="px-1 py-0.5 bg-bluey-ice rounded font-mono">Esc</kbd> Close</span>

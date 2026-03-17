@@ -70,13 +70,26 @@ export interface Area {
     groomingHome: number;
     petStores: number;
     boarding: number;
-    training: string;
-    walking: string;
-    transport: string;
+    training: number | string;
+    walking: number | string;
+    transport: number | string;
     total: number;
     emergency: string;
     topRated: number;
   };
+}
+
+export interface ComputedAreaStats {
+  vetClinics: number;
+  grooming: number;
+  stores: number;
+  boarding: number;
+  training: number;
+  walking: number;
+  transport: number;
+  total: number;
+  topRated: number;
+  emergency: number;
 }
 
 export interface PricingTier {

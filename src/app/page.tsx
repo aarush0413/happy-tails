@@ -1,87 +1,124 @@
+import { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import {
-  PawPrint, Stethoscope, Scissors, ShoppingBag, Home, GraduationCap,
-  Footprints, Truck, ArrowRight, Star, MapPin, Zap, Shield, Phone,
-  AlertCircle, ChevronRight, Heart, Lightbulb,
+  Stethoscope, Scissors, ShoppingBag, Home, GraduationCap,
+  Footprints, Truck, ArrowRight, Star, Zap, Shield, Phone,
+  AlertCircle, ChevronRight, Lightbulb,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import { ShareButton } from "@/components/ui/ShareButton";
-import { CATEGORIES, AREAS, SITE_URL } from "@/lib/constants";
-import { getFeaturedProviders, getEmergencyProviders, getAllProviders, formatRating, getAreaLabel } from "@/lib/utils";
-import { getRandomPetCareTip } from "@/lib/petApi";
+import { CATEGORIES, AREAS, SITE_URL, SITE_NAME, SITE_DESCRIPTION } from "@/lib/constants";
+import { getFeaturedProviders, getEmergencyProviders, getAllProviders } from "@/lib/utils";
+import { getRandomPetCareTip } from "@/lib/petTips";
+import { FeaturedProviders } from "@/components/providers/FeaturedProviders";
+
+export const metadata: Metadata = {
+  title: `${SITE_NAME} - East Pune's Premium Pet Services Directory`,
+  description: SITE_DESCRIPTION,
+  alternates: { canonical: SITE_URL },
+};
 
 const PET_PHOTOS = {
   hero: "https://images.unsplash.com/photo-1587300003388-59208cc962cb?w=800&q=75&fit=crop",
   banner1: "https://images.unsplash.com/photo-1548199973-03cce0bbc87b?w=1200&q=75&fit=crop",
   banner2: "https://images.unsplash.com/photo-1601758228041-f3b2795255f1?w=1200&q=75&fit=crop",
   gallery: [
-    "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&q=75&fit=crop",
-    "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=75&fit=crop",
-    "https://images.unsplash.com/photo-1587559070757-f72a388edbba?w=400&q=75&fit=crop",
-    "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=400&q=75&fit=crop",
-    "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&q=75&fit=crop",
+    { src: "https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?w=400&q=75&fit=crop", alt: "Golden retriever with a happy expression" },
+    { src: "https://images.unsplash.com/photo-1574158622682-e40e69881006?w=400&q=75&fit=crop", alt: "Cat relaxing comfortably indoors" },
+    { src: "https://images.unsplash.com/photo-1587559070757-f72a388edbba?w=400&q=75&fit=crop", alt: "Puppy playing in a sunny garden" },
+    { src: "https://images.unsplash.com/photo-1530281700549-e82e7bf110d6?w=400&q=75&fit=crop", alt: "Dog enjoying a walk in the park" },
+    { src: "https://images.unsplash.com/photo-1543466835-00a7907e9de1?w=400&q=75&fit=crop", alt: "Friendly dog posing for the camera" },
   ],
 };
 
 const ICON_MAP: Record<string, React.ReactNode> = {
-  Stethoscope: <Stethoscope className="w-7 h-7" />,
-  Scissors: <Scissors className="w-7 h-7" />,
-  ShoppingBag: <ShoppingBag className="w-7 h-7" />,
-  Home: <Home className="w-7 h-7" />,
-  GraduationCap: <GraduationCap className="w-7 h-7" />,
-  Footprints: <Footprints className="w-7 h-7" />,
-  Truck: <Truck className="w-7 h-7" />,
+  Stethoscope: <Stethoscope className="w-6 h-6" aria-hidden="true" />,
+  Scissors: <Scissors className="w-6 h-6" aria-hidden="true" />,
+  ShoppingBag: <ShoppingBag className="w-6 h-6" aria-hidden="true" />,
+  Home: <Home className="w-6 h-6" aria-hidden="true" />,
+  GraduationCap: <GraduationCap className="w-6 h-6" aria-hidden="true" />,
+  Footprints: <Footprints className="w-6 h-6" aria-hidden="true" />,
+  Truck: <Truck className="w-6 h-6" aria-hidden="true" />,
 };
 
 export default function HomePage() {
   const featured = getFeaturedProviders();
   const emergencyProviders = getEmergencyProviders();
   const totalProviders = getAllProviders().length;
+  const petCareTip = getRandomPetCareTip();
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: SITE_NAME,
+    url: SITE_URL,
+    description: SITE_DESCRIPTION,
+    potentialAction: {
+      "@type": "SearchAction",
+      target: `${SITE_URL}/category/vet?q={search_term_string}`,
+      "query-input": "required name=search_term_string",
+    },
+  };
+
+  const itemListSchema = {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    name: "Top-rated pet service providers in East Pune",
+    numberOfItems: featured.length,
+    itemListElement: featured.slice(0, 6).map((p, i) => ({
+      "@type": "ListItem",
+      position: i + 1,
+      url: `${SITE_URL}/provider/${p.id}`,
+      name: p.name,
+    })),
+  };
 
   return (
     <div>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(websiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
+      />
+
       {/* Hero */}
-      <section className="relative overflow-hidden bg-gradient-to-br from-bluey-ice via-white to-bluey-pale">
-        <div className="absolute inset-0 paw-pattern" />
-        <div className="absolute inset-0 overflow-hidden">
-          <div className="absolute -top-40 -right-40 w-96 h-96 bg-bluey-light/20 rounded-full blur-3xl" />
-          <div className="absolute -bottom-40 -left-40 w-96 h-96 bg-bluey-primary/10 rounded-full blur-3xl" />
-        </div>
-        <div className="absolute right-0 top-0 bottom-0 w-1/2 hidden lg:block">
+      <section className="relative overflow-hidden bg-[#0A0F1C]">
+        <div className="absolute inset-0">
           <Image
             src={PET_PHOTOS.hero}
             alt="Happy golden retriever smiling at the camera"
             fill
-            className="object-cover opacity-[0.15] blur-[2px]"
+            sizes="100vw"
+            className="object-cover opacity-30"
             priority
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-bluey-ice via-bluey-ice/80 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-[#0A0F1C] via-[#0A0F1C]/90 to-[#0A0F1C]/60" />
         </div>
-        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
-          <div className="max-w-3xl">
-            <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-sm rounded-full px-4 py-2 mb-6 border border-bluey-pale/60">
-              <PawPrint className="w-4 h-4 text-bluey-primary" />
-              <span className="text-sm font-semibold text-bluey-navy">
-                {totalProviders} verified providers across East Pune
-              </span>
-            </div>
-            <h1 className="text-4xl sm:text-5xl lg:text-7xl font-black tracking-tight text-bluey-navy leading-[1.1]">
-              Find the best care
-              <br />
-              <span className="text-bluey-primary">for your pet.</span>
-            </h1>
-            <p className="mt-6 text-lg sm:text-xl text-bluey-navy/60 max-w-xl leading-relaxed">
-              Curated vets, groomers, boarding, training & more in Kalyani Nagar,
-              Viman Nagar, Kharadi & Hadapsar. Every provider verified.
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 sm:py-32 lg:py-40">
+          <div className="max-w-2xl animate-fadeIn">
+            <p className="text-[11px] uppercase tracking-[0.25em] text-bluey-gold font-medium mb-6">
+              {totalProviders} Verified Providers &middot; East Pune
             </p>
-            <div className="mt-8 flex flex-col sm:flex-row gap-3 items-start">
-              <Button href="/category/vet" size="lg">
-                Explore Services <ArrowRight className="w-5 h-5" />
+            <h1 className="font-display text-4xl sm:text-5xl lg:text-7xl font-semibold tracking-tight text-white leading-[1.05]">
+              Find the finest care
+              <br />
+              for your companion.
+            </h1>
+            <p className="mt-8 text-lg text-white/50 max-w-xl leading-relaxed">
+              Curated vets, groomers, boarding, training & more across
+              Kalyani Nagar, Viman Nagar, Kharadi & Hadapsar.
+            </p>
+            <div className="mt-10 flex flex-col sm:flex-row gap-3 items-start">
+              <Button href="/category/vet" variant="luxury" size="lg">
+                Explore Services <ArrowRight className="w-4 h-4" />
               </Button>
               <Button href="/emergency" variant="emergency" size="lg">
-                <AlertCircle className="w-5 h-5" /> Emergency 24/7
+                <AlertCircle className="w-4 h-4" /> Emergency 24/7
               </Button>
               <ShareButton
                 url={SITE_URL}
@@ -91,21 +128,22 @@ export default function HomePage() {
             </div>
           </div>
 
-          <div className="mt-14 grid grid-cols-2 sm:grid-cols-4 gap-4">
+          <div className="mt-20 grid grid-cols-2 sm:grid-cols-4 gap-px bg-white/10 rounded-lg overflow-hidden">
             {[
               { label: "Providers", value: String(totalProviders) },
               { label: "Categories", value: String(CATEGORIES.length) },
               { label: "Areas", value: String(AREAS.length) },
               { label: "24/7 Emergency", value: `${emergencyProviders.length}` },
-            ].map((stat) => (
+            ].map((stat, i) => (
               <div
                 key={stat.label}
-                className="bg-white/70 backdrop-blur-sm rounded-xl p-4 text-center border border-bluey-pale/40"
+                className="bg-[#0A0F1C]/80 backdrop-blur-sm p-6 text-center animate-fadeInScale"
+                style={{ animationDelay: `${300 + i * 100}ms` }}
               >
-                <p className="text-2xl sm:text-3xl font-black text-bluey-primary">
+                <p className="text-2xl sm:text-3xl font-display font-semibold text-white">
                   {stat.value}
                 </p>
-                <p className="text-xs sm:text-sm text-bluey-navy/60 font-medium mt-1">
+                <p className="text-[10px] uppercase tracking-[0.15em] text-white/40 font-medium mt-2">
                   {stat.label}
                 </p>
               </div>
@@ -114,35 +152,39 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Emergency Banner */}
-      <section className="bg-red-500 text-white">
+      {/* Emergency Strip */}
+      <section className="bg-[#0A0F1C] border-t border-white/5">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5">
           <div className="flex flex-col sm:flex-row items-center justify-between gap-3">
-            <div className="flex items-center gap-3">
-              <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center">
-                <Phone className="w-5 h-5" />
+            <div className="flex items-center gap-4">
+              <div className="w-9 h-9 rounded-full bg-bluey-gold/10 flex items-center justify-center">
+                <Phone className="w-4 h-4 text-bluey-gold" aria-hidden="true" />
               </div>
               <div>
-                <p className="font-bold text-sm">Pet Emergency?</p>
-                <p className="text-xs text-red-100">
-                  {emergencyProviders.length} clinics available 24/7 right now
+                <p className="text-sm font-medium text-white">Pet Emergency?</p>
+                <p className="text-xs text-white/40">
+                  {emergencyProviders.length} clinics available 24/7
                 </p>
               </div>
             </div>
-            <Button href="/emergency" variant="ghost" className="!text-white hover:!bg-white/10 border border-white/30">
-              Find Emergency Vet <ArrowRight className="w-4 h-4" />
-            </Button>
+            <Link
+              href="/emergency"
+              className="text-[11px] uppercase tracking-[0.15em] font-medium text-bluey-gold hover:text-white transition-colors flex items-center gap-2"
+            >
+              Find Emergency Vet <ArrowRight className="w-3.5 h-3.5" />
+            </Link>
           </div>
         </div>
       </section>
 
       {/* Categories */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-black text-bluey-navy tracking-tight">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-14">
+          <p className="text-[10px] uppercase tracking-[0.25em] text-bluey-gold font-medium mb-3">Services</p>
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-bluey-navy tracking-tight">
             What does your pet need?
           </h2>
-          <p className="mt-3 text-bluey-navy/60 text-lg">
+          <p className="mt-3 text-bluey-navy/40 text-sm max-w-md mx-auto">
             {CATEGORIES.length} categories. {totalProviders} verified providers. One platform.
           </p>
         </div>
@@ -151,54 +193,59 @@ export default function HomePage() {
             <Link
               key={cat.slug}
               href={`/category/${cat.slug}`}
-              className="group relative bg-white rounded-2xl border border-bluey-pale/60 p-6 text-center transition-all duration-300 hover:shadow-lg hover:shadow-bluey-primary/8 hover:border-bluey-light/60 hover:-translate-y-1"
+              className="group bg-white rounded-xl border border-bluey-pale/40 p-6 text-center transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-0.5"
             >
-              <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-bluey-ice flex items-center justify-center text-bluey-primary group-hover:bg-bluey-primary group-hover:text-white transition-colors">
+              <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-bluey-ice flex items-center justify-center text-bluey-primary group-hover:bg-bluey-primary group-hover:text-white transition-all duration-300">
                 {ICON_MAP[cat.icon]}
               </div>
-              <h3 className="font-bold text-bluey-navy text-sm">{cat.name}</h3>
-              <p className="text-xs text-bluey-navy/50 mt-1">{cat.count} providers</p>
+              <h3 className="font-medium text-bluey-navy text-sm">{cat.name}</h3>
+              <p className="text-[10px] text-bluey-navy/40 mt-1 uppercase tracking-wider">{cat.count} providers</p>
             </Link>
           ))}
           <Link
             href="/emergency"
-            className="group relative bg-red-50 rounded-2xl border border-red-200 p-6 text-center transition-all duration-300 hover:shadow-lg hover:shadow-red-500/10 hover:border-red-300 hover:-translate-y-1"
+            className="group bg-white rounded-xl border border-bluey-pale/40 p-6 text-center transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-0.5"
           >
-            <div className="w-14 h-14 mx-auto mb-4 rounded-2xl bg-red-100 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-colors">
-              <Zap className="w-7 h-7" />
+            <div className="w-12 h-12 mx-auto mb-4 rounded-xl bg-red-50 flex items-center justify-center text-red-500 group-hover:bg-red-500 group-hover:text-white transition-all duration-300">
+              <Zap className="w-6 h-6" aria-hidden="true" />
             </div>
-            <h3 className="font-bold text-red-700 text-sm">Emergency 24/7</h3>
-            <p className="text-xs text-red-400 mt-1">{emergencyProviders.length} available</p>
+            <h3 className="font-medium text-red-600 text-sm">Emergency 24/7</h3>
+            <p className="text-[10px] text-red-400/60 mt-1 uppercase tracking-wider">{emergencyProviders.length} available</p>
           </Link>
         </div>
       </section>
 
-      {/* Photo Banner */}
-      <section className="relative h-48 sm:h-64 overflow-hidden">
+      {/* Cinematic Banner */}
+      <section className="relative h-56 sm:h-72 overflow-hidden">
         <Image
           src={PET_PHOTOS.banner1}
           alt="Two dogs running happily through a park"
           fill
+          sizes="100vw"
+          loading="lazy"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-bluey-primary/80 to-bluey-primary/40" />
+        <div className="absolute inset-0 bg-[#0A0F1C]/70" />
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div>
-            <Heart className="w-8 h-8 text-white/80 mx-auto mb-3" aria-hidden="true" />
-            <p className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <p className="font-display text-2xl sm:text-4xl font-semibold text-white tracking-tight">
               Because every tail deserves to wag
+            </p>
+            <p className="mt-3 text-white/40 text-sm">
+              Trusted by pet parents across East Pune
             </p>
           </div>
         </div>
       </section>
 
       {/* Areas */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-black text-bluey-navy tracking-tight">
+      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24">
+        <div className="text-center mb-14">
+          <p className="text-[10px] uppercase tracking-[0.25em] text-bluey-gold font-medium mb-3">Locations</p>
+          <h2 className="font-display text-3xl sm:text-4xl font-semibold text-bluey-navy tracking-tight">
             Explore by area
           </h2>
-          <p className="mt-3 text-bluey-navy/60 text-lg">
+          <p className="mt-3 text-bluey-navy/40 text-sm">
             Comprehensive coverage across East Pune
           </p>
         </div>
@@ -207,146 +254,113 @@ export default function HomePage() {
             <Link
               key={area.slug}
               href={`/area/${area.slug}`}
-              className="group bg-white rounded-2xl border border-bluey-pale/60 p-6 transition-all duration-300 hover:shadow-lg hover:shadow-bluey-primary/8 hover:border-bluey-light/60 hover:-translate-y-1"
+              className="group bg-white rounded-xl border border-bluey-pale/40 p-6 transition-all duration-300 hover:shadow-lg hover:shadow-black/5 hover:-translate-y-0.5"
             >
               <div className="flex items-center justify-between mb-3">
-                <h3 className="text-lg font-bold text-bluey-navy group-hover:text-bluey-primary transition-colors">
+                <h3 className="font-display text-lg font-semibold text-bluey-navy group-hover:text-bluey-primary transition-colors">
                   {area.name}
                 </h3>
                 <Badge
-                  variant={area.readiness === "HIGH" ? "primary" : "default"}
+                  variant={area.readiness === "HIGH" ? "gold" : "default"}
                 >
                   {area.readiness}
                 </Badge>
               </div>
-              <p className="text-sm text-bluey-navy/60 mb-4">
+              <p className="text-sm text-bluey-navy/40 mb-5">
                 {area.description}
               </p>
-              <div className="grid grid-cols-2 gap-2 mb-4">
-                <div className="text-center bg-bluey-ice/50 rounded-lg p-2">
-                  <p className="text-xl font-black text-bluey-primary">
+              <div className="grid grid-cols-2 gap-2 mb-5">
+                <div className="text-center bg-bluey-ice rounded-lg p-2.5">
+                  <p className="text-xl font-display font-semibold text-bluey-primary">
                     {area.stats.total}
                   </p>
-                  <p className="text-[10px] text-bluey-navy/50 font-medium">
+                  <p className="text-[9px] text-bluey-navy/40 font-medium uppercase tracking-wider">
                     Providers
                   </p>
                 </div>
-                <div className="text-center bg-bluey-ice/50 rounded-lg p-2">
-                  <p className="text-xl font-black text-bluey-gold">
+                <div className="text-center bg-bluey-ice rounded-lg p-2.5">
+                  <p className="text-xl font-display font-semibold text-bluey-gold">
                     {area.stats.topRated}
                   </p>
-                  <p className="text-[10px] text-bluey-navy/50 font-medium">
+                  <p className="text-[9px] text-bluey-navy/40 font-medium uppercase tracking-wider">
                     Top Rated
                   </p>
                 </div>
               </div>
-              <div className="flex items-center text-xs text-bluey-primary font-semibold gap-1 group-hover:gap-2 transition-all">
-                Explore {area.name} <ChevronRight className="w-3.5 h-3.5" />
+              <div className="flex items-center text-[11px] text-bluey-primary uppercase tracking-[0.1em] font-medium gap-1 group-hover:gap-2 transition-all">
+                Explore <ChevronRight className="w-3.5 h-3.5" aria-hidden="true" />
               </div>
             </Link>
           ))}
         </div>
       </section>
 
-      {/* Pet Photo Gallery Strip */}
-      <section className="py-10 overflow-hidden bg-bluey-ice/20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-6">
-          <p className="text-center text-sm font-semibold text-bluey-navy/50 uppercase tracking-wider">
+      {/* Gallery Strip */}
+      <section className="py-12 overflow-hidden bg-bluey-ice/30">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mb-8">
+          <p className="text-center text-[10px] uppercase tracking-[0.25em] text-bluey-navy/30 font-medium">
             Happy pets of East Pune
           </p>
         </div>
-        <div className="flex gap-4 px-4 overflow-x-auto pb-4 snap-x snap-mandatory scrollbar-hide">
-          {PET_PHOTOS.gallery.map((src, i) => (
-            <div
-              key={i}
-              className="flex-shrink-0 w-56 h-40 sm:w-64 sm:h-48 relative rounded-2xl overflow-hidden shadow-md snap-center"
-            >
-              <Image
-                src={src}
-                alt={`Happy pet from East Pune ${i + 1}`}
-                fill
-                className="object-cover"
-              />
-            </div>
-          ))}
-        </div>
-      </section>
-
-      {/* Featured Providers */}
-      <section className="bg-bluey-ice/30 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-end justify-between mb-10">
-            <div>
-              <h2 className="text-3xl sm:text-4xl font-black text-bluey-navy tracking-tight">
-                Top-rated providers
-              </h2>
-              <p className="mt-2 text-bluey-navy/60 text-lg">
-                Handpicked and verified for quality
-              </p>
-            </div>
-            <Button href="/category/vet" variant="outline" size="sm" className="hidden sm:inline-flex">
-              View All <ArrowRight className="w-4 h-4" />
-            </Button>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-            {featured.slice(0, 6).map((provider) => (
-              <Link
-                key={provider.id}
-                href={`/provider/${provider.id}`}
-                className="group bg-white rounded-2xl border border-bluey-pale/60 p-6 transition-all duration-300 hover:shadow-xl hover:shadow-bluey-primary/8 hover:-translate-y-1"
+        <div className="overflow-hidden">
+          <div className="flex gap-4 px-4 animate-scroll-left" style={{ width: "max-content" }}>
+            {[...PET_PHOTOS.gallery, ...PET_PHOTOS.gallery].map((photo, i) => (
+              <div
+                key={i}
+                className="flex-shrink-0 w-56 h-40 sm:w-64 sm:h-48 relative rounded-xl overflow-hidden"
               >
-                <div className="flex items-start justify-between mb-3">
-                  <div className="flex-1 min-w-0">
-                    <h3 className="font-bold text-bluey-navy group-hover:text-bluey-primary transition-colors truncate">
-                      {provider.name}
-                    </h3>
-                    <div className="flex items-center gap-1.5 mt-1">
-                      <MapPin className="w-3.5 h-3.5 text-bluey-light flex-shrink-0" />
-                      <span className="text-xs text-bluey-navy/60">
-                        {getAreaLabel(provider.area)}
-                      </span>
-                    </div>
-                  </div>
-                  <div className="flex items-center gap-1 bg-bluey-gold/15 px-2.5 py-1 rounded-lg flex-shrink-0">
-                    <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" />
-                    <span className="text-sm font-bold text-amber-800">
-                      {formatRating(provider.rating)}
-                    </span>
-                  </div>
-                </div>
-                <div className="flex flex-wrap gap-1.5 mb-3">
-                  <Badge variant="gold">Top Pick</Badge>
-                  {provider.emergency24_7 && (
-                    <Badge variant="emergency">
-                      <Zap className="w-3 h-3" /> 24/7
-                    </Badge>
-                  )}
-                </div>
-                <p className="text-xs text-bluey-navy/60 line-clamp-2 leading-relaxed">
-                  {provider.services}
-                </p>
-              </Link>
+                <Image
+                  src={photo.src}
+                  alt={photo.alt}
+                  fill
+                  sizes="(max-width: 640px) 224px, 256px"
+                  loading="lazy"
+                  className="object-cover hover:scale-105 transition-transform duration-700"
+                />
+              </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Photo Banner 2 */}
-      <section className="relative h-48 sm:h-64 overflow-hidden">
+      {/* Featured Providers */}
+      <section className="py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex items-end justify-between mb-14">
+            <div>
+              <p className="text-[10px] uppercase tracking-[0.25em] text-bluey-gold font-medium mb-3">Curated</p>
+              <h2 className="font-display text-3xl sm:text-4xl font-semibold text-bluey-navy tracking-tight">
+                Top-rated providers
+              </h2>
+              <p className="mt-2 text-bluey-navy/40 text-sm">
+                Handpicked and verified for quality
+              </p>
+            </div>
+            <Button href="/category/vet" variant="outline" size="sm" className="hidden sm:inline-flex">
+              View All <ArrowRight className="w-3.5 h-3.5" aria-hidden="true" />
+            </Button>
+          </div>
+          <FeaturedProviders providers={featured.slice(0, 6)} />
+        </div>
+      </section>
+
+      {/* Cinematic Banner 2 */}
+      <section className="relative h-56 sm:h-72 overflow-hidden">
         <Image
           src={PET_PHOTOS.banner2}
           alt="Cute puppy looking up with bright eyes"
           fill
+          sizes="100vw"
+          loading="lazy"
           className="object-cover"
         />
-        <div className="absolute inset-0 bg-gradient-to-l from-bluey-primary/80 to-bluey-primary/40" />
+        <div className="absolute inset-0 bg-[#0A0F1C]/70" />
         <div className="relative h-full flex items-center justify-center text-center px-4">
           <div>
-            <PawPrint className="w-8 h-8 text-white/80 mx-auto mb-3" aria-hidden="true" />
-            <p className="text-2xl sm:text-3xl font-black text-white tracking-tight">
+            <p className="font-display text-2xl sm:text-4xl font-semibold text-white tracking-tight">
               Your pet deserves the best
             </p>
-            <p className="mt-2 text-white/80 text-sm sm:text-base">
+            <p className="mt-3 text-white/40 text-sm">
               Verified vets, groomers & more — one tap away
             </p>
           </div>
@@ -354,62 +368,60 @@ export default function HomePage() {
       </section>
 
       {/* Trust Signals */}
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
-        <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl font-black text-bluey-navy tracking-tight">
-            Why pet parents trust us
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-3 gap-8">
-          {[
-            {
-              icon: <Shield className="w-8 h-8" />,
-              title: "Verified Providers",
-              desc: "Every provider is audited. We flag caution and blacklist businesses so you never risk your pet's safety.",
-            },
-            {
-              icon: <Star className="w-8 h-8" />,
-              title: "Transparent Pricing",
-              desc: "See Budget, Mid & Premium price ranges upfront. No hidden fees, no surprises.",
-            },
-            {
-              icon: <Zap className="w-8 h-8" />,
-              title: "24/7 Emergency Access",
-              desc: "One tap to find emergency vets available right now. Because emergencies don't wait.",
-            },
-          ].map((item) => (
-            <div key={item.title} className="text-center">
-              <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-bluey-ice flex items-center justify-center text-bluey-primary">
-                {item.icon}
+      <section className="bg-[#0A0F1C] py-24">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-14">
+            <p className="text-[10px] uppercase tracking-[0.25em] text-bluey-gold font-medium mb-3">Trust</p>
+            <h2 className="font-display text-3xl sm:text-4xl font-semibold text-white tracking-tight">
+              Why pet parents choose us
+            </h2>
+          </div>
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-12">
+            {[
+              {
+                icon: <Shield className="w-7 h-7" aria-hidden="true" />,
+                title: "Verified Providers",
+                desc: "Every provider is audited. We flag caution and blacklist businesses so you never risk your pet's safety.",
+              },
+              {
+                icon: <Star className="w-7 h-7" aria-hidden="true" />,
+                title: "Transparent Pricing",
+                desc: "See Budget, Mid & Premium price ranges upfront. No hidden fees, no surprises.",
+              },
+              {
+                icon: <Zap className="w-7 h-7" aria-hidden="true" />,
+                title: "24/7 Emergency",
+                desc: "One tap to find emergency vets available right now. Because emergencies don't wait.",
+              },
+            ].map((item) => (
+              <div key={item.title} className="text-center">
+                <div className="w-14 h-14 mx-auto mb-5 rounded-xl bg-white/5 flex items-center justify-center text-bluey-gold">
+                  {item.icon}
+                </div>
+                <h3 className="font-display text-lg font-semibold text-white">{item.title}</h3>
+                <p className="mt-3 text-sm text-white/40 leading-relaxed max-w-xs mx-auto">
+                  {item.desc}
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-bluey-navy">{item.title}</h3>
-              <p className="mt-2 text-sm text-bluey-navy/60 leading-relaxed max-w-xs mx-auto">
-                {item.desc}
-              </p>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
 
       {/* Pet Care Tip */}
-      {(() => {
-        const { tip, category } = getRandomPetCareTip();
-        return (
-          <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-            <div className="bg-bluey-ice/40 rounded-2xl p-6 border border-bluey-pale/40 text-center">
-              <div className="flex items-center justify-center gap-2 mb-2">
-                <Lightbulb className="w-4 h-4 text-bluey-primary" aria-hidden="true" />
-                <p className="text-xs font-bold text-bluey-primary uppercase tracking-wider">
-                  Did You Know? &middot; {category}
-                </p>
-              </div>
-              <p className="text-base text-bluey-navy/70 leading-relaxed">
-                {tip}
-              </p>
-            </div>
-          </section>
-        );
-      })()}
+      <section className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+        <div className="bg-bluey-ice rounded-xl p-8 text-center">
+          <div className="flex items-center justify-center gap-2 mb-3">
+            <Lightbulb className="w-4 h-4 text-bluey-gold" aria-hidden="true" />
+            <p className="text-[10px] uppercase tracking-[0.2em] text-bluey-gold font-medium">
+              Did You Know &middot; {petCareTip.category}
+            </p>
+          </div>
+          <p className="text-sm text-bluey-navy/60 leading-relaxed">
+            {petCareTip.tip}
+          </p>
+        </div>
+      </section>
     </div>
   );
 }
