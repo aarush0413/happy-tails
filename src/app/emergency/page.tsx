@@ -1,7 +1,9 @@
 import { Metadata } from "next";
 import { Phone, Siren, AlertCircle } from "lucide-react";
 import { getEmergencyProviders } from "@/lib/utils";
+import { getEmergencySymptoms } from "@/lib/data";
 import { EmergencyList } from "@/components/emergency/EmergencyList";
+import { SymptomTriage } from "@/components/emergency/SymptomTriage";
 
 export const metadata: Metadata = {
   title: "Emergency 24/7 Vet Finder",
@@ -11,6 +13,7 @@ export const metadata: Metadata = {
 
 export default function EmergencyPage() {
   const providers = getEmergencyProviders();
+  const symptoms = getEmergencySymptoms();
 
   return (
     <div>
@@ -75,6 +78,11 @@ export default function EmergencyPage() {
           </div>
         </div>
 
+        <SymptomTriage symptoms={symptoms} emergencyProviders={providers} />
+
+        <h2 className="font-display text-lg font-semibold text-neutral-900 mb-4">
+          All 24/7 emergency vets
+        </h2>
         <EmergencyList providers={providers} />
       </section>
     </div>

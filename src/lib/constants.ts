@@ -6,7 +6,7 @@ export const SITE_NAME = "Happy Tails";
 export const SITE_DESCRIPTION =
   "East Pune's most brutally honest pet care guide — we tell you which vets are legit, which groomers to avoid, and where to go in an emergency.";
 export const SITE_URL =
-  process.env.NEXT_PUBLIC_SITE_URL ?? "https://happytails.co.in";
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://www.happytails.co.in";
 
 export const CATEGORIES: Category[] = [
   {

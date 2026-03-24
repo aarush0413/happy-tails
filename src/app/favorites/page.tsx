@@ -19,7 +19,7 @@ export default function FavoritesPage() {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-20">
+      <section className="bg-gradient-to-b from-neutral-900 via-primary/90 to-neutral-50 py-14 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: "Favorites" }]} />
           <div className="flex items-center gap-3 mt-2 mb-2">
@@ -28,7 +28,7 @@ export default function FavoritesPage() {
               My Favorites
             </h1>
           </div>
-          <p className="text-white/40 text-sm">
+          <p className="text-white/70 text-sm">
             {favoriteProviders.length > 0
               ? `${favoriteProviders.length} saved provider${favoriteProviders.length === 1 ? "" : "s"}`
               : "Save providers by tapping the heart icon on any card"}
@@ -45,11 +45,11 @@ export default function FavoritesPage() {
           </div>
         ) : (
           <div className="text-center py-24">
-            <Heart className="w-14 h-14 text-bluey-pale mx-auto mb-6" aria-hidden="true" />
-            <h2 className="font-display text-xl font-semibold text-bluey-navy/30 mb-2">
+            <Heart className="w-14 h-14 text-neutral-300 mx-auto mb-6" aria-hidden="true" />
+            <h2 className="font-display text-xl font-semibold text-neutral-500 mb-2">
               No favorites yet
             </h2>
-            <p className="text-sm text-bluey-navy/20 mb-8 max-w-sm mx-auto">
+            <p className="text-sm text-neutral-500 mb-8 max-w-sm mx-auto">
               Browse providers and tap the heart icon to save your favorites
               for quick access later.
             </p>

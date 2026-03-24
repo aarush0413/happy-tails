@@ -30,6 +30,7 @@ import {
 import { getRandomPetCareTip } from "@/lib/petTips";
 import { FeaturedProviders } from "@/components/providers/FeaturedProviders";
 import { BLOG_POSTS } from "@/lib/blog-posts";
+import { AnimatedSection } from "@/components/home/AnimatedSection";
 
 export const metadata: Metadata = {
   title: `${SITE_NAME} — We tell you who to trust — and who to avoid`,
@@ -134,7 +135,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="border-l-4 border-[var(--color-emergency)] bg-[var(--color-emergency-bg)]">
+      <AnimatedSection className="border-l-4 border-[var(--color-emergency)] bg-[var(--color-emergency-bg)]" delay={0.05}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p className="font-semibold text-neutral-900">Pet emergency?</p>
@@ -149,9 +150,9 @@ export default function HomePage() {
             Find emergency vet <ArrowRight className="w-4 h-4" aria-hidden="true" />
           </Link>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <AnimatedSection className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20" delay={0.08}>
         <div className="text-center mb-12">
           <h2 className="font-display text-3xl font-bold text-neutral-900 tracking-tight">
             What does your pet need?
@@ -188,9 +189,9 @@ export default function HomePage() {
             </p>
           </Link>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="bg-neutral-900 text-white py-20">
+      <AnimatedSection className="bg-neutral-900 text-white py-20" delay={0.1}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl font-bold">How we rate providers</h2>
@@ -234,9 +235,9 @@ export default function HomePage() {
             </Link>
           </p>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="py-20 bg-neutral-50">
+      <AnimatedSection className="py-20 bg-neutral-50" delay={0.12}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
@@ -249,9 +250,9 @@ export default function HomePage() {
           </div>
           <FeaturedProviders providers={featured.slice(0, 6)} />
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20">
+      <AnimatedSection className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20" delay={0.14}>
         <h2 className="font-display text-3xl font-bold text-neutral-900 text-center mb-12">
           Explore by area
         </h2>
@@ -284,9 +285,9 @@ export default function HomePage() {
             </Link>
           ))}
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="bg-primary-muted/50 py-16 border-y border-neutral-200">
+      <AnimatedSection className="bg-primary-muted/50 py-16 border-y border-neutral-200" delay={0.16}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="font-display text-2xl font-bold text-neutral-900 mb-8 text-center">
             Pet care guides
@@ -310,9 +311,9 @@ export default function HomePage() {
             </Link>
           </p>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="max-w-3xl mx-auto px-4 py-14">
+      <AnimatedSection className="max-w-3xl mx-auto px-4 py-14" delay={0.18}>
         <div className="rounded-xl border border-neutral-200 bg-white p-8 text-center shadow-sm">
           <div className="flex items-center justify-center gap-2 mb-3">
             <Lightbulb className="w-4 h-4 text-accent" aria-hidden="true" />
@@ -322,9 +323,9 @@ export default function HomePage() {
           </div>
           <p className="text-sm text-neutral-600 leading-relaxed">{petCareTip.tip}</p>
         </div>
-      </section>
+      </AnimatedSection>
 
-      <section className="bg-neutral-900 py-16">
+      <AnimatedSection className="bg-neutral-900 py-16" delay={0.2}>
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="flex flex-wrap justify-center gap-8 text-white/80 text-sm">
             <div className="flex items-center gap-2">
@@ -341,7 +342,7 @@ export default function HomePage() {
             </div>
           </div>
         </div>
-      </section>
+      </AnimatedSection>
     </div>
   );
 }

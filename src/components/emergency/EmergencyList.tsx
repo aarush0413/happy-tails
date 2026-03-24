@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import {
   Phone, Siren, MapPin, Clock, Star, ExternalLink,
-  Droplets, Wind, Brain, XCircle, Navigation,
+  Navigation,
 } from "lucide-react";
 import { Provider } from "@/lib/types";
 import {
@@ -15,13 +15,6 @@ import {
   servicesText,
 } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
-
-const TRIAGE_OPTIONS = [
-  { icon: Droplets, label: "Bleeding", desc: "Heavy or uncontrolled bleeding", color: "text-red-600 bg-red-50 dark:bg-red-950/30 border-red-100 dark:border-red-800/40", keywords: ["surgery", "emergency", "icu"] },
-  { icon: Wind, label: "Can't breathe", desc: "Choking, labored breathing", color: "text-orange-600 bg-orange-50 dark:bg-orange-950/30 border-orange-100 dark:border-orange-800/40", keywords: ["emergency", "critical", "icu"] },
-  { icon: Brain, label: "Seizure", desc: "Convulsions, tremors, collapse", color: "text-purple-600 bg-purple-50 dark:bg-purple-950/30 border-purple-100 dark:border-purple-800/40", keywords: ["emergency", "critical", "neurolog"] },
-  { icon: XCircle, label: "Poisoning", desc: "Ingested toxic substance", color: "text-red-700 bg-red-50 dark:bg-red-950/30 border-red-100 dark:border-red-800/40", keywords: ["emergency", "critical", "diagnostics"] },
-];
 
 const AREA_COORDS: Record<string, { lat: number; lng: number }> = {
   "kalyani-nagar": { lat: 18.5535, lng: 73.9016 },
@@ -45,7 +38,6 @@ interface EmergencyListProps {
 }
 
 export function EmergencyList({ providers }: EmergencyListProps) {
-  const [activeTriage, setActiveTriage] = useState<string | null>(null);
   const [userLocation, setUserLocation] = useState<{ lat: number; lng: number } | null>(null);
   const [locating, setLocating] = useState(false);
 
@@ -82,43 +74,16 @@ export function EmergencyList({ providers }: EmergencyListProps) {
     return distA - distB;
   });
 
-  const filteredProviders = activeTriage
-    ? sortedProviders.filter((p) => {
-        const keywords = TRIAGE_OPTIONS.find((t) => t.label === activeTriage)?.keywords || [];
-        const services = servicesText(p).toLowerCase();
-        return keywords.some((k) => services.includes(k));
-      })
-    : sortedProviders;
-
-  const displayProviders = filteredProviders.length > 0 ? filteredProviders : sortedProviders;
-
   return (
     <>
-      <div className="mb-8">
-        <p className="text-xs font-medium text-neutral-600 uppercase tracking-wider mb-3">What&apos;s happening?</p>
-        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-          {TRIAGE_OPTIONS.map((opt) => (
-            <button
-              key={opt.label}
-              onClick={() => setActiveTriage(activeTriage === opt.label ? null : opt.label)}
-              className={`flex flex-col items-center gap-2 p-4 rounded-xl border text-center transition-all duration-300 hover:shadow-md hover:-translate-y-0.5 ${opt.color} ${
-                activeTriage === opt.label ? "ring-2 ring-offset-1 ring-current shadow-md" : ""
-              }`}
-            >
-              <opt.icon className="w-5 h-5" aria-hidden="true" />
-              <span className="text-xs font-medium">{opt.label}</span>
-              <span className="text-[10px] opacity-60">{opt.desc}</span>
-            </button>
-          ))}
-        </div>
-        <div className="flex items-center justify-between mt-3">
-          <p className="text-xs text-neutral-500">
-            {activeTriage
-              ? `Showing clinics for ${activeTriage.toLowerCase()}`
-              : "Select a symptom or call the nearest clinic."}
-          </p>
+      <div className="mb-6 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+        <p className="text-xs text-neutral-500">
+          Sort clinics by distance when you&apos;re on the go.
+        </p>
+        <div className="flex items-center gap-2">
           {!userLocation && (
             <button
+              type="button"
               onClick={requestLocation}
               disabled={locating}
               className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-medium text-primary hover:text-primary-light transition-colors"
@@ -136,7 +101,7 @@ export function EmergencyList({ providers }: EmergencyListProps) {
       </div>
 
       <div id="clinics" className="space-y-4">
-        {displayProviders.map((provider) => {
+        {sortedProviders.map((provider) => {
           const contact = getContactType(provider.phone || "N/A");
           const phone = getPhoneNumber(provider.phone || "");
           const areaCoords = AREA_COORDS[provider.area];

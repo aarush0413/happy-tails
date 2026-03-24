@@ -2,7 +2,6 @@ import { Metadata } from "next";
 import { IndianRupee, Repeat, Info } from "lucide-react";
 import { getAllPricing } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
-import { AdBanner } from "@/components/ads/AdBanner";
 
 export const metadata: Metadata = {
   title: "Pricing Guide - What Pet Services Cost in Pune",
@@ -16,13 +15,13 @@ export default function PricingPage() {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-[#0A2463] to-bluey-white py-14 sm:py-20">
+      <section className="bg-gradient-to-b from-neutral-900 via-primary/90 to-neutral-50 py-14 sm:py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-          <p className="text-[10px] uppercase tracking-[0.25em] text-bluey-gold font-medium mb-4">Transparency</p>
+          <p className="text-[10px] uppercase tracking-[0.25em] text-accent font-medium mb-4">Transparency</p>
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight">
             Pricing Guide
           </h1>
-          <p className="mt-3 text-white/40 text-sm max-w-xl">
+          <p className="mt-3 text-white/70 text-sm max-w-xl">
             Transparent pricing for every pet service in East Pune. Know what to
             expect before you book.
           </p>
@@ -40,16 +39,16 @@ export default function PricingPage() {
             const items = pricing.filter((p) => p.service === service);
             return (
               <div key={service}>
-                <h2 className="font-display text-xl font-semibold text-bluey-navy mb-4 flex items-center gap-2">
-                  <IndianRupee className="w-5 h-5 text-bluey-gold" aria-hidden="true" />
+                <h2 className="font-display text-xl font-semibold text-neutral-900 mb-4 flex items-center gap-2">
+                  <IndianRupee className="w-5 h-5 text-accent" aria-hidden="true" />
                   {service}
                 </h2>
-                <div className="bg-white rounded-xl shadow-sm overflow-hidden">
+                <div className="bg-white rounded-xl border border-neutral-200 shadow-sm overflow-hidden">
                   <div className="overflow-x-auto">
                     <table className="w-full text-sm">
                       <thead>
-                        <tr className="border-b border-bluey-pale/40">
-                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-bluey-navy/40">
+                        <tr className="border-b border-neutral-200">
+                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-neutral-500">
                             Service
                           </th>
                           <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-green-600 dark:text-green-400">
@@ -61,21 +60,21 @@ export default function PricingPage() {
                           <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-purple-600 dark:text-purple-400">
                             Premium
                           </th>
-                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-bluey-navy/30">
+                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-neutral-500">
                             Frequency
                           </th>
-                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-bluey-navy/30">
+                          <th scope="col" className="text-left px-5 py-3.5 text-[10px] uppercase tracking-wider font-medium text-neutral-500">
                             Notes
                           </th>
                         </tr>
                       </thead>
-                      <tbody className="divide-y divide-bluey-pale/30">
+                      <tbody className="divide-y divide-neutral-100">
                         {items.map((item, i) => (
                           <tr
                             key={i}
-                            className="hover:bg-bluey-ice/30 transition-colors"
+                            className="hover:bg-primary-muted/40 transition-colors"
                           >
-                            <td className="px-5 py-3.5 font-medium text-bluey-navy text-sm">
+                            <td className="px-5 py-3.5 font-medium text-neutral-900 text-sm">
                               {item.subService}
                             </td>
                             <td className="px-5 py-3.5">
@@ -94,12 +93,12 @@ export default function PricingPage() {
                               </span>
                             </td>
                             <td className="px-5 py-3.5">
-                              <div className="flex items-center gap-1 text-xs text-bluey-navy/30">
+                              <div className="flex items-center gap-1 text-xs text-neutral-500">
                                 <Repeat className="w-3 h-3" aria-hidden="true" />
                                 {item.repeatFreq}
                               </div>
                             </td>
-                            <td className="px-5 py-3.5 text-xs text-bluey-navy/30 max-w-[200px]">
+                            <td className="px-5 py-3.5 text-xs text-neutral-500 max-w-[200px]">
                               {item.notes}
                             </td>
                           </tr>
@@ -113,14 +112,12 @@ export default function PricingPage() {
           })}
         </div>
 
-        <AdBanner className="mt-12" />
-
-        <div className="mt-12 bg-bluey-ice rounded-xl p-6">
+        <div className="mt-12 bg-primary-muted/60 border border-neutral-200 rounded-xl p-6">
           <div className="flex items-start gap-3">
-            <Info className="w-5 h-5 text-bluey-gold mt-0.5 flex-shrink-0" aria-hidden="true" />
+            <Info className="w-5 h-5 text-primary mt-0.5 flex-shrink-0" aria-hidden="true" />
             <div>
-              <p className="font-medium text-bluey-navy text-sm">About these prices</p>
-              <p className="text-sm text-bluey-navy/40 mt-1 leading-relaxed">
+              <p className="font-medium text-neutral-900 text-sm">About these prices</p>
+              <p className="text-sm text-neutral-600 mt-1 leading-relaxed">
                 Prices are based on our research across providers in East Pune as of
                 March 2026. Actual prices may vary based on pet size, breed, condition,
                 and specific requirements. Emergency and after-hours services may carry
