@@ -1,11 +1,12 @@
-import { Category, Area, AreaSlug, CategorySlug } from "./types";
+import { Category, Area, AreaSlug, CategorySlug, TrustVerdict } from "./types";
 
 export const LAST_VERIFIED = "March 2026";
 
 export const SITE_NAME = "Happy Tails";
 export const SITE_DESCRIPTION =
-  "East Pune's premium pet services directory. Find verified vets, groomers, boarding, training, walking & transport for your furry friends.";
-export const SITE_URL = "https://happy-tails-coral.vercel.app";
+  "East Pune's most brutally honest pet care guide — we tell you which vets are legit, which groomers to avoid, and where to go in an emergency.";
+export const SITE_URL =
+  process.env.NEXT_PUBLIC_SITE_URL ?? "https://happytails.co.in";
 
 export const CATEGORIES: Category[] = [
   {
@@ -66,9 +67,17 @@ export const AREAS: Area[] = [
     description: "Premium pet care hub with 24/7 emergency vets",
     readiness: "HIGH",
     stats: {
-      vetClinics: 6, groomingSalon: 3, groomingHome: 2, petStores: 4,
-      boarding: 3, training: "1+8", walking: "2+3", transport: "1+4",
-      total: 21, emergency: "Vetic, Crown Vet (24/7)", topRated: 11,
+      vetClinics: 5,
+      groomingSalon: 2,
+      groomingHome: 2,
+      petStores: 3,
+      boarding: 2,
+      training: 8,
+      walking: 3,
+      transport: 4,
+      total: 29,
+      emergency: "Crown Vet (24/7)",
+      topRated: 18,
     },
   },
   {
@@ -77,9 +86,17 @@ export const AREAS: Area[] = [
     description: "Vibrant pet community with round-the-clock services",
     readiness: "HIGH",
     stats: {
-      vetClinics: 4, groomingSalon: 4, groomingHome: 2, petStores: 5,
-      boarding: 1, training: "1+8", walking: "2+3", transport: "1+4",
-      total: 19, emergency: "Dr. Pet (24/7), Khushi 24hr", topRated: 8,
+      vetClinics: 4,
+      groomingSalon: 4,
+      groomingHome: 2,
+      petStores: 5,
+      boarding: 1,
+      training: 9,
+      walking: 6,
+      transport: 3,
+      total: 34,
+      emergency: "Dr. Pet (24/7), Khushi 24hr",
+      topRated: 15,
     },
   },
   {
@@ -88,9 +105,17 @@ export const AREAS: Area[] = [
     description: "Growing pet services hub near IT corridor",
     readiness: "MEDIUM",
     stats: {
-      vetClinics: 3, groomingSalon: 3, groomingHome: 2, petStores: 4,
-      boarding: 4, training: "0+8", walking: "1+3", transport: "1+4",
-      total: 17, emergency: "No (limited)", topRated: 7,
+      vetClinics: 3,
+      groomingSalon: 2,
+      groomingHome: 3,
+      petStores: 4,
+      boarding: 4,
+      training: 8,
+      walking: 3,
+      transport: 4,
+      total: 31,
+      emergency: "No (limited)",
+      topRated: 18,
     },
   },
   {
@@ -99,9 +124,17 @@ export const AREAS: Area[] = [
     description: "Largest coverage area with the most providers",
     readiness: "HIGH",
     stats: {
-      vetClinics: 10, groomingSalon: 3, groomingHome: 2, petStores: 5,
-      boarding: 8, training: "0+8", walking: "1+3", transport: "1+4",
-      total: 29, emergency: "My Pet Care, Raintree (24/7)", topRated: 13,
+      vetClinics: 10,
+      groomingSalon: 3,
+      groomingHome: 2,
+      petStores: 5,
+      boarding: 8,
+      training: 8,
+      walking: 3,
+      transport: 3,
+      total: 42,
+      emergency: "My Pet Care, Raintree (24/7)",
+      topRated: 25,
     },
   },
 ];
@@ -114,16 +147,30 @@ export function getAreaBySlug(slug: AreaSlug): Area | undefined {
   return AREAS.find((a) => a.slug === slug);
 }
 
-export function getVerdictColor(verdict: string): string {
-  switch (verdict) {
-    case "LEGIT": return "text-green-700 bg-green-50/60 border-green-200/60";
-    case "LEGIT with NOTES": return "text-blue-700 bg-blue-50/60 border-blue-200/60";
-    case "LEGIT but VERIFY": return "text-yellow-700 bg-yellow-50/60 border-yellow-200/60";
-    case "LEGIT but NEW": return "text-cyan-700 bg-cyan-50/60 border-cyan-200/60";
-    case "CAUTION": return "text-orange-700 bg-orange-50/60 border-orange-200/60";
-    case "WEAK": return "text-gray-600 bg-gray-50/60 border-gray-200/60";
-    case "AVOID": return "text-red-600 bg-red-50/60 border-red-200/60";
-    case "BLACKLIST": return "text-red-700 bg-red-50/60 border-red-200/60";
-    default: return "text-gray-500 bg-gray-50/60 border-gray-200/60";
+export function trustVerdictLabel(v: TrustVerdict): string {
+  switch (v) {
+    case "legit":
+      return "LEGIT";
+    case "caution":
+      return "CAUTION";
+    case "weak":
+      return "WEAK";
+    case "blacklisted":
+      return "BLACKLISTED";
+  }
+}
+
+export function trustVerdictStyles(v: TrustVerdict): string {
+  switch (v) {
+    case "legit":
+      return "bg-[var(--color-trust-legit)]/15 text-[var(--color-trust-legit)] border-[var(--color-trust-legit)]/30";
+    case "caution":
+      return "bg-[var(--color-trust-caution)]/15 text-amber-800 border-[var(--color-trust-caution)]/40";
+    case "weak":
+      return "bg-[var(--color-trust-weak)]/15 text-[var(--color-trust-weak)] border-[var(--color-trust-weak)]/30";
+    case "blacklisted":
+      return "bg-[var(--color-trust-blacklist)] text-white border-[var(--color-trust-blacklist)]";
+    default:
+      return "bg-neutral-100 text-neutral-600 border-neutral-200";
   }
 }

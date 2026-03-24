@@ -1,26 +1,31 @@
-import { getVerdictColor } from "@/lib/constants";
+import { cn } from "@/lib/cn";
 
 interface BadgeProps {
   children: React.ReactNode;
-  variant?: "default" | "primary" | "gold" | "emergency" | "verdict";
-  verdict?: string;
+  variant?: "default" | "primary" | "outline" | "emergency";
   className?: string;
-  "aria-label"?: string;
 }
 
-export function Badge({ children, variant = "default", verdict, className = "", "aria-label": ariaLabel }: BadgeProps) {
-  const base = "inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[10px] uppercase tracking-[0.05em] font-medium border";
-
-  const variants: Record<string, string> = {
-    default: "bg-transparent text-bluey-navy/60 border-bluey-pale",
-    primary: "bg-bluey-primary/5 text-bluey-primary border-bluey-primary/20",
-    gold: "bg-transparent text-bluey-gold border-bluey-gold/30",
-    emergency: "bg-red-50 text-red-600 border-red-200/50",
-  };
-
-  const cls = variant === "verdict" && verdict
-    ? `${base} ${getVerdictColor(verdict)} ${className}`
-    : `${base} ${variants[variant]} ${className}`;
-
-  return <span className={cls} role={ariaLabel ? "img" : undefined} aria-label={ariaLabel}>{children}</span>;
+export function Badge({
+  children,
+  variant = "default",
+  className,
+}: BadgeProps) {
+  return (
+    <span
+      className={cn(
+        "inline-flex items-center gap-1 rounded-full border px-2.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide",
+        variant === "default" &&
+          "border-neutral-200 bg-neutral-50 text-neutral-600",
+        variant === "primary" &&
+          "border-primary/20 bg-primary-muted text-primary",
+        variant === "outline" && "border-neutral-200 bg-white text-neutral-600",
+        variant === "emergency" &&
+          "border-red-200 bg-[var(--color-emergency-bg)] text-[var(--color-emergency)]",
+        className
+      )}
+    >
+      {children}
+    </span>
+  );
 }

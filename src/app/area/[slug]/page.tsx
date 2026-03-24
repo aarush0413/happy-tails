@@ -83,7 +83,7 @@ export default async function AreaPage({ params }: Props) {
           <div className="mt-8 bg-white rounded-xl shadow-sm p-6">
             <div className="flex items-center justify-between mb-5">
               <h2 className="font-display font-semibold text-bluey-navy">Area Dashboard</h2>
-              <Badge variant={area.readiness === "HIGH" ? "gold" : "default"}>
+              <Badge variant={area.readiness === "HIGH" ? "primary" : "default"}>
                 {area.readiness}
               </Badge>
             </div>
@@ -131,6 +131,14 @@ export default async function AreaPage({ params }: Props) {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        <div className="mb-8 max-w-3xl">
+          <h2 className="font-display text-lg font-semibold text-bluey-navy mb-3">
+            Pet services in {area.name} — your local directory
+          </h2>
+          <p className="text-sm text-bluey-navy/60 leading-relaxed">
+            {area.name} is home to {computed.total} verified pet service providers, including {computed.vetClinics} vet clinics, {computed.grooming} grooming options, and more. Whether you need a routine checkup, a groom before a trip, or emergency care, you&apos;ll find trusted options here. Use the filters to sort by rating, price, or category.
+          </p>
+        </div>
         <FilterBar
           initialProviders={providers}
           initialArea={slug as AreaSlug}

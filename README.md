@@ -40,12 +40,10 @@ npx vercel
 
 Or connect your GitHub repo to [vercel.com](https://vercel.com) for automatic deployments.
 
-## Free Domain Options
+## Live Domain
 
-1. **Vercel default** — `happytails.vercel.app` (free, immediate)
-2. **Freenom** — `happytails.tk` (free custom domain)
-3. **frii.site** — `happytails.frii.site` (free subdomain)
-4. **is-a.dev** — `happytails.is-a.dev` (free via GitHub PR)
+- Primary URL: `https://happytails.co.in`
+- Secondary URL: `https://www.happytails.co.in`
 
 ## AdSense Setup
 

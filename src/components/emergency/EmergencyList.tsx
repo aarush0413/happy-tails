@@ -7,7 +7,13 @@ import {
   Droplets, Wind, Brain, XCircle, Navigation,
 } from "lucide-react";
 import { Provider } from "@/lib/types";
-import { formatRating, getAreaLabel, getPhoneNumber, getContactType } from "@/lib/utils";
+import {
+  formatRating,
+  getAreaLabel,
+  getPhoneNumber,
+  getContactType,
+  servicesText,
+} from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 
 const TRIAGE_OPTIONS = [
@@ -79,7 +85,7 @@ export function EmergencyList({ providers }: EmergencyListProps) {
   const filteredProviders = activeTriage
     ? sortedProviders.filter((p) => {
         const keywords = TRIAGE_OPTIONS.find((t) => t.label === activeTriage)?.keywords || [];
-        const services = p.services.toLowerCase();
+        const services = servicesText(p).toLowerCase();
         return keywords.some((k) => services.includes(k));
       })
     : sortedProviders;
@@ -89,7 +95,7 @@ export function EmergencyList({ providers }: EmergencyListProps) {
   return (
     <>
       <div className="mb-8">
-        <p className="text-xs font-medium text-bluey-navy/60 uppercase tracking-wider mb-3">What&apos;s happening?</p>
+        <p className="text-xs font-medium text-neutral-600 uppercase tracking-wider mb-3">What&apos;s happening?</p>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
           {TRIAGE_OPTIONS.map((opt) => (
             <button
@@ -106,7 +112,7 @@ export function EmergencyList({ providers }: EmergencyListProps) {
           ))}
         </div>
         <div className="flex items-center justify-between mt-3">
-          <p className="text-xs text-bluey-navy/40">
+          <p className="text-xs text-neutral-500">
             {activeTriage
               ? `Showing clinics for ${activeTriage.toLowerCase()}`
               : "Select a symptom or call the nearest clinic."}
@@ -115,7 +121,7 @@ export function EmergencyList({ providers }: EmergencyListProps) {
             <button
               onClick={requestLocation}
               disabled={locating}
-              className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-medium text-bluey-primary hover:text-bluey-primary/80 transition-colors"
+              className="inline-flex items-center gap-1.5 text-[10px] uppercase tracking-wider font-medium text-primary hover:text-primary-light transition-colors"
             >
               <Navigation className="w-3 h-3" aria-hidden="true" />
               {locating ? "Locating..." : "Sort by nearest"}
@@ -131,8 +137,8 @@ export function EmergencyList({ providers }: EmergencyListProps) {
 
       <div id="clinics" className="space-y-4">
         {displayProviders.map((provider) => {
-          const contact = getContactType(provider.contact);
-          const phone = getPhoneNumber(provider.contact);
+          const contact = getContactType(provider.phone || "N/A");
+          const phone = getPhoneNumber(provider.phone || "");
           const areaCoords = AREA_COORDS[provider.area];
           const distance = userLocation && areaCoords
             ? haversineKm(userLocation.lat, userLocation.lng, areaCoords.lat, areaCoords.lng)
@@ -147,49 +153,43 @@ export function EmergencyList({ providers }: EmergencyListProps) {
                 <div className="flex-1">
                   <div className="flex items-center gap-2 mb-1 flex-wrap">
                     <Link
-                      href={`/provider/${provider.id}`}
-                      className="text-base font-medium text-bluey-navy hover:text-bluey-primary transition-colors"
+                      href={`/provider/${provider.slug}`}
+                      className="text-base font-medium text-neutral-900 hover:text-primary transition-colors"
                     >
                       {provider.name}
                     </Link>
                     <Badge variant="emergency">
                       <Siren className="w-3 h-3" aria-hidden="true" /> 24/7
                     </Badge>
-                    {provider.rating && formatRating(provider.rating) !== "N/A" && (
+                    {provider.rating != null && formatRating(provider.rating) !== "Unrated" && (
                       <div className="flex items-center gap-1 ml-1">
-                        <Star className="w-3.5 h-3.5 text-bluey-gold fill-bluey-gold" aria-hidden="true" />
-                        <span className="text-sm font-medium text-bluey-navy">
+                        <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" aria-hidden="true" />
+                        <span className="text-sm font-medium text-neutral-800">
                           {formatRating(provider.rating)}
                         </span>
                       </div>
                     )}
                   </div>
 
-                  {provider.emergencyNote && (
-                    <p className="text-xs text-orange-600 bg-orange-50 rounded-lg px-2 py-1 mb-2 inline-block">
-                      {provider.emergencyNote}
-                    </p>
-                  )}
-
                   <div className="flex items-center gap-4 mt-1">
-                    <div className="flex items-center gap-1 text-xs text-bluey-navy/40">
+                    <div className="flex items-center gap-1 text-xs text-neutral-500">
                       <MapPin className="w-3 h-3" aria-hidden="true" />
                       {getAreaLabel(provider.area)}
                     </div>
-                    {provider.timings && (
-                      <div className="flex items-center gap-1 text-xs text-bluey-navy/40">
+                    {provider.hours && (
+                      <div className="flex items-center gap-1 text-xs text-neutral-500">
                         <Clock className="w-3 h-3" aria-hidden="true" />
-                        {provider.timings}
+                        {provider.hours}
                       </div>
                     )}
                     {distance !== null && (
-                      <span className="text-[10px] text-bluey-primary uppercase tracking-wider font-medium">
+                      <span className="text-[10px] text-primary uppercase tracking-wider font-medium">
                         ~{distance.toFixed(1)} km
                       </span>
                     )}
                   </div>
                   {provider.address && (
-                    <p className="text-xs text-bluey-navy/30 mt-2">{provider.address}</p>
+                    <p className="text-xs text-neutral-400 mt-2">{provider.address}</p>
                   )}
                 </div>
 
@@ -207,7 +207,7 @@ export function EmergencyList({ providers }: EmergencyListProps) {
                       href={contact.href}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-bluey-primary text-white text-xs uppercase tracking-wider font-medium rounded-lg hover:bg-bluey-light transition-colors"
+                      className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-primary text-white text-xs uppercase tracking-wider font-medium rounded-lg hover:bg-primary-light transition-colors"
                       aria-label={`Visit ${provider.name} website`}
                     >
                       <ExternalLink className="w-4 h-4" aria-hidden="true" /> {contact.label}
@@ -215,11 +215,11 @@ export function EmergencyList({ providers }: EmergencyListProps) {
                   ) : null}
                 </div>
               </div>
-              {provider.services && (
-                <p className="text-xs text-bluey-navy/40 mt-3 line-clamp-2 leading-relaxed">
-                  {provider.services}
+              {provider.services?.length ? (
+                <p className="text-xs text-neutral-500 mt-3 line-clamp-2 leading-relaxed">
+                  {servicesText(provider)}
                 </p>
-              )}
+              ) : null}
             </div>
           );
         })}

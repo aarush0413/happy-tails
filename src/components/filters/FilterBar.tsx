@@ -3,8 +3,8 @@
 import { useState, useMemo, useCallback } from "react";
 import { Search, SlidersHorizontal, X, ArrowUpDown } from "lucide-react";
 import { CATEGORIES, AREAS } from "@/lib/constants";
-import { Provider, CategorySlug, AreaSlug } from "@/lib/types";
-import { getAuditForProvider } from "@/lib/utils";
+import { Provider, CategorySlug, AreaSlug, TrustVerdict } from "@/lib/types";
+import { servicesText } from "@/lib/utils";
 import { ProviderCard } from "@/components/providers/ProviderCard";
 
 interface FilterBarProps {
@@ -16,43 +16,33 @@ interface FilterBarProps {
 }
 
 type SortOption = "default" | "rating-desc" | "name-asc" | "price-asc";
-type VerdictFilter = "" | "LEGIT" | "CAUTION" | "WEAK";
+type VerdictFilter = "" | TrustVerdict;
 
-function isOpenNow(timings: string): boolean {
-  if (!timings) return false;
-  const lower = timings.toLowerCase().trim();
+function isOpenNow(hours: string): boolean {
+  if (!hours) return false;
+  const lower = hours.toLowerCase().trim();
 
-  if (lower.includes("24/7") || lower.includes("24 hr") || lower.includes("24hr") || lower === "open 24/7") return true;
+  if (lower.includes("24/7") || lower.includes("24 hr") || lower.includes("24hr") || lower === "open 24/7")
+    return true;
 
-  if (lower === "varies" || lower.includes("by appointment") || lower === "n/a" || lower === "") return false;
+  if (lower === "varies" || lower.includes("by appointment") || lower === "n/a" || lower === "")
+    return false;
 
   const now = new Date();
-  const currentHour = now.getHours();
-  const currentMin = now.getMinutes();
-  const currentTime = currentHour * 60 + currentMin;
+  const currentTime = now.getHours() * 60 + now.getMinutes();
 
-  const tillMatch = lower.match(/till\s+(\d{1,2})(?::(\d{2}))?\s*(am|pm)/i);
-  if (tillMatch) {
-    let closeHour = parseInt(tillMatch[1]);
-    const closeMin = tillMatch[2] ? parseInt(tillMatch[2]) : 0;
-    const period = tillMatch[3].toLowerCase();
-    if (period === "pm" && closeHour !== 12) closeHour += 12;
-    if (period === "am" && closeHour === 12) closeHour = 0;
-    return currentTime < closeHour * 60 + closeMin;
-  }
-
-  const ranges = timings.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)\s*[-–]\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)/gi);
+  const ranges = hours.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)\s*[-–]\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)/gi);
   if (!ranges || ranges.length === 0) return false;
 
   for (const range of ranges) {
     const m = range.match(/(\d{1,2})(?::(\d{2}))?\s*(am|pm)\s*[-–]\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm)/i);
     if (!m) continue;
 
-    let openH = parseInt(m[1]);
-    const openM = m[2] ? parseInt(m[2]) : 0;
+    let openH = parseInt(m[1], 10);
+    const openM = m[2] ? parseInt(m[2], 10) : 0;
     const openP = m[3].toLowerCase();
-    let closeH = parseInt(m[4]);
-    const closeM = m[5] ? parseInt(m[5]) : 0;
+    let closeH = parseInt(m[4], 10);
+    const closeM = m[5] ? parseInt(m[5], 10) : 0;
     const closeP = m[6].toLowerCase();
 
     if (openP === "pm" && openH !== 12) openH += 12;
@@ -63,7 +53,9 @@ function isOpenNow(timings: string): boolean {
     const openTime = openH * 60 + openM;
     const closeTime = closeH * 60 + closeM;
 
-    if (currentTime >= openTime && currentTime < closeTime) return true;
+    if (openTime < closeTime) {
+      if (currentTime >= openTime && currentTime < closeTime) return true;
+    }
   }
 
   return false;
@@ -72,10 +64,11 @@ function isOpenNow(timings: string): boolean {
 function parsePriceNum(fee: string): number {
   const match = fee.match(/(\d[\d,]*)/);
   if (!match) return Infinity;
-  return parseInt(match[1].replace(/,/g, ""));
+  return parseInt(match[1].replace(/,/g, ""), 10);
 }
 
-const selectCls = "px-4 py-2.5 bg-white rounded-lg border border-bluey-pale/60 text-sm text-bluey-navy focus:outline-none focus:ring-2 focus:ring-bluey-primary/20 focus:border-bluey-primary/40 transition-all";
+const selectCls =
+  "px-4 py-2.5 bg-white rounded-lg border border-neutral-200 text-sm text-neutral-800 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all min-h-[44px]";
 
 export function FilterBar({
   initialProviders,
@@ -103,7 +96,7 @@ export function FilterBar({
       result = result.filter(
         (p) =>
           p.name.toLowerCase().includes(q) ||
-          p.services.toLowerCase().includes(q) ||
+          servicesText(p).toLowerCase().includes(q) ||
           p.address.toLowerCase().includes(q)
       );
     }
@@ -114,42 +107,34 @@ export function FilterBar({
       result = result.filter((p) => p.area === area || p.area === "all-areas");
     }
     if (emergency) {
-      result = result.filter((p) => p.emergency24_7);
+      result = result.filter((p) => p.isOpen247 && p.category === "vet");
     }
     if (atHome) {
-      result = result.filter((p) => p.atHome);
+      result = result.filter((p) => p.attributes.homeVisit);
     }
     if (minRating > 0) {
-      result = result.filter((p) => {
-        const r = parseFloat(p.rating);
-        return !isNaN(r) && r >= minRating;
-      });
+      result = result.filter((p) => (p.rating ?? 0) >= minRating);
     }
     if (verdictFilter) {
-      result = result.filter((p) => {
-        const audit = getAuditForProvider(p.name);
-        if (!audit) return false;
-        if (verdictFilter === "LEGIT") return audit.verdict.startsWith("LEGIT");
-        return audit.verdict === verdictFilter;
-      });
+      result = result.filter((p) => p.trustVerdict === verdictFilter);
     }
     if (openNow) {
-      result = result.filter((p) => isOpenNow(p.timings));
+      result = result.filter((p) => isOpenNow(p.hours));
     }
 
     if (sortBy !== "default") {
       result = [...result].sort((a, b) => {
         switch (sortBy) {
           case "rating-desc": {
-            const ra = parseFloat(a.rating) || 0;
-            const rb = parseFloat(b.rating) || 0;
+            const ra = a.rating ?? 0;
+            const rb = b.rating ?? 0;
             return rb - ra;
           }
           case "name-asc":
             return a.name.localeCompare(b.name);
           case "price-asc": {
-            const pa = parsePriceNum(a.consultationFee);
-            const pb = parsePriceNum(b.consultationFee);
+            const pa = parsePriceNum(a.consultationFee || "");
+            const pb = parsePriceNum(b.consultationFee || "");
             return pa - pb;
           }
           default:
@@ -159,7 +144,18 @@ export function FilterBar({
     }
 
     return result;
-  }, [initialProviders, query, category, area, emergency, atHome, minRating, sortBy, verdictFilter, openNow]);
+  }, [
+    initialProviders,
+    query,
+    category,
+    area,
+    emergency,
+    atHome,
+    minRating,
+    sortBy,
+    verdictFilter,
+    openNow,
+  ]);
 
   const clearFilters = useCallback(() => {
     setQuery("");
@@ -193,13 +189,16 @@ export function FilterBar({
     <div>
       <div className="flex flex-col sm:flex-row gap-3 mb-6">
         <div className="relative flex-1">
-          <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-bluey-navy/30" aria-hidden="true" />
+          <Search
+            className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-neutral-400"
+            aria-hidden="true"
+          />
           <input
             type="text"
             placeholder="Search providers, services..."
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            className="w-full pl-10 pr-4 py-3 bg-white border border-bluey-pale/60 rounded-lg text-sm text-bluey-navy placeholder:text-bluey-navy/30 focus:outline-none focus:ring-2 focus:ring-bluey-primary/20 focus:border-bluey-primary/40 transition-all"
+            className="w-full min-h-[44px] pl-10 pr-4 py-3 bg-white border border-neutral-200 rounded-lg text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all"
             aria-label="Search providers and services"
           />
         </div>
@@ -216,25 +215,24 @@ export function FilterBar({
             <option value="price-asc">Price (Low to High)</option>
           </select>
           <button
+            type="button"
             onClick={() => setShowFilters(!showFilters)}
-            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs uppercase tracking-[0.05em] font-medium border transition-all ${
+            className={`inline-flex items-center gap-2 px-5 py-2.5 rounded-lg text-xs uppercase tracking-wide font-semibold border transition-all min-h-[44px] ${
               showFilters
-                ? "bg-bluey-primary text-white border-bluey-primary"
-                : "bg-white text-bluey-navy/60 border-bluey-pale/60 hover:border-bluey-navy/20"
+                ? "bg-primary text-white border-primary"
+                : "bg-white text-neutral-600 border-neutral-200 hover:border-neutral-300"
             }`}
             aria-label="Toggle filters"
           >
             <SlidersHorizontal className="w-4 h-4" aria-hidden="true" />
             Filters
-            {hasActiveFilters && (
-              <span className="w-1.5 h-1.5 rounded-full bg-bluey-gold" />
-            )}
+            {hasActiveFilters && <span className="w-1.5 h-1.5 rounded-full bg-accent" />}
           </button>
         </div>
       </div>
 
       {showFilters && (
-        <div className="bg-white rounded-xl p-5 mb-6 border border-bluey-pale/40 shadow-sm">
+        <div className="bg-white rounded-xl p-5 mb-6 border border-neutral-200 shadow-sm">
           <div className="flex flex-wrap gap-3">
             {showCategoryFilter && (
               <select
@@ -281,72 +279,73 @@ export function FilterBar({
               value={verdictFilter}
               onChange={(e) => setVerdictFilter(e.target.value as VerdictFilter)}
               className={selectCls}
-              aria-label="Filter by trust badge"
+              aria-label="Filter by trust verdict"
             >
-              <option value="">Any Trust Level</option>
-              <option value="LEGIT">LEGIT Only</option>
-              <option value="CAUTION">CAUTION</option>
-              <option value="WEAK">WEAK</option>
+              <option value="">Any trust level</option>
+              <option value="legit">LEGIT only</option>
+              <option value="caution">CAUTION</option>
+              <option value="weak">WEAK</option>
+              <option value="blacklisted">BLACKLISTED</option>
             </select>
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-bluey-pale/60 text-sm text-bluey-navy/60 cursor-pointer hover:border-bluey-navy/20 transition-colors">
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-neutral-200 text-sm text-neutral-600 cursor-pointer min-h-[44px]">
               <input
                 type="checkbox"
                 checked={openNow}
                 onChange={(e) => setOpenNow(e.target.checked)}
-                className="accent-green-600"
+                className="accent-primary"
               />
-              Open Now
+              Open now
             </label>
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-bluey-pale/60 text-sm text-bluey-navy/60 cursor-pointer hover:border-bluey-navy/20 transition-colors">
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-neutral-200 text-sm text-neutral-600 cursor-pointer min-h-[44px]">
               <input
                 type="checkbox"
                 checked={emergency}
                 onChange={(e) => setEmergency(e.target.checked)}
-                className="accent-red-500"
+                className="accent-red-600"
               />
-              24/7 Emergency
+              24/7 vet
             </label>
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-bluey-pale/60 text-sm text-bluey-navy/60 cursor-pointer hover:border-bluey-navy/20 transition-colors">
+            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-neutral-200 text-sm text-neutral-600 cursor-pointer min-h-[44px]">
               <input
                 type="checkbox"
                 checked={atHome}
                 onChange={(e) => setAtHome(e.target.checked)}
-                className="accent-bluey-primary"
+                className="accent-primary"
               />
-              Home Visit
+              Home visit
             </label>
             {hasActiveFilters && (
               <button
+                type="button"
                 onClick={clearFilters}
-                className="inline-flex items-center gap-1 px-4 py-2.5 text-xs text-red-500 hover:text-red-600 uppercase tracking-wider font-medium"
+                className="inline-flex items-center gap-1 px-4 py-2.5 text-xs text-red-600 hover:text-red-700 uppercase tracking-wider font-semibold min-h-[44px]"
               >
                 <X className="w-3.5 h-3.5" aria-hidden="true" />
-                Clear All
+                Clear all
               </button>
             )}
           </div>
         </div>
       )}
 
-      <div className="flex items-center justify-between mb-4">
-        <p className="text-sm text-bluey-navy/40">
-          <span className="font-medium text-bluey-navy">{filtered.length}</span>{" "}
-          provider{filtered.length !== 1 ? "s" : ""} found
+      <div className="flex items-center justify-between mb-4" aria-live="polite">
+        <p className="text-sm text-neutral-500">
+          <span className="font-semibold text-neutral-900">{filtered.length}</span> provider
+          {filtered.length !== 1 ? "s" : ""} found
         </p>
         {sortBy !== "default" && (
-          <p className="text-[10px] text-bluey-navy/30 uppercase tracking-wider flex items-center gap-1">
+          <p className="text-[10px] text-neutral-400 uppercase tracking-wider flex items-center gap-1">
             <ArrowUpDown className="w-3 h-3" aria-hidden="true" />
-            Sorted by {sortBy === "rating-desc" ? "rating" : sortBy === "name-asc" ? "name" : "price"}
+            Sorted by{" "}
+            {sortBy === "rating-desc" ? "rating" : sortBy === "name-asc" ? "name" : "price"}
           </p>
         )}
       </div>
 
       {filtered.length === 0 ? (
         <div className="text-center py-20">
-          <p className="font-display text-lg font-semibold text-bluey-navy/30">No providers found</p>
-          <p className="text-sm text-bluey-navy/20 mt-2">
-            Try adjusting your filters or search query
-          </p>
+          <p className="font-display text-lg font-semibold text-neutral-400">No providers found</p>
+          <p className="text-sm text-neutral-400 mt-2">Try adjusting your filters or search query</p>
         </div>
       ) : (
         <>
@@ -358,10 +357,12 @@ export function FilterBar({
           {hasMore && (
             <div className="flex justify-center mt-10">
               <button
+                type="button"
                 onClick={() => setVisibleCount((c) => c + ITEMS_PER_PAGE)}
-                className="px-8 py-3 bg-white text-bluey-navy/60 text-xs uppercase tracking-[0.1em] font-medium rounded-lg border border-bluey-pale/60 hover:border-bluey-navy/20 hover:text-bluey-navy transition-all"
+                className="px-8 py-3 bg-white text-neutral-600 text-xs uppercase tracking-wide font-semibold rounded-lg border border-neutral-200 hover:border-primary/30 transition-all min-h-[44px]"
               >
-                Show {Math.min(ITEMS_PER_PAGE, filtered.length - visibleCount)} more of {filtered.length}
+                Show {Math.min(ITEMS_PER_PAGE, filtered.length - visibleCount)} more of{" "}
+                {filtered.length}
               </button>
             </div>
           )}

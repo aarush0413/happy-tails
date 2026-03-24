@@ -1,0 +1,106 @@
+[
+  {
+    "id": "bleeding",
+    "name": "Bleeding",
+    "description": "Heavy or uncontrolled bleeding",
+    "icon": "Droplets",
+    "severity": "critical",
+    "immediateSteps": [
+      "Apply firm pressure with a clean cloth or gauze.",
+      "Keep your pet calm and restrict movement.",
+      "Do not remove impaled objects — stabilise and go immediately."
+    ],
+    "relevantProviders": ["vet-1", "vet-6", "vet-13", "vet-21"]
+  },
+  {
+    "id": "breathing",
+    "name": "Can't Breathe",
+    "description": "Choking, laboured breathing, blue gums",
+    "icon": "Wind",
+    "severity": "critical",
+    "immediateSteps": [
+      "Check mouth for visible obstruction if safe to do so.",
+      "Keep airway open; avoid stressing your pet.",
+      "Call ahead — oxygen/ICU may be needed."
+    ],
+    "relevantProviders": ["vet-1", "vet-6", "vet-13", "vet-21"]
+  },
+  {
+    "id": "seizure",
+    "name": "Seizure",
+    "description": "Convulsions, tremors, collapse",
+    "icon": "Zap",
+    "severity": "critical",
+    "immediateSteps": [
+      "Clear nearby objects; do not restrain the tongue.",
+      "Time the episode; note eye movement and salivation.",
+      "After it stops, keep warm and transport to emergency vet."
+    ],
+    "relevantProviders": ["vet-1", "vet-6", "vet-13", "vet-21"]
+  },
+  {
+    "id": "poisoning",
+    "name": "Poisoning",
+    "description": "Ingested toxic substance",
+    "icon": "Skull",
+    "severity": "critical",
+    "immediateSteps": [
+      "Do not induce vomiting unless a vet instructs you.",
+      "Bring packaging or a photo of the substance.",
+      "Call the clinic en route — some toxins need specific antidotes."
+    ],
+    "relevantProviders": ["vet-1", "vet-6", "vet-13", "vet-21"]
+  },
+  {
+    "id": "vomiting",
+    "name": "Vomiting",
+    "description": "Repeated vomiting, won't keep water down",
+    "icon": "AlertCircle",
+    "severity": "urgent",
+    "immediateSteps": [
+      "Withhold food; offer ice chips if directed by phone.",
+      "Watch for blood, lethargy, or bloat (distended abdomen).",
+      "Seek emergency care if non-stop or with other symptoms."
+    ],
+    "relevantProviders": ["vet-1", "vet-6", "vet-13", "vet-21"]
+  },
+  {
+    "id": "injury",
+    "name": "Injury",
+    "description": "Hit by vehicle, fall, visible fracture",
+    "icon": "Bone",
+    "severity": "critical",
+    "immediateSteps": [
+      "Muzzle only if needed for safety; support fractures with a splint/towel.",
+      "Minimise movement on a flat board or blanket.",
+      "Bleeding and shock risk — go to a surgical-capable clinic."
+    ],
+    "relevantProviders": ["vet-1", "vet-6", "vet-13", "vet-21"]
+  },
+  {
+    "id": "unresponsive",
+    "name": "Unresponsive",
+    "description": "Won't wake up, limp, no reaction",
+    "icon": "Moon",
+    "severity": "critical",
+    "immediateSteps": [
+      "Check breathing and pulse if trained; begin transport.",
+      "Keep neck aligned if trauma suspected.",
+      "This is always emergency — call while en route."
+    ],
+    "relevantProviders": ["vet-1", "vet-6", "vet-13", "vet-21"]
+  },
+  {
+    "id": "unsure",
+    "name": "Not Sure",
+    "description": "Something is wrong but hard to describe",
+    "icon": "HelpCircle",
+    "severity": "moderate",
+    "immediateSteps": [
+      "Note appetite, energy, breathing, and last normal behaviour.",
+      "Take a short video if safe — helps triage over the phone.",
+      "When in doubt after hours, use a 24/7 clinic."
+    ],
+    "relevantProviders": ["vet-1", "vet-6", "vet-13", "vet-21"]
+  }
+]

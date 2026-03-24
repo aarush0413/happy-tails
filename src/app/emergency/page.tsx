@@ -61,12 +61,12 @@ export default function EmergencyPage() {
           </div>
         </div>
 
-        <div className="bg-red-50 rounded-xl p-5 border border-red-100 mb-8">
+        <div className="bg-red-50 dark:bg-red-950/30 rounded-xl p-5 border border-red-100 dark:border-red-800/40 mb-8">
           <div className="flex items-start gap-3">
-            <AlertCircle className="w-5 h-5 text-red-400 mt-0.5 flex-shrink-0" aria-hidden="true" />
+            <AlertCircle className="w-5 h-5 text-red-400 dark:text-red-500 mt-0.5 flex-shrink-0" aria-hidden="true" />
             <div>
-              <p className="font-medium text-red-700 text-sm">In case of emergency</p>
-              <p className="text-sm text-red-600/60 mt-1">
+              <p className="font-medium text-red-700 dark:text-red-300 text-sm">In case of emergency</p>
+              <p className="text-sm text-red-600/60 dark:text-red-400/60 mt-1">
                 Call the clinic before visiting to confirm availability. Describe your
                 pet&apos;s symptoms clearly. If possible, bring any medications your pet is
                 currently taking.

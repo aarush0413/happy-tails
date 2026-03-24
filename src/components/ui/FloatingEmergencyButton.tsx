@@ -11,13 +11,11 @@ export function FloatingEmergencyButton() {
   return (
     <Link
       href="/emergency"
-      className="fixed bottom-6 right-6 z-50 w-12 h-12 bg-red-600 text-white rounded-full shadow-lg flex items-center justify-center hover:bg-red-700 transition-all group animate-subtle-pulse"
+      className="fixed bottom-0 left-0 right-0 z-50 md:bottom-6 md:left-auto md:right-6 md:w-14 md:h-14 md:rounded-full flex items-center justify-center gap-2 bg-[var(--color-emergency)] text-white py-3.5 md:py-0 shadow-lg hover:bg-red-700 transition-colors min-h-[52px] md:min-h-[56px] animate-emergency-pulse border-t border-red-700/30 md:border-0"
       aria-label="Emergency 24/7 vet finder"
     >
-      <Phone className="w-5 h-5" aria-hidden="true" />
-      <span className="absolute right-full mr-3 bg-[#0A0F1C] text-white text-[10px] uppercase tracking-wider font-medium px-3 py-1.5 rounded-lg whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none">
-        Emergency 24/7
-      </span>
+      <Phone className="w-5 h-5 shrink-0" aria-hidden="true" />
+      <span className="text-sm font-bold uppercase tracking-wide md:sr-only">Emergency</span>
     </Link>
   );
 }

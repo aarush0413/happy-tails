@@ -43,6 +43,7 @@ export function AppProvider({ children }: { children: ReactNode }) {
   const addToCompare = useCallback((provider: Provider) => {
     setCompareList((prev) => {
       if (prev.length >= MAX_COMPARE || prev.find((p) => p.id === provider.id)) return prev;
+      if (prev.length > 0 && prev[0].category !== provider.category) return prev;
       return [...prev, provider];
     });
   }, []);

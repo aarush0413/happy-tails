@@ -2,188 +2,194 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Star, MapPin, Clock, Siren, Home, ChevronDown, Scale, Heart } from "lucide-react";
+import {
+  MapPin,
+  Clock,
+  Siren,
+  Home,
+  Scale,
+  Heart,
+  Star,
+  ChevronDown,
+  Phone,
+  MessageCircle,
+} from "lucide-react";
 import { Provider } from "@/lib/types";
 import { Badge } from "@/components/ui/Badge";
-import { VerdictIcon } from "@/components/ui/VerdictIcon";
-import { getAreaLabel, getCategoryLabel, formatRating, getAuditForProvider, hasRedFlags } from "@/lib/utils";
+import { TrustBadge } from "./TrustBadge";
+import {
+  formatRating,
+  getAreaLabel,
+  getCategoryLabel,
+  servicesText,
+  getPhoneFromProvider,
+} from "@/lib/utils";
+import { getOpenStatus } from "@/lib/hours";
+import { whatsappHref } from "@/lib/whatsapp";
 import { useApp } from "@/lib/context/AppContext";
+import { cn } from "@/lib/cn";
 
-interface ProviderCardProps {
+export function ProviderCard({
+  provider,
+  index = 0,
+}: {
   provider: Provider;
   index?: number;
-}
-
-export function ProviderCard({ provider, index = 0 }: ProviderCardProps) {
-  const audit = getAuditForProvider(provider.name);
+}) {
   const rating = formatRating(provider.rating);
-  const isEmergency = provider.emergency24_7;
-  const isAtHome = provider.atHome;
-  const [showTooltip, setShowTooltip] = useState(false);
+  const status = getOpenStatus(provider);
+  const wa = whatsappHref(provider);
+  const phone = getPhoneFromProvider(provider);
   const [expanded, setExpanded] = useState(false);
-  const { addToCompare, removeFromCompare, isInCompare, toggleFavorite, isFavorite } = useApp();
+  const { addToCompare, removeFromCompare, isInCompare, toggleFavorite, isFavorite } =
+    useApp();
 
   const inCompare = isInCompare(provider.id);
   const isFav = isFavorite(provider.id);
+  const isAtHome = provider.attributes.homeVisit;
 
   return (
     <div
       className="animate-fadeInUp"
-      style={{ animationDelay: `${index * 50}ms` }}
+      style={{ animationDelay: `${index * 40}ms` }}
     >
-      <Link href={`/provider/${provider.id}`} className="block group">
-        <div className="relative bg-white rounded-xl border-0 shadow-sm p-6 h-full transition-all duration-300 hover:shadow-lg hover:-translate-y-0.5">
-          <div className="absolute top-3 right-3 flex items-center gap-1 z-10">
-            {index === 0 && !inCompare && (
-              <span className="text-[9px] text-bluey-navy/30 uppercase tracking-wider font-medium animate-fadeOut mr-0.5">
-                Compare
-              </span>
+      <div className="relative rounded-xl border border-neutral-200 bg-white p-5 shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md h-full flex flex-col">
+        <div className="absolute top-3 right-3 flex items-center gap-1 z-10">
+          <button
+            type="button"
+            className={cn(
+              "p-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center",
+              inCompare
+                ? "bg-primary text-white"
+                : "text-neutral-300 hover:text-primary hover:bg-primary-muted"
             )}
-            <button
-              type="button"
-              className={`p-2 rounded-lg transition-all duration-200 ${
-                inCompare
-                  ? "bg-bluey-primary text-white"
-                  : "text-bluey-navy/20 hover:text-bluey-primary hover:bg-bluey-ice"
-              }`}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                inCompare ? removeFromCompare(provider.id) : addToCompare(provider);
-              }}
-              aria-label={inCompare ? `Remove ${provider.name} from compare` : `Add ${provider.name} to compare`}
-              title="Compare providers side by side"
-            >
-              <Scale className="w-3.5 h-3.5" aria-hidden="true" />
-            </button>
-            <button
-              type="button"
-              className={`p-2 rounded-lg transition-all duration-200 ${
-                isFav
-                  ? "text-red-500"
-                  : "text-bluey-navy/20 hover:text-red-500"
-              }`}
-              onClick={(e) => {
-                e.preventDefault();
-                e.stopPropagation();
-                toggleFavorite(provider.id);
-              }}
-              aria-label={isFav ? `Remove ${provider.name} from favorites` : `Save ${provider.name} to favorites`}
-              title="Save to favorites"
-            >
-              <Heart className={`w-3.5 h-3.5 ${isFav ? "fill-red-500" : ""}`} aria-hidden="true" />
-            </button>
+            onClick={() =>
+              inCompare ? removeFromCompare(provider.id) : addToCompare(provider)
+            }
+            aria-label={
+              inCompare ? `Remove ${provider.name} from compare` : `Add ${provider.name} to compare`
+            }
+          >
+            <Scale className="w-4 h-4" aria-hidden="true" />
+          </button>
+          <button
+            type="button"
+            className={cn(
+              "p-2 rounded-lg transition-colors min-h-[44px] min-w-[44px] flex items-center justify-center",
+              isFav ? "text-red-500" : "text-neutral-300 hover:text-red-500"
+            )}
+            onClick={() => toggleFavorite(provider.id)}
+            aria-label={isFav ? "Remove from favorites" : "Save to favorites"}
+          >
+            <Heart className={cn("w-4 h-4", isFav && "fill-red-500")} aria-hidden="true" />
+          </button>
+        </div>
+
+        {provider.isOpen247 && provider.category === "vet" && (
+          <div className="absolute -top-2 left-4">
+            <Badge variant="emergency">
+              <Siren className="w-3 h-3" aria-hidden="true" /> 24/7
+            </Badge>
+          </div>
+        )}
+
+        <Link href={`/provider/${provider.slug}`} className="block group flex-1">
+          <h3 className="text-base font-semibold text-neutral-900 group-hover:text-primary transition-colors pr-16">
+            {provider.name}
+          </h3>
+          <div className="flex items-center gap-1.5 mt-1">
+            <MapPin className="w-3.5 h-3.5 text-neutral-400 shrink-0" aria-hidden="true" />
+            <span className="text-xs text-neutral-500 truncate">
+              {getAreaLabel(provider.area)}
+            </span>
           </div>
 
-          {isEmergency && (
-            <div className="absolute -top-2.5 left-4">
-              <Badge variant="emergency">
-                <Siren className="w-3 h-3" aria-hidden="true" /> 24/7
-              </Badge>
-            </div>
-          )}
-
-          <div className="flex items-start justify-between gap-3 mb-3">
-            <div className="flex-1 min-w-0">
-              <h3 className="text-base font-medium text-bluey-navy group-hover:text-bluey-primary transition-colors truncate">
-                {provider.name}
-              </h3>
-              <div className="flex items-center gap-1.5 mt-1">
-                <MapPin className="w-3 h-3 text-bluey-navy/30 flex-shrink-0" aria-hidden="true" />
-                <span className="text-xs text-bluey-navy/40 truncate">
-                  {getAreaLabel(provider.area)}
-                </span>
-              </div>
-            </div>
-
-            {rating !== "N/A" ? (
-              <div className="flex items-center gap-1 flex-shrink-0">
-                <Star className="w-3.5 h-3.5 text-bluey-gold fill-bluey-gold" aria-hidden="true" />
-                <span className="text-sm font-medium text-bluey-navy">{rating}</span>
+          <div className="flex items-center gap-2 mt-3">
+            {rating !== "Unrated" ? (
+              <div className="flex items-center gap-1">
+                <Star className="w-3.5 h-3.5 text-amber-500 fill-amber-500" aria-hidden="true" />
+                <span className="text-sm font-medium text-neutral-800">{rating}</span>
               </div>
             ) : (
-              <span className="text-[10px] text-bluey-navy/30 uppercase tracking-wider flex-shrink-0">Unrated</span>
+              <span className="text-[10px] text-neutral-400 uppercase tracking-wider">Unrated</span>
             )}
           </div>
 
-          <div className="flex flex-wrap gap-1.5 mb-3">
-            <Badge>{getCategoryLabel(provider.category)}</Badge>
-            {provider.priority === "High" && <Badge variant="gold">Top Pick</Badge>}
+          <div className="flex flex-wrap gap-1.5 mt-3">
+            <Badge variant="outline">{getCategoryLabel(provider.category)}</Badge>
+            {provider.isTopPick && <Badge variant="primary">Top Pick</Badge>}
             {isAtHome && (
-              <Badge>
+              <Badge variant="outline">
                 <Home className="w-3 h-3" aria-hidden="true" /> Home Visit
               </Badge>
             )}
-            {audit && (
-              <div
-                className="relative"
-                onMouseEnter={() => setShowTooltip(true)}
-                onMouseLeave={() => setShowTooltip(false)}
-              >
-                <button
-                  type="button"
-                  className="focus:outline-none focus:ring-2 focus:ring-bluey-primary focus:ring-offset-1 rounded-md"
-                  aria-label={`Trust badge: ${audit.verdict}. ${audit.keyFindings.substring(0, 60)}`}
-                  onClick={(e) => {
-                    e.preventDefault();
-                    e.stopPropagation();
-                    setShowTooltip(!showTooltip);
-                  }}
-                  onKeyDown={(e) => {
-                    if (e.key === "Escape") setShowTooltip(false);
-                  }}
-                >
-                  <Badge variant="verdict" verdict={audit.verdict}>
-                    <VerdictIcon verdict={audit.verdict} />
-                    {audit.verdict}
-                  </Badge>
-                </button>
-                {showTooltip && (
-                  <div className="absolute z-50 bottom-full left-0 mb-2 w-64 bg-white rounded-lg shadow-lg border border-bluey-pale/40 p-3" role="tooltip">
-                    <p className="text-xs font-medium text-bluey-navy mb-1">{audit.verdict}</p>
-                    <p className="text-[11px] text-bluey-navy/50 leading-relaxed">{audit.keyFindings}</p>
-                    {hasRedFlags(audit.redFlags) && (
-                      <p className="text-[11px] text-red-500 mt-1">{audit.redFlags}</p>
-                    )}
-                  </div>
+            <TrustBadge verdict={provider.trustVerdict} summary={provider.trustSummary} />
+          </div>
+
+          <p className="text-sm font-mono font-semibold text-primary mt-3">
+            {provider.consultationFee === "Varies" || !provider.consultationFee
+              ? "Contact for pricing"
+              : provider.consultationFee}
+          </p>
+
+          <div className={cn("mt-3", expanded ? "block" : "hidden md:block")}>
+            <p className="text-xs text-neutral-500 line-clamp-2 leading-relaxed">
+              {servicesText(provider)}
+            </p>
+            <div className="flex items-center gap-2 mt-3 text-xs text-neutral-500 flex-wrap">
+              <span
+                className={cn(
+                  "inline-flex items-center gap-1 rounded-full px-2 py-0.5",
+                  status.state === "open" || status.state === "open247"
+                    ? "bg-emerald-50 text-emerald-800"
+                    : "bg-neutral-100 text-neutral-600"
                 )}
-              </div>
-            )}
-          </div>
-
-          {provider.consultationFee && (
-            <p className="text-sm font-medium text-bluey-primary mb-2">
-              {provider.consultationFee === "Varies" ? "Contact for pricing" : provider.consultationFee}
-            </p>
-          )}
-
-          <div className={`${expanded ? "block" : "hidden"} md:block`}>
-            <p className="text-xs text-bluey-navy/40 line-clamp-1 mb-3 leading-relaxed">
-              {provider.services}
-            </p>
-
-            {provider.timings && (
-              <div className="flex items-center gap-1 text-xs text-bluey-navy/40 pt-3 border-t border-bluey-pale/40">
+              >
                 <Clock className="w-3 h-3" aria-hidden="true" />
-                <span className="truncate">{provider.timings}</span>
-              </div>
-            )}
+                {status.label}
+              </span>
+            </div>
           </div>
+        </Link>
 
-          <button
-            className="md:hidden flex items-center justify-center w-full pt-2 text-[11px] text-bluey-primary uppercase tracking-wider font-medium gap-1"
-            onClick={(e) => {
-              e.preventDefault();
-              e.stopPropagation();
-              setExpanded(!expanded);
-            }}
-            aria-label={expanded ? "Show less details" : "Show more details"}
+        <div className="mt-4 flex flex-col sm:flex-row gap-2 pt-3 border-t border-neutral-100">
+          <Link
+            href={`/provider/${provider.slug}`}
+            className="flex-1 inline-flex items-center justify-center rounded-lg border border-neutral-200 py-2.5 text-xs font-semibold uppercase tracking-wide text-neutral-700 hover:bg-neutral-50 min-h-[44px]"
           >
-            {expanded ? "Less" : "Details"}
-            <ChevronDown className={`w-3 h-3 transition-transform ${expanded ? "rotate-180" : ""}`} aria-hidden="true" />
-          </button>
+            Details
+          </Link>
+          {wa && (
+            <a
+              href={wa}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-[#25D366] py-2.5 text-xs font-semibold uppercase tracking-wide text-white min-h-[44px]"
+            >
+              <MessageCircle className="w-4 h-4" aria-hidden="true" />
+              WhatsApp
+            </a>
+          )}
+          {phone && (
+            <a
+              href={`tel:${phone}`}
+              className="flex-1 inline-flex items-center justify-center gap-2 rounded-lg bg-primary py-2.5 text-xs font-semibold uppercase tracking-wide text-white min-h-[44px]"
+            >
+              <Phone className="w-4 h-4" aria-hidden="true" />
+              Call
+            </a>
+          )}
         </div>
-      </Link>
+
+        <button
+          type="button"
+          className="md:hidden flex items-center justify-center w-full pt-2 text-xs text-primary font-semibold uppercase tracking-wide gap-1"
+          onClick={() => setExpanded(!expanded)}
+        >
+          {expanded ? "Less" : "More"}
+          <ChevronDown className={cn("w-3 h-3 transition-transform", expanded && "rotate-180")} />
+        </button>
+      </div>
     </div>
   );
 }

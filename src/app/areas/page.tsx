@@ -48,7 +48,7 @@ export default function AreasIndexPage() {
                   {area.name}
                 </h2>
                 <Badge
-                  variant={area.readiness === "HIGH" ? "gold" : "default"}
+                  variant={area.readiness === "HIGH" ? "primary" : "default"}
                 >
                   {area.readiness}
                 </Badge>

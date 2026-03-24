@@ -1,0 +1,42 @@
+[
+  {
+    "id": "kalyani-nagar",
+    "name": "Kalyani Nagar",
+    "description": "Dense pet services near Hermes Koregaon Park Annexe; strong vet and store coverage.",
+    "density": "high",
+    "providerCount": 15,
+    "topRatedCount": 9,
+    "emergencyVet": "Crown Vet (24/7)",
+    "coordinates": { "lat": 18.5485, "lng": 73.9015 }
+  },
+  {
+    "id": "viman-nagar",
+    "name": "Viman Nagar",
+    "description": "Airport-side neighbourhood with mixed boarding, training, and clinic options.",
+    "density": "high",
+    "providerCount": 20,
+    "topRatedCount": 6,
+    "emergencyVet": "Dr. Pet Clinic (24/7)",
+    "coordinates": { "lat": 18.5679, "lng": 73.9143 }
+  },
+  {
+    "id": "kharadi",
+    "name": "Kharadi",
+    "description": "IT corridor growth area — newer salons and boarding, fewer 24/7 vets.",
+    "density": "medium",
+    "providerCount": 17,
+    "topRatedCount": 9,
+    "emergencyVet": "Use nearest 24/7 (Viman/Hadapsar)",
+    "coordinates": { "lat": 18.5549, "lng": 73.9406 }
+  },
+  {
+    "id": "hadapsar",
+    "name": "Hadapsar",
+    "description": "Largest spread; many boarding and vet options toward Mundhwa and Manjri.",
+    "density": "high",
+    "providerCount": 28,
+    "topRatedCount": 16,
+    "emergencyVet": "My Pet Care / Raintree (24/7)",
+    "coordinates": { "lat": 18.4967, "lng": 73.9418 }
+  }
+]

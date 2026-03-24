@@ -1,18 +1,26 @@
 import { ShieldCheck, AlertTriangle, XCircle, Ban } from "lucide-react";
+import type { TrustVerdict } from "@/lib/types";
 
 interface VerdictIconProps {
-  verdict: string;
+  verdict: TrustVerdict | string;
   size?: "sm" | "md";
 }
 
 export function VerdictIcon({ verdict, size = "sm" }: VerdictIconProps) {
   const cls = size === "sm" ? "w-3 h-3" : "w-5 h-5";
-  const colorCls = size === "sm" ? "" : verdict.startsWith("LEGIT") ? "text-green-600" : verdict === "CAUTION" ? "text-orange-600" : verdict === "WEAK" ? "text-gray-600" : "text-red-600";
-  const finalCls = `${cls} ${colorCls}`;
-
-  if (verdict.startsWith("LEGIT")) return <ShieldCheck className={finalCls} aria-hidden="true" />;
-  if (verdict === "CAUTION") return <AlertTriangle className={finalCls} aria-hidden="true" />;
-  if (verdict === "WEAK") return <XCircle className={finalCls} aria-hidden="true" />;
-  if (verdict === "AVOID" || verdict === "BLACKLIST") return <Ban className={finalCls} aria-hidden="true" />;
-  return <AlertTriangle className={finalCls} aria-hidden="true" />;
+  if (typeof verdict === "string" && verdict.startsWith("LEGIT")) {
+    return <ShieldCheck className={`${cls} text-[var(--color-trust-legit)]`} aria-hidden="true" />;
+  }
+  switch (verdict as TrustVerdict) {
+    case "legit":
+      return <ShieldCheck className={`${cls} text-[var(--color-trust-legit)]`} aria-hidden="true" />;
+    case "caution":
+      return <AlertTriangle className={`${cls} text-[var(--color-trust-caution)]`} aria-hidden="true" />;
+    case "weak":
+      return <XCircle className={`${cls} text-[var(--color-trust-weak)]`} aria-hidden="true" />;
+    case "blacklisted":
+      return <Ban className={`${cls} text-[var(--color-trust-blacklist)]`} aria-hidden="true" />;
+    default:
+      return <AlertTriangle className={cls} aria-hidden="true" />;
+  }
 }

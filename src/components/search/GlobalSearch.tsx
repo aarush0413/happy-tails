@@ -1,18 +1,38 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { useState, useEffect, useMemo, useCallback } from "react";
 import { useRouter } from "next/navigation";
-import { Search, X, MapPin, Star, Siren, ArrowRight } from "lucide-react";
-import { Provider } from "@/lib/types";
-import { formatRating as formatRatingUtil, getAreaLabel } from "@/lib/utils";
+import { Command } from "cmdk";
+import { Search, MapPin, FileText, LayoutGrid } from "lucide-react";
+import type { Provider } from "@/lib/types";
+import { CATEGORIES, AREAS } from "@/lib/constants";
+import { BLOG_POSTS } from "@/lib/blog-posts";
+import { createProviderFuse } from "@/lib/search";
+import {
+  Dialog,
+  DialogContent,
+  DialogTitle,
+} from "@/components/ui/dialog";
+import { cn } from "@/lib/cn";
 
-function useDebounce<T>(value: T, delay: number): T {
-  const [debounced, setDebounced] = useState(value);
-  useEffect(() => {
-    const timer = setTimeout(() => setDebounced(value), delay);
-    return () => clearTimeout(timer);
-  }, [value, delay]);
-  return debounced;
+const RECENT_KEY = "happy-tails-search-recent";
+const MAX_RECENT = 6;
+
+function loadRecent(): string[] {
+  if (typeof window === "undefined") return [];
+  try {
+    const r = localStorage.getItem(RECENT_KEY);
+    return r ? (JSON.parse(r) as string[]) : [];
+  } catch {
+    return [];
+  }
+}
+
+function pushRecent(q: string) {
+  if (!q.trim() || typeof window === "undefined") return;
+  const prev = loadRecent().filter((x) => x !== q);
+  prev.unshift(q);
+  localStorage.setItem(RECENT_KEY, JSON.stringify(prev.slice(0, MAX_RECENT)));
 }
 
 interface GlobalSearchProps {
@@ -21,175 +41,204 @@ interface GlobalSearchProps {
 
 export function GlobalSearch({ providers }: GlobalSearchProps) {
   const [open, setOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const [selectedIndex, setSelectedIndex] = useState(0);
-  const inputRef = useRef<HTMLInputElement>(null);
+  const [q, setQ] = useState("");
   const router = useRouter();
-
-  const debouncedQuery = useDebounce(query, 200);
+  const fuse = useMemo(() => createProviderFuse(providers), [providers]);
 
   const results = useMemo(() => {
-    if (debouncedQuery.length < 2) return [];
-    const q = debouncedQuery.toLowerCase();
-    return providers
-      .filter((p) =>
-        p.name.toLowerCase().includes(q) ||
-        p.services.toLowerCase().includes(q) ||
-        p.address.toLowerCase().includes(q) ||
-        p.area.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q)
-      )
-      .slice(0, 8);
-  }, [debouncedQuery, providers]);
+    const query = q.trim().toLowerCase();
+    if (!query) {
+      return {
+        providers: [] as Provider[],
+        categories: [] as typeof CATEGORIES,
+        areas: [] as typeof AREAS,
+        posts: [] as (typeof BLOG_POSTS)[number][],
+      };
+    }
+    const fp = fuse.search(query).slice(0, 8).map((r) => r.item as Provider);
+    const categories = CATEGORIES.filter(
+      (c) =>
+        c.name.toLowerCase().includes(query) ||
+        c.slug.includes(query) ||
+        c.description.toLowerCase().includes(query)
+    );
+    const areas = AREAS.filter(
+      (a) =>
+        a.name.toLowerCase().includes(query) ||
+        a.slug.includes(query) ||
+        a.description.toLowerCase().includes(query)
+    );
+    const posts = BLOG_POSTS.filter(
+      (p) =>
+        p.title.toLowerCase().includes(query) ||
+        p.description.toLowerCase().includes(query)
+    );
+    return { providers: fp, categories, areas, posts };
+  }, [q, fuse]);
 
-  const close = useCallback(() => {
-    setOpen(false);
-    setQuery("");
-    setSelectedIndex(0);
+  const onSelect = useCallback(
+    (href: string) => {
+      pushRecent(q);
+      setOpen(false);
+      setQ("");
+      router.push(href);
+    },
+    [q, router]
+  );
+
+  useEffect(() => {
+    const down = (e: KeyboardEvent) => {
+      if (e.key === "k" && (e.metaKey || e.ctrlKey)) {
+        e.preventDefault();
+        setOpen((o) => !o);
+      }
+    };
+    document.addEventListener("keydown", down);
+    return () => document.removeEventListener("keydown", down);
   }, []);
 
-  useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
-      if ((e.metaKey || e.ctrlKey) && e.key === "k") {
-        e.preventDefault();
-        setOpen((prev) => !prev);
-      }
-      if (e.key === "Escape") close();
-    }
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [close]);
-
-  useEffect(() => {
-    if (open) {
-      setTimeout(() => inputRef.current?.focus(), 50);
-    }
-  }, [open]);
-
-  useEffect(() => {
-    setSelectedIndex(0);
-  }, [query]);
-
-  function navigate(id: string) {
-    close();
-    router.push(`/provider/${id}`);
-  }
-
-  function handleKeyDown(e: React.KeyboardEvent) {
-    if (e.key === "ArrowDown") {
-      e.preventDefault();
-      setSelectedIndex((i) => Math.min(i + 1, results.length - 1));
-    } else if (e.key === "ArrowUp") {
-      e.preventDefault();
-      setSelectedIndex((i) => Math.max(i - 1, 0));
-    } else if (e.key === "Enter" && results[selectedIndex]) {
-      navigate(results[selectedIndex].id);
-    }
-  }
+  const [recent, setRecent] = useState<string[]>([]);
+  useEffect(() => setRecent(loadRecent()), [open]);
 
   return (
     <>
       <button
+        type="button"
         onClick={() => setOpen(true)}
-        className="flex items-center gap-2 px-3 py-1.5 bg-bluey-ice/50 border border-bluey-pale/40 rounded-lg text-[11px] text-bluey-navy/40 hover:border-bluey-navy/20 transition-colors"
-        aria-label="Search providers"
+        className="hidden md:flex items-center gap-2 rounded-lg border border-neutral-200 bg-white px-3 py-2 text-sm text-neutral-500 shadow-sm hover:border-primary/30 hover:bg-primary-muted/50 min-w-[200px] lg:min-w-[260px] transition-colors"
+        aria-label="Open search"
       >
-        <Search className="w-3.5 h-3.5" aria-hidden="true" />
-        <span className="hidden sm:inline">Search...</span>
-        <kbd className="hidden sm:inline-flex items-center gap-0.5 px-1.5 py-0.5 bg-white rounded text-[9px] font-mono text-bluey-navy/30 border border-bluey-pale/40">
-          Ctrl K
+        <Search className="h-4 w-4 shrink-0 opacity-50" aria-hidden="true" />
+        <span className="flex-1 text-left truncate">Search vets, groomers, areas…</span>
+        <kbd className="pointer-events-none hidden lg:inline-flex h-5 select-none items-center gap-1 rounded border bg-neutral-50 px-1.5 font-mono text-[10px] font-medium text-neutral-500">
+          ⌘K
         </kbd>
       </button>
+      <button
+        type="button"
+        onClick={() => setOpen(true)}
+        className="md:hidden p-2 rounded-lg border border-neutral-200 bg-white"
+        aria-label="Open search"
+      >
+        <Search className="h-5 w-5 text-primary" aria-hidden="true" />
+      </button>
 
-      {open && (
-        <div className="fixed inset-0 z-[100]" onClick={close}>
-          <div className="absolute inset-0 bg-black/50 backdrop-blur-sm" />
-          <div className="relative max-w-xl mx-auto mt-[15vh] px-4" onClick={(e) => e.stopPropagation()}>
-            <div className="bg-white rounded-xl shadow-2xl border border-bluey-pale/40 overflow-hidden">
-              <div className="flex items-center gap-3 px-4 border-b border-bluey-pale/30">
-                <Search className="w-4 h-4 text-bluey-navy/30 flex-shrink-0" aria-hidden="true" />
-                <input
-                  ref={inputRef}
-                  type="text"
-                  value={query}
-                  onChange={(e) => setQuery(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Search providers, services, areas..."
-                  className="flex-1 py-4 text-sm text-bluey-navy placeholder:text-bluey-navy/30 focus:outline-none"
-                  aria-label="Search providers, services, areas"
-                />
-                <button onClick={close} className="p-1 hover:bg-bluey-ice rounded-lg transition-colors" aria-label="Close search">
-                  <X className="w-4 h-4 text-bluey-navy/30" aria-hidden="true" />
-                </button>
-              </div>
-
-              {debouncedQuery.length >= 2 && (
-                <div className="max-h-[50vh] overflow-y-auto">
-                  {results.length === 0 ? (
-                    <div className="px-4 py-8 text-center">
-                      <p className="text-sm text-bluey-navy/30">No providers found for &ldquo;{debouncedQuery}&rdquo;</p>
-                    </div>
-                  ) : (
-                    <ul role="listbox">
-                      {results.map((p, i) => {
-                        const rFormatted = formatRatingUtil(p.rating);
-                        const r = rFormatted !== "N/A" ? rFormatted : null;
-                        return (
-                          <li
-                            key={p.id}
-                            role="option"
-                            aria-selected={i === selectedIndex}
-                            onClick={() => navigate(p.id)}
-                            className={`flex items-center gap-3 px-4 py-3 cursor-pointer transition-colors ${
-                              i === selectedIndex ? "bg-bluey-ice" : "hover:bg-bluey-ice/50"
-                            }`}
-                          >
-                            <div className="flex-1 min-w-0">
-                              <div className="flex items-center gap-2">
-                                <span className="text-sm font-medium text-bluey-navy truncate">{p.name}</span>
-                                {p.emergency24_7 && (
-                                  <span className="inline-flex items-center gap-0.5 text-[9px] uppercase tracking-wider font-medium text-red-500 bg-red-50 px-1.5 py-0.5 rounded-full">
-                                    <Siren className="w-2.5 h-2.5" aria-hidden="true" /> 24/7
-                                  </span>
-                                )}
-                              </div>
-                              <div className="flex items-center gap-3 mt-0.5">
-                                <span className="flex items-center gap-1 text-xs text-bluey-navy/40">
-                                  <MapPin className="w-3 h-3" aria-hidden="true" />
-                                  {getAreaLabel(p.area)}
-                                </span>
-                                {r && (
-                                  <span className="flex items-center gap-0.5 text-xs text-bluey-navy/60">
-                                    <Star className="w-3 h-3 fill-bluey-gold text-bluey-gold" aria-hidden="true" />
-                                    {r}
-                                  </span>
-                                )}
-                              </div>
-                            </div>
-                            <ArrowRight className="w-3.5 h-3.5 text-bluey-navy/20 flex-shrink-0" aria-hidden="true" />
-                          </li>
-                        );
-                      })}
-                    </ul>
-                  )}
-                </div>
-              )}
-
-              {debouncedQuery.length < 2 && (
-                <div className="px-4 py-6 text-center">
-                  <p className="text-sm text-bluey-navy/30">Type at least 2 characters to search</p>
-                </div>
-              )}
-
-              <div className="px-4 py-2 border-t border-bluey-pale/30 flex items-center gap-4 text-[9px] text-bluey-navy/20 uppercase tracking-wider">
-                <span><kbd className="px-1 py-0.5 bg-bluey-ice rounded font-mono">↑↓</kbd> Navigate</span>
-                <span><kbd className="px-1 py-0.5 bg-bluey-ice rounded font-mono">Enter</kbd> Select</span>
-                <span><kbd className="px-1 py-0.5 bg-bluey-ice rounded font-mono">Esc</kbd> Close</span>
-              </div>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogContent className="max-w-xl p-0 gap-0 overflow-hidden border-neutral-200">
+          <DialogTitle className="sr-only">Search Happy Tails</DialogTitle>
+          <Command shouldFilter={false} className="rounded-lg">
+            <div className="flex items-center border-b border-neutral-200 px-3">
+              <Search className="mr-2 h-4 w-4 shrink-0 text-neutral-400" aria-hidden="true" />
+              <Command.Input
+                placeholder="Search vets, groomers, areas, blog…"
+                value={q}
+                onValueChange={setQ}
+                className="flex h-12 w-full bg-transparent py-3 text-sm outline-none placeholder:text-neutral-400"
+              />
             </div>
-          </div>
-        </div>
-      )}
+            <Command.List className="max-h-[min(60vh,420px)] overflow-y-auto p-2">
+              {!q.trim() && recent.length > 0 && (
+                <Command.Group heading="Recent">
+                  {recent.map((r) => (
+                    <Command.Item
+                      key={r}
+                      value={r}
+                      onSelect={() => setQ(r)}
+                      className="flex cursor-pointer rounded-md px-2 py-2 text-sm text-neutral-700 aria-selected:bg-primary-muted"
+                    >
+                      {r}
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )}
+              <Command.Empty className="py-8 text-center text-sm text-neutral-500">
+                No results. Try a category or area name.
+              </Command.Empty>
+
+              {results.providers.length > 0 && (
+                <Command.Group
+                  heading="Providers"
+                  className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1"
+                >
+                  {results.providers.map((p) => (
+                    <Command.Item
+                      key={p.id}
+                      value={`${p.name} ${p.id}`}
+                      onSelect={() => onSelect(`/provider/${p.slug}`)}
+                      className={cn(
+                        "flex cursor-pointer flex-col gap-0.5 rounded-md px-2 py-2 aria-selected:bg-primary-muted"
+                      )}
+                    >
+                      <span className="font-medium text-neutral-900">{p.name}</span>
+                      <span className="text-xs text-neutral-500 flex items-center gap-1">
+                        <MapPin className="h-3 w-3" aria-hidden="true" />
+                        {p.area.replace(/-/g, " ")}
+                      </span>
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )}
+
+              {results.categories.length > 0 && (
+                <Command.Group
+                  heading="Categories"
+                  className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1"
+                >
+                  {results.categories.map((c) => (
+                    <Command.Item
+                      key={c.slug}
+                      value={c.name}
+                      onSelect={() => onSelect(`/category/${c.slug}`)}
+                      className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 aria-selected:bg-primary-muted"
+                    >
+                      <LayoutGrid className="h-4 w-4 text-primary" aria-hidden="true" />
+                      <span className="text-sm">{c.name}</span>
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )}
+
+              {results.areas.length > 0 && (
+                <Command.Group
+                  heading="Areas"
+                  className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1"
+                >
+                  {results.areas.map((a) => (
+                    <Command.Item
+                      key={a.slug}
+                      value={a.name}
+                      onSelect={() => onSelect(`/area/${a.slug}`)}
+                      className="flex cursor-pointer items-center gap-2 rounded-md px-2 py-2 aria-selected:bg-primary-muted"
+                    >
+                      <MapPin className="h-4 w-4 text-accent" aria-hidden="true" />
+                      <span className="text-sm">{a.name}</span>
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )}
+
+              {results.posts.length > 0 && (
+                <Command.Group
+                  heading="Blog"
+                  className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 px-2 py-1"
+                >
+                  {results.posts.map((p) => (
+                    <Command.Item
+                      key={p.slug}
+                      value={p.title}
+                      onSelect={() => onSelect(`/blog/${p.slug}`)}
+                      className="flex cursor-pointer items-start gap-2 rounded-md px-2 py-2 aria-selected:bg-primary-muted"
+                    >
+                      <FileText className="h-4 w-4 mt-0.5 text-neutral-400 shrink-0" aria-hidden="true" />
+                      <span className="text-sm">{p.title}</span>
+                    </Command.Item>
+                  ))}
+                </Command.Group>
+              )}
+            </Command.List>
+          </Command>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }
