@@ -32,18 +32,29 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ## Deployment
 
-Deploy to Vercel:
+This repo is linked to the Vercel project **`happytails`** (team: `aarushsaxena1304-7825s-projects`). Production alias: **`https://happy-tails-coral.vercel.app`**.
+
+Deploy the current folder to production:
 
 ```bash
-npx vercel
+npx vercel deploy --prod --yes
 ```
 
-Or connect your GitHub repo to [vercel.com](https://vercel.com) for automatic deployments.
+Git pushes only update **www.happytails.co.in** if the GitHub integration is attached to this same Vercel project **and** the production branch matches (`main`).
+
+### If the custom domain shows an old site
+
+The Vercel deployment with the latest code is **`happy-tails-coral.vercel.app`**. If that URL is new but **www.happytails.co.in** is still old, the domain is pointed at a **different** Vercel project (or stale DNS).
+
+1. Open [Vercel Dashboard](https://vercel.com) → find the project that shows deployment **`happy-tails-coral`** / **`happytails`**.
+2. **Settings → Domains** → add `happytails.co.in` and `www.happytails.co.in`.
+3. If Vercel says the domain is already in use, open the **other** project that owns it → **remove** the domain there → add it on **`happytails`**.
+4. Apply the DNS records Vercel shows (or fix the CNAME at your registrar / Cloudflare).
 
 ## Live Domain
 
-- Primary URL: `https://happytails.co.in`
-- Secondary URL: `https://www.happytails.co.in`
+- Intended: `https://happytails.co.in` and `https://www.happytails.co.in` (must be attached to the **`happytails`** project above).
+- Verify latest build: open **`https://happy-tails-coral.vercel.app`** — it should match production before fixing DNS.
 
 ## AdSense Setup
 
