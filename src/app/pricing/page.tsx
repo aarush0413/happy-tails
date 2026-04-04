@@ -15,7 +15,7 @@ export default function PricingPage() {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-neutral-900 via-primary/90 to-neutral-50 py-14 sm:py-20">
+      <section className="bg-gradient-to-b from-[var(--color-section-dark)] via-primary/90 to-neutral-50 py-14 sm:py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-[10px] uppercase tracking-[0.25em] text-accent font-medium mb-4">Transparency</p>
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight">

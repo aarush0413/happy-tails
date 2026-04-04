@@ -64,7 +64,7 @@ export function CompareDrawer() {
                 type="button"
                 onClick={() => setCompareOpen(true)}
                 disabled={compareList.length < 2}
-                className="px-5 py-2.5 bg-neutral-900 text-white text-xs uppercase tracking-wide font-semibold rounded-lg hover:bg-neutral-800 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[44px]"
+                className="px-5 py-2.5 bg-[var(--color-section-dark)] text-white text-xs uppercase tracking-wide font-semibold rounded-lg hover:bg-sky-950 transition-colors disabled:opacity-40 disabled:cursor-not-allowed min-h-[44px]"
               >
                 Quick view ({compareList.length})
               </button>

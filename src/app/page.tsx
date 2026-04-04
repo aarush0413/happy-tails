@@ -94,7 +94,7 @@ export default function HomePage() {
         dangerouslySetInnerHTML={{ __html: JSON.stringify(itemListSchema) }}
       />
 
-      <section className="relative overflow-hidden bg-gradient-to-b from-neutral-50 via-primary-muted/40 to-neutral-50 border-b border-neutral-200">
+      <section className="relative overflow-hidden bg-gradient-to-b from-white via-primary-muted/50 to-sky-50/80 border-b border-sky-100/80">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28">
           <div className="max-w-3xl animate-fadeIn">
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-4">
@@ -194,7 +194,7 @@ export default function HomePage() {
         </div>
       </AnimatedSection>
 
-      <AnimatedSection className="bg-neutral-900 text-white py-20" delay={0.1}>
+      <AnimatedSection className="bg-[var(--color-section-dark)] text-white py-20" delay={0.1}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="font-display text-3xl font-bold">How we rate providers</h2>
@@ -328,7 +328,7 @@ export default function HomePage() {
         </div>
       </AnimatedSection>
 
-      <AnimatedSection className="bg-neutral-900 py-16" delay={0.2}>
+      <AnimatedSection className="bg-[var(--color-section-dark)] py-16" delay={0.2}>
         <div className="max-w-7xl mx-auto px-4 text-center">
           <div className="flex flex-wrap justify-center gap-8 text-white/80 text-sm">
             <div className="flex items-center gap-2">

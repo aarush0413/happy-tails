@@ -2,43 +2,47 @@
 @plugin "tailwindcss-animate";
 
 @theme {
-  /* Brand */
-  --color-primary: #1b4d3e;
-  --color-primary-light: #2d7a5f;
-  --color-primary-muted: #e8f5ee;
-  --color-accent: #e85d2a;
-  --color-accent-light: #fff0eb;
-  --color-trust-legit: #16a34a;
-  --color-trust-caution: #eab308;
+  /* Brand — sky blue + white; text ladder warm stone / light brown */
+  --color-primary: #0284c7;
+  --color-primary-light: #0ea5e9;
+  --color-primary-muted: #e0f2fe;
+  --color-accent: #c2410c;
+  --color-accent-light: #fff7ed;
+  --color-trust-legit: #15803d;
+  --color-trust-caution: #ca8a04;
   --color-trust-weak: #dc2626;
-  --color-trust-blacklist: #1f2937;
+  --color-trust-blacklist: #44403c;
   --color-emergency-bg: #fef2f2;
   --color-emergency: #dc2626;
 
+  /* Warm neutrals (light brown / stone for body copy) */
   --color-neutral-50: #fafaf9;
   --color-neutral-100: #f5f5f4;
   --color-neutral-200: #e7e5e4;
   --color-neutral-500: #78716c;
-  --color-neutral-800: #292524;
-  --color-neutral-900: #1c1917;
+  --color-neutral-800: #44403c;
+  --color-neutral-900: #292524;
+
+  /* Dark UI bands (footer, marketing strips) — sky-navy */
+  --color-section-dark: #0c4a6e;
 
   /* shadcn semantic */
-  --color-background: var(--color-neutral-50);
-  --color-foreground: var(--color-neutral-800);
+  --color-background: #ffffff;
+  --color-foreground: #44403c;
   --color-card: #ffffff;
-  --color-card-foreground: var(--color-neutral-800);
+  --color-card-foreground: #44403c;
   --color-popover: #ffffff;
-  --color-popover-foreground: var(--color-neutral-800);
+  --color-popover-foreground: #44403c;
   --color-primary-foreground: #ffffff;
   --color-secondary: var(--color-neutral-100);
   --color-secondary-foreground: var(--color-neutral-900);
-  --color-muted: var(--color-neutral-100);
-  --color-muted-foreground: var(--color-neutral-500);
-  --color-accent-foreground: var(--color-neutral-900);
+  --color-muted: #f5f5f4;
+  --color-muted-foreground: #78716c;
+  --color-accent-foreground: #ffffff;
   --color-destructive: #dc2626;
   --color-destructive-foreground: #ffffff;
-  --color-border: var(--color-neutral-200);
-  --color-input: var(--color-neutral-200);
+  --color-border: #e7e5e4;
+  --color-input: #e7e5e4;
   --color-ring: var(--color-primary);
 
   --radius-lg: 0.5rem;
@@ -121,6 +125,28 @@
 
 .animate-emergency-pulse {
   animation: emergency-pulse 5s ease-in-out infinite;
+}
+
+/* Fast scroll on phones: avoid starting at opacity 0 */
+@media (max-width: 768px) {
+  @keyframes fadeInUp {
+    from {
+      opacity: 1;
+      transform: translateY(6px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  @keyframes fadeIn {
+    from {
+      opacity: 1;
+    }
+    to {
+      opacity: 1;
+    }
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

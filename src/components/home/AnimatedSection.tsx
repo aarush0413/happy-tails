@@ -24,14 +24,15 @@ export function AnimatedSection({
     );
   }
 
+  /* Opacity stays 1: fast scroll never leaves content invisible (no white “holes”). */
   return (
     <motion.section
       id={id}
       className={className}
-      initial={{ opacity: 0, y: 16 }}
+      initial={{ opacity: 1, y: 10 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-24px", amount: 0.12 }}
-      transition={{ duration: 0.5, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
+      viewport={{ once: true, margin: "80px 0px 80px 0px", amount: 0.08 }}
+      transition={{ duration: 0.45, delay, ease: [0.25, 0.46, 0.45, 0.94] }}
     >
       {children}
     </motion.section>

@@ -19,7 +19,7 @@ export default function FavoritesPage() {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-neutral-900 via-primary/90 to-neutral-50 py-14 sm:py-20">
+      <section className="bg-gradient-to-b from-[var(--color-section-dark)] via-primary/90 to-neutral-50 py-14 sm:py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Breadcrumb items={[{ label: "Favorites" }]} />
           <div className="flex items-center gap-3 mt-2 mb-2">

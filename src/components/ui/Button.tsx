@@ -31,7 +31,8 @@ export function Button({
 
   const variants: Record<string, string> = {
     primary: "bg-primary text-white hover:bg-primary-light shadow-sm",
-    secondary: "bg-neutral-900 text-white hover:bg-neutral-800 shadow-sm",
+    secondary:
+      "bg-[var(--color-section-dark)] text-white hover:bg-sky-950 shadow-sm",
     outline:
       "border border-primary text-primary hover:bg-primary-muted bg-transparent",
     emergency: "bg-[var(--color-emergency)] text-white hover:bg-red-700 shadow-sm animate-emergency-pulse",

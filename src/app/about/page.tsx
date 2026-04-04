@@ -15,7 +15,7 @@ export default function AboutPage() {
 
   return (
     <div>
-      <section className="bg-gradient-to-b from-neutral-900 via-primary/90 to-neutral-900 py-20 sm:py-28">
+      <section className="bg-gradient-to-b from-[var(--color-section-dark)] via-primary/90 to-[var(--color-section-dark)] py-20 sm:py-28">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <p className="text-[10px] uppercase tracking-[0.25em] text-accent font-medium mb-6">
             Our Story
@@ -73,7 +73,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="bg-neutral-900 text-white py-20">
+      <section className="bg-[var(--color-section-dark)] text-white py-20">
         <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
           <p className="text-[10px] uppercase tracking-[0.25em] text-accent font-medium text-center mb-10">
             By the Numbers
@@ -85,7 +85,7 @@ export default function AboutPage() {
               { value: String(AREAS.length), label: "Areas" },
               { value: String(totalAudits), label: "Audits" },
             ].map((stat) => (
-              <div key={stat.label} className="text-center bg-neutral-900 p-8">
+              <div key={stat.label} className="text-center bg-[var(--color-section-dark)] p-8">
                 <p className="text-3xl sm:text-4xl font-display font-semibold text-white">
                   {stat.value}
                 </p>

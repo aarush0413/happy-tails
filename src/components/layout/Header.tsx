@@ -6,7 +6,7 @@ import { GlobalSearchWrapper } from "@/components/search/GlobalSearchWrapper";
 
 export function Header() {
   return (
-    <header className="sticky top-0 z-50 border-b border-neutral-200/80 bg-white/95 backdrop-blur-md">
+    <header className="sticky top-0 z-50 border-b border-sky-100/90 bg-white/95 backdrop-blur-md">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between gap-4 h-16 md:h-[4.25rem]">
           <Link href="/" className="flex items-center gap-2 shrink-0 group">

@@ -4,8 +4,8 @@
   "description": "Pune metro's honest pet services directory. Find verified vets, groomers, boarding, training & more.",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#FFFFFD",
-  "theme_color": "#0096DB",
+  "background_color": "#ffffff",
+  "theme_color": "#0284c7",
   "orientation": "portrait-primary",
   "categories": ["lifestyle", "health"],
   "icons": [
