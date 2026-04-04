@@ -6,7 +6,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Breadcrumb } from "@/components/ui/Breadcrumb";
 
 export const metadata: Metadata = {
-  title: "Pet Service Areas in East Pune",
+  title: "Pet Service Areas in Pune Metro",
   description:
     "Explore pet services across Kalyani Nagar, Viman Nagar, Kharadi & Hadapsar. Comprehensive coverage with verified vets, groomers, boarding & more.",
   alternates: { canonical: `${SITE_URL}/areas` },
@@ -21,7 +21,7 @@ export default function AreasIndexPage() {
           <div className="flex items-center gap-2 mt-2 mb-4">
             <MapPin className="w-4 h-4 text-bluey-gold" aria-hidden="true" />
             <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 font-medium">
-              East Pune
+              Pune metro
             </span>
           </div>
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight">
@@ -30,7 +30,7 @@ export default function AreasIndexPage() {
           <p className="mt-3 text-white/50 text-sm max-w-xl">
             {AREAS.length} areas covered with{" "}
             {AREAS.reduce((sum, a) => sum + a.stats.total, 0)} verified
-            providers across East Pune.
+            providers across Pune metro.
           </p>
         </div>
       </section>

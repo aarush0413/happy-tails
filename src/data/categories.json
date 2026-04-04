@@ -3,7 +3,7 @@
     "id": "vet",
     "name": "Veterinary Clinics",
     "shortName": "Vets",
-    "description": "Honest vet reviews, emergency routing, and facility audits across East Pune.",
+    "description": "Honest vet reviews, emergency routing, and facility audits across Pune metro.",
     "icon": "HeartPulse",
     "providerCount": 22,
     "color": "#1B4D3E"
@@ -57,7 +57,7 @@
     "id": "transport",
     "name": "Pet Transport",
     "shortName": "Transport",
-    "description": "Local and long-distance pet transport options in East Pune.",
+    "description": "Local and long-distance pet transport options in Pune metro.",
     "icon": "Car",
     "providerCount": 5,
     "color": "#78716C"

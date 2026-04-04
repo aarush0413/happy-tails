@@ -1,7 +1,7 @@
 {
-  "name": "Happy Tails - East Pune Pet Services",
+  "name": "Happy Tails - Pune Metro Pet Services",
   "short_name": "Happy Tails",
-  "description": "East Pune's premium pet services directory. Find verified vets, groomers, boarding, training & more.",
+  "description": "Pune metro's honest pet services directory. Find verified vets, groomers, boarding, training & more.",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#FFFFFD",

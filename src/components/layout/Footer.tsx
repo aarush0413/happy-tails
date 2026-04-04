@@ -13,7 +13,7 @@ export function Footer() {
               <span className="font-display text-lg font-bold text-white">Happy Tails</span>
             </Link>
             <p className="text-sm text-white/50 leading-relaxed">{SITE_DESCRIPTION}</p>
-            <p className="text-xs text-white/40 mt-4">Made with care in East Pune.</p>
+            <p className="text-xs text-white/40 mt-4">Made with care in Pune.</p>
             <a
               href="https://wa.me/91958017711"
               target="_blank"

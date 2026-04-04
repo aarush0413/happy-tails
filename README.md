@@ -1,6 +1,6 @@
-# Happy Tails - East Pune's Premium Pet Services Directory
+# Happy Tails — Pune Metro Pet Services Directory
 
-A curated directory of 101 verified pet service providers across 7 categories in East Pune — Kalyani Nagar, Viman Nagar, Kharadi & Hadapsar.
+A curated directory of verified pet service providers across 7 categories in **Pune metro** (PMC, PCMC, and major corridors). Area clusters include East Pune, West, North–West, South, Central, and fringe pockets — see `src/data/areas.json`.
 
 ## Features
 

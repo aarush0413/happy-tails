@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const category = CATEGORIES.find((c) => c.slug === slug);
   if (!category) return {};
   return {
-    title: `${category.name} in East Pune`,
+    title: `${category.name} in Pune Metro`,
     description: category.description,
     alternates: { canonical: `${SITE_URL}/category/${slug}` },
   };
@@ -47,7 +47,7 @@ export default async function CategoryPage({ params }: Props) {
               {category.description}
             </p>
             <p className="mt-2 text-[10px] text-white/30 uppercase tracking-wider">
-              {providers.length} providers &middot; East Pune &middot; Verified {LAST_VERIFIED}
+              {providers.length} providers &middot; Pune metro &middot; Verified {LAST_VERIFIED}
             </p>
           </div>
           <div className="mt-6 flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
@@ -71,12 +71,12 @@ export default async function CategoryPage({ params }: Props) {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="mb-8 max-w-3xl">
           <h2 className="font-display text-lg font-semibold text-bluey-navy mb-3">
-            {category.name} in East Pune — verified and curated
+            {category.name} in Pune metro — verified and curated
           </h2>
           <p className="text-sm text-bluey-navy/60 leading-relaxed">
             {slug === "vet" && "Our veterinary clinics offer consultations, vaccinations, surgery, emergency care, and more. Each vet has been verified for quality and transparency."}
             {slug === "grooming" && "From basic baths to full spa treatments, our grooming partners use quality products and trained staff. Many offer breed-specific cuts and home visits."}
-            {slug === "store" && "Pet stores in East Pune stocking food, treats, accessories, and supplies. Compare prices and find what your pet needs."}
+            {slug === "store" && "Pet stores in Pune metro stocking food, treats, accessories, and supplies. Compare prices and find what your pet needs."}
             {slug === "boarding" && "Safe boarding and daycare options for when you travel. Facilities are checked for cleanliness, staff training, and pet welfare."}
             {slug === "training" && "Professional trainers for obedience, behavioral issues, and puppy socialization. Both group classes and one-on-one sessions available."}
             {slug === "walking" && "Dog walkers and pet sitters for daily exercise and care. Many offer flexible schedules and home visits."}

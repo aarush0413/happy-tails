@@ -11,4 +11,4 @@ date: "2026-03-08"
 3. **Bring packaging or photos** of anything your pet ate.
 4. **Keep your pet warm and as calm as possible** during transport.
 
-Use our [Emergency](/emergency) page for symptom triage and 24/7 clinics in East Pune.
+Use our [Emergency](/emergency) page for symptom triage and 24/7 clinics in Pune metro.

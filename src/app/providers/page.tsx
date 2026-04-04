@@ -7,9 +7,9 @@ import { Breadcrumb } from "@/components/ui/Breadcrumb";
 import Link from "next/link";
 
 export const metadata: Metadata = {
-  title: "All Providers — East Pune Pet Services",
+  title: "All Providers — Pune Metro Pet Services",
   description:
-    "Browse every verified pet service provider in East Pune — vets, groomers, pet stores, boarding, training, walking & transport.",
+    "Browse every verified pet service provider in Pune metro — vets, groomers, pet stores, boarding, training, walking & transport.",
   alternates: { canonical: `${SITE_URL}/providers` },
 };
 
@@ -26,10 +26,10 @@ export default function ProvidersPage() {
               All Providers
             </h1>
             <p className="mt-3 text-white/50 text-sm">
-              Every verified pet service provider in East Pune, across all categories.
+              Every verified pet service provider in Pune metro, across all categories.
             </p>
             <p className="mt-2 text-[10px] text-white/30 uppercase tracking-wider">
-              {providers.length} providers &middot; East Pune &middot; Verified{" "}
+              {providers.length} providers &middot; Pune metro &middot; Verified{" "}
               {LAST_VERIFIED}
             </p>
           </div>
@@ -56,7 +56,7 @@ export default function ProvidersPage() {
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
         <div className="mb-8 max-w-3xl">
           <h2 className="font-display text-lg font-semibold text-bluey-navy mb-3">
-            Browse verified pet service providers in East Pune
+            Browse verified pet service providers in Pune metro
           </h2>
           <p className="text-sm text-bluey-navy/60 leading-relaxed">
             Every provider listed here has been personally verified by our team. We cover veterinary clinics, grooming salons, pet stores, boarding facilities, trainers, dog walkers, and transport services across Kalyani Nagar, Viman Nagar, Kharadi, and Hadapsar. Use the filters below to narrow by category, area, or rating.

@@ -43,6 +43,15 @@ export function getAreaLabel(slug: AreaSlug | string): string {
     "viman-nagar": "Viman Nagar",
     kharadi: "Kharadi",
     hadapsar: "Hadapsar",
+    "koregaon-deccan-camp": "Koregaon Park · Deccan · Camp",
+    "kothrud-karve": "Kothrud · Karve Nagar",
+    "baner-balewadi": "Baner · Balewadi",
+    "aundh-pashan": "Aundh · Pashan",
+    "hinjewadi-wakad": "Hinjewadi · Wakad",
+    "pimpri-chinchwad": "Pimpri–Chinchwad",
+    "katraj-kondhwa": "Katraj · Kondhwa · Undri",
+    "wanowrie-nibm": "Wanowrie · NIBM · Kondhwa",
+    wagholi: "Wagholi",
     "all-areas": "All Areas",
   };
   return map[slug] || slug;

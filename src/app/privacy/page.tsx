@@ -30,7 +30,7 @@ export default function PrivacyPage() {
           <div>
             <h2 className="text-xl font-bold text-bluey-navy mb-3">Overview</h2>
             <p className="text-sm text-bluey-navy/70 leading-relaxed">
-              {SITE_NAME} is a pet services directory for East Pune. We are committed to
+              {SITE_NAME} is a pet services directory for Pune metro. We are committed to
               protecting your privacy. This policy explains what information we collect
               and how we use it.
             </p>

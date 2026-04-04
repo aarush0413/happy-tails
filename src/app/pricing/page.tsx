@@ -5,7 +5,7 @@ import { Badge } from "@/components/ui/Badge";
 
 export const metadata: Metadata = {
   title: "Pricing Guide - What Pet Services Cost in Pune",
-  description: "Transparent pricing for pet services in East Pune. Compare budget, mid-range & premium costs for vets, grooming, boarding, training, walking & transport.",
+  description: "Transparent pricing for pet services in Pune metro. Compare budget, mid-range & premium costs for vets, grooming, boarding, training, walking & transport.",
 };
 
 export default function PricingPage() {
@@ -22,7 +22,7 @@ export default function PricingPage() {
             Pricing Guide
           </h1>
           <p className="mt-3 text-white/70 text-sm max-w-xl">
-            Transparent pricing for every pet service in East Pune. Know what to
+            Transparent pricing for every pet service in Pune metro. Know what to
             expect before you book.
           </p>
           <div className="flex flex-wrap gap-2 mt-6">
@@ -118,7 +118,7 @@ export default function PricingPage() {
             <div>
               <p className="font-medium text-neutral-900 text-sm">About these prices</p>
               <p className="text-sm text-neutral-600 mt-1 leading-relaxed">
-                Prices are based on our research across providers in East Pune as of
+                Prices are based on our research across providers in Pune metro as of
                 March 2026. Actual prices may vary based on pet size, breed, condition,
                 and specific requirements. Emergency and after-hours services may carry
                 additional surcharges. Always confirm pricing directly with the provider

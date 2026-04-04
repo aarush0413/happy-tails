@@ -6,7 +6,7 @@ import { getAllProviders, getAllAudits } from "@/lib/utils";
 
 export const metadata: Metadata = {
   title: "About Happy Tails",
-  description: "Learn about Happy Tails - East Pune's premium pet services directory. Our mission, values, and the story behind the platform.",
+  description: "Learn about Happy Tails — Pune metro's honest pet services directory. Our mission, values, and the story behind the platform.",
 };
 
 export default function AboutPage() {
@@ -103,7 +103,7 @@ export default function AboutPage() {
         <p className="mt-5 text-neutral-600 leading-relaxed max-w-xl mx-auto text-sm">
           Whether you need a trusted vet at 2 AM, a groomer who comes home, or a
           cage-free boarding facility for the holidays, Happy Tails has you covered.
-          We&apos;re here to make pet parenting in East Pune easier.
+          We&apos;re here to make pet parenting in Pune metro easier.
         </p>
         <div className="mt-8">
           <Button href="/category/vet" size="lg">

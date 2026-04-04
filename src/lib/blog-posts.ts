@@ -9,7 +9,7 @@ export const BLOG_POSTS = [
   },
   {
     slug: "best-vets-east-pune-2026",
-    title: "Best Vets in East Pune — Honest Rankings for 2026",
+    title: "Best Vets in Pune Metro — Honest Rankings for 2026",
     description:
       "No pay-to-play list. Who we’d use for surgery, emergencies, and everyday consults.",
     date: "2026-03-05",

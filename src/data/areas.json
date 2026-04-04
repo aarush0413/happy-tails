@@ -4,9 +4,8 @@
     "name": "Kalyani Nagar",
     "description": "Dense pet services near Hermes Koregaon Park Annexe; strong vet and store coverage.",
     "density": "high",
-    "providerCount": 15,
-    "topRatedCount": 9,
-    "emergencyVet": "Crown Vet (24/7)",
+    "readiness": "HIGH",
+    "emergencyVet": "Crown Vet (24/7 nearby)",
     "coordinates": { "lat": 18.5485, "lng": 73.9015 }
   },
   {
@@ -14,19 +13,17 @@
     "name": "Viman Nagar",
     "description": "Airport-side neighbourhood with mixed boarding, training, and clinic options.",
     "density": "high",
-    "providerCount": 20,
-    "topRatedCount": 6,
+    "readiness": "HIGH",
     "emergencyVet": "Dr. Pet Clinic (24/7)",
     "coordinates": { "lat": 18.5679, "lng": 73.9143 }
   },
   {
     "id": "kharadi",
     "name": "Kharadi",
-    "description": "IT corridor growth area — newer salons and boarding, fewer 24/7 vets.",
+    "description": "IT corridor — newer salons and boarding; fewer 24/7 vets on-site.",
     "density": "medium",
-    "providerCount": 17,
-    "topRatedCount": 9,
-    "emergencyVet": "Use nearest 24/7 (Viman/Hadapsar)",
+    "readiness": "MEDIUM",
+    "emergencyVet": "Nearest 24/7: Viman / Hadapsar",
     "coordinates": { "lat": 18.5549, "lng": 73.9406 }
   },
   {
@@ -34,9 +31,89 @@
     "name": "Hadapsar",
     "description": "Largest spread; many boarding and vet options toward Mundhwa and Manjri.",
     "density": "high",
-    "providerCount": 28,
-    "topRatedCount": 16,
+    "readiness": "HIGH",
     "emergencyVet": "My Pet Care / Raintree (24/7)",
     "coordinates": { "lat": 18.4967, "lng": 73.9418 }
+  },
+  {
+    "id": "koregaon-deccan-camp",
+    "name": "Koregaon Park · Deccan · Camp",
+    "description": "Central Pune — Koregaon Park, Deccan Gymkhana, Camp: premium clinics and stores.",
+    "density": "high",
+    "readiness": "HIGH",
+    "emergencyVet": "See citywide 24/7 list",
+    "coordinates": { "lat": 18.5362, "lng": 73.8938 }
+  },
+  {
+    "id": "kothrud-karve",
+    "name": "Kothrud · Karve Nagar",
+    "description": "Western residential belt — high footfall vets, grooming, and pet stores.",
+    "density": "high",
+    "readiness": "HIGH",
+    "emergencyVet": "Nearest 24/7: central Pune / Baner",
+    "coordinates": { "lat": 18.5074, "lng": 73.8077 }
+  },
+  {
+    "id": "baner-balewadi",
+    "name": "Baner · Balewadi",
+    "description": "Northwest growth corridor — clinics, grooming, and stores along Baner–Balewadi.",
+    "density": "high",
+    "readiness": "HIGH",
+    "emergencyVet": "Multiple day clinics; 24/7 verify before travel",
+    "coordinates": { "lat": 18.5596, "lng": 73.7789 }
+  },
+  {
+    "id": "aundh-pashan",
+    "name": "Aundh · Pashan",
+    "description": "Upscale west — vets and salons serving Aundh, Pashan, and Sus pockets.",
+    "density": "high",
+    "readiness": "HIGH",
+    "emergencyVet": "Nearest 24/7: Baner / city centre",
+    "coordinates": { "lat": 18.5581, "lng": 73.8078 }
+  },
+  {
+    "id": "hinjewadi-wakad",
+    "name": "Hinjewadi · Wakad",
+    "description": "IT park belt — growing pet services; confirm timings before weekends.",
+    "density": "medium",
+    "readiness": "MEDIUM",
+    "emergencyVet": "Use citywide emergency map",
+    "coordinates": { "lat": 18.5997, "lng": 73.7345 }
+  },
+  {
+    "id": "pimpri-chinchwad",
+    "name": "Pimpri–Chinchwad",
+    "description": "PCMC core — Pimpri, Chinchwad, Nigdi: full-service vets and chains.",
+    "density": "high",
+    "readiness": "HIGH",
+    "emergencyVet": "Check 24/7 listings; some chains list night OPD",
+    "coordinates": { "lat": 18.6298, "lng": 73.7997 }
+  },
+  {
+    "id": "katraj-kondhwa",
+    "name": "Katraj · Kondhwa · Undri",
+    "description": "Southern belt — Katraj, Kondhwa, Undri–Mohammadwadi pet care.",
+    "density": "high",
+    "readiness": "HIGH",
+    "emergencyVet": "Nearest 24/7: Hadapsar / citywide",
+    "coordinates": { "lat": 18.4526, "lng": 73.8585 }
+  },
+  {
+    "id": "wanowrie-nibm",
+    "name": "Wanowrie · NIBM · Kondhwa",
+    "description": "South-east — Wanowrie, NIBM Road, upper Kondhwa corridors.",
+    "density": "medium",
+    "readiness": "MEDIUM",
+    "emergencyVet": "Hadapsar corridor 24/7 options",
+    "coordinates": { "lat": 18.4856, "lng": 73.9012 }
+  },
+  {
+    "id": "wagholi",
+    "name": "Wagholi",
+    "description": "Eastern fringe — newer societies; fewer clinics; verify home-visit coverage.",
+    "density": "medium",
+    "readiness": "GROWING",
+    "emergencyVet": "Kharadi / Hadapsar 24/7",
+    "coordinates": { "lat": 18.5802, "lng": 73.9832 }
   }
 ]

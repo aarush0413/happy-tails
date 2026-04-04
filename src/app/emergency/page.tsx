@@ -8,7 +8,7 @@ import { SymptomTriage } from "@/components/emergency/SymptomTriage";
 export const metadata: Metadata = {
   title: "Emergency 24/7 Vet Finder",
   description:
-    "Find 24/7 emergency veterinary clinics in East Pune. Immediate access to emergency vets in Kalyani Nagar, Viman Nagar, Kharadi & Hadapsar.",
+    "Find 24/7 emergency veterinary clinics in Pune metro. Immediate access to round-the-clock vets across PMC, PCMC & major corridors.",
 };
 
 export default function EmergencyPage() {

@@ -25,7 +25,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   if (!area) return {};
   return {
     title: `Pet Services in ${area.name}`,
-    description: `${area.stats.total} pet service providers in ${area.name}, East Pune. Vets, grooming, boarding, training & more.`,
+    description: `${area.stats.total} pet service providers in ${area.name}, Pune metro. Vets, grooming, boarding, training & more.`,
     alternates: { canonical: `${SITE_URL}/area/${slug}` },
   };
 }
@@ -56,7 +56,7 @@ export default async function AreaPage({ params }: Props) {
           <Breadcrumb items={[{ label: area.name }]} />
           <div className="flex items-center gap-2 mt-2 mb-4">
             <MapPin className="w-4 h-4 text-accent" aria-hidden="true" />
-            <span className="text-[10px] uppercase tracking-[0.2em] text-white/50 font-medium">East Pune</span>
+            <span className="text-[10px] uppercase tracking-[0.2em] text-white/50 font-medium">Pune metro</span>
           </div>
           <h1 className="font-display text-3xl sm:text-4xl lg:text-5xl font-semibold text-white tracking-tight">
             {area.name}

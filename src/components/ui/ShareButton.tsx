@@ -13,8 +13,8 @@ interface ShareButtonProps {
 }
 
 export function ShareButton({
-  title = "Happy Tails - East Pune Pet Services",
-  text = "Check out Happy Tails — East Pune's best pet services directory!",
+  title = "Happy Tails - Pune Metro Pet Services",
+  text = "Check out Happy Tails — Pune metro's honest pet services directory!",
   url,
   className = "",
   variant = "full",

@@ -71,7 +71,7 @@ export default function HomePage() {
   const itemListSchema = {
     "@context": "https://schema.org",
     "@type": "ItemList",
-    name: "Top-rated pet service providers in East Pune",
+    name: "Top-rated pet service providers in Pune metro",
     numberOfItems: featured.length,
     itemListElement: featured.slice(0, 6).map((p, i) => ({
       "@type": "ListItem",
@@ -98,7 +98,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
           <div className="max-w-3xl animate-fadeIn">
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-4">
-              {totalProviders} providers audited · East Pune
+              {totalProviders} providers audited · Pune metro
             </p>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.1]">
               We tell you who to trust with your pet.
@@ -140,7 +140,7 @@ export default function HomePage() {
           <div>
             <p className="font-semibold text-neutral-900">Pet emergency?</p>
             <p className="text-sm text-neutral-600 mt-0.5">
-              {emergencyProviders.length} clinics available 24/7 across East Pune.
+              {emergencyProviders.length} clinics available 24/7 across Pune metro.
             </p>
           </div>
           <Link
@@ -241,7 +241,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4 mb-10">
             <div>
-              <h2 className="font-display text-3xl font-bold text-neutral-900">Highest-rated in East Pune</h2>
+              <h2 className="font-display text-3xl font-bold text-neutral-900">Highest-rated in Pune metro</h2>
               <p className="text-neutral-500 text-sm mt-1">Editorial top picks — same card you get on category pages.</p>
             </div>
             <Button href="/providers" variant="outline" size="sm">
@@ -256,7 +256,7 @@ export default function HomePage() {
         <h2 className="font-display text-3xl font-bold text-neutral-900 text-center mb-12">
           Explore by area
         </h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {AREAS.map((area) => (
             <Link
               key={area.slug}

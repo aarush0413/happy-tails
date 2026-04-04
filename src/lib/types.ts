@@ -12,6 +12,15 @@ export type AreaSlug =
   | "viman-nagar"
   | "kharadi"
   | "hadapsar"
+  | "koregaon-deccan-camp"
+  | "kothrud-karve"
+  | "baner-balewadi"
+  | "aundh-pashan"
+  | "hinjewadi-wakad"
+  | "pimpri-chinchwad"
+  | "katraj-kondhwa"
+  | "wanowrie-nibm"
+  | "wagholi"
   | "all-areas";
 
 export type TrustVerdict = "legit" | "caution" | "weak" | "blacklisted";

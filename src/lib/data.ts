@@ -11,6 +11,7 @@ import type {
   AreaSlug,
   ComputedAreaStats,
   TrustVerdict,
+  Category,
 } from "./types";
 
 const providers = providersData as Provider[];
@@ -75,7 +76,28 @@ export function getCategoryMeta(slug: CategorySlug): CategoryMeta | undefined {
 }
 
 export function getAllAreas(): AreaMeta[] {
-  return areasData as AreaMeta[];
+  const rows = areasData as Array<{
+    id: string;
+    name: string;
+    description: string;
+    density: "high" | "medium";
+    emergencyVet?: string;
+    coordinates: { lat: number; lng: number };
+  }>;
+  return rows.map((row) => {
+    const slug = row.id as AreaSlug;
+    const c = computeAreaStats(slug);
+    return {
+      id: slug,
+      name: row.name,
+      description: row.description,
+      density: row.density,
+      providerCount: c.total,
+      topRatedCount: c.topRated,
+      emergencyVet: row.emergencyVet,
+      coordinates: row.coordinates,
+    };
+  });
 }
 
 export function getAreaMeta(slug: AreaSlug): AreaMeta | undefined {
@@ -117,4 +139,29 @@ export function computeAreaStats(areaSlug: AreaSlug): ComputedAreaStats {
 
 export function providersByTrust(verdict: TrustVerdict): number {
   return providers.filter((p) => p.trustVerdict === verdict).length;
+}
+
+const categoryRows = categoriesData as CategoryMeta[];
+
+/** Category cards + nav — listing counts computed from providers.json */
+export function getCategoriesWithCounts(): Category[] {
+  const counts: Record<CategorySlug, number> = {
+    vet: 0,
+    grooming: 0,
+    store: 0,
+    boarding: 0,
+    training: 0,
+    walking: 0,
+    transport: 0,
+  };
+  for (const p of providers) {
+    counts[p.category]++;
+  }
+  return categoryRows.map((c) => ({
+    name: c.name,
+    slug: c.id,
+    description: c.description,
+    icon: c.icon,
+    count: counts[c.id],
+  }));
 }
