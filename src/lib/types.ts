@@ -5,7 +5,28 @@ export type CategorySlug =
   | "boarding"
   | "training"
   | "walking"
-  | "transport";
+  | "transport"
+  | "outings-with-pet";
+
+/** Filter tags for pet-friendly venues (category outings-with-pet) */
+export type OutingVibe =
+  | "quiet"
+  | "spacious"
+  | "dog-cafe"
+  | "family-friendly";
+
+export type OutingSeating = "garden" | "patio" | "indoor" | "mixed";
+
+export type OutingNoiseLevel = "low" | "medium" | "high";
+
+export interface OutingMeta {
+  vibes: OutingVibe[];
+  seating: OutingSeating;
+  waterBowls?: boolean;
+  noiseLevel?: OutingNoiseLevel;
+  breedNotes?: string;
+  policySummary?: string;
+}
 
 export type AreaSlug =
   | "kalyani-nagar"
@@ -96,6 +117,9 @@ export interface Provider {
 
   /** @deprecated legacy priority label for migration */
   legacyPriority?: "High" | "Medium" | "Low";
+
+  /** Pet-friendly cafes / outings — only when category is outings-with-pet */
+  outingMeta?: OutingMeta;
 }
 
 export interface CategoryMeta {
@@ -170,6 +194,7 @@ export interface ComputedAreaStats {
   training: number;
   walking: number;
   transport: number;
+  outings: number;
   total: number;
   topRated: number;
   emergency: number;
@@ -198,6 +223,7 @@ export interface Area {
     training: number | string;
     walking: number | string;
     transport: number | string;
+    outings: number;
     total: number;
     emergency: string;
     topRated: number;

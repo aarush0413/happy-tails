@@ -61,5 +61,14 @@
     "icon": "Car",
     "providerCount": 5,
     "color": "#78716C"
+  },
+  {
+    "id": "outings-with-pet",
+    "name": "Outings with Pet",
+    "shortName": "Outings",
+    "description": "Pet-friendly cafes, restaurants & chill spots we personally checked — patios, gardens, and honest limits.",
+    "icon": "OutingsPaw",
+    "providerCount": 15,
+    "color": "#78716C"
   }
 ]

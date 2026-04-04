@@ -109,7 +109,7 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
         aria-label="Open search"
       >
         <Search className="h-4 w-4 shrink-0 opacity-50" aria-hidden="true" />
-        <span className="flex-1 text-left truncate">Search vets, groomers, areas…</span>
+        <span className="flex-1 text-left truncate">Search vets, groomers, cafes, areas…</span>
         <kbd className="pointer-events-none hidden lg:inline-flex h-5 select-none items-center gap-1 rounded border bg-neutral-50 px-1.5 font-mono text-[10px] font-medium text-neutral-500">
           ⌘K
         </kbd>
@@ -130,7 +130,7 @@ export function GlobalSearch({ providers }: GlobalSearchProps) {
             <div className="flex items-center border-b border-neutral-200 px-3">
               <Search className="mr-2 h-4 w-4 shrink-0 text-neutral-400" aria-hidden="true" />
               <Command.Input
-                placeholder="Search vets, groomers, areas, blog…"
+                placeholder="Search vets, groomers, cafes, areas, blog…"
                 value={q}
                 onValueChange={setQ}
                 className="flex h-12 w-full bg-transparent py-3 text-sm outline-none placeholder:text-neutral-400"

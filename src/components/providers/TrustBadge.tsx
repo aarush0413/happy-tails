@@ -14,10 +14,13 @@ export function TrustBadge({
   verdict,
   summary,
   className,
+  /** When set (e.g. outings LEGIT), overrides the verdict text on the pill */
+  verdictLabelOverride,
 }: {
   verdict: TrustVerdict;
   summary?: string;
   className?: string;
+  verdictLabelOverride?: string;
 }) {
   const pill = (
     <span
@@ -27,7 +30,7 @@ export function TrustBadge({
         className
       )}
     >
-      {trustVerdictLabel(verdict)}
+      {verdictLabelOverride ?? trustVerdictLabel(verdict)}
     </span>
   );
 

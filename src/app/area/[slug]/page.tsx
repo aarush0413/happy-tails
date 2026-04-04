@@ -47,6 +47,7 @@ export default async function AreaPage({ params }: Props) {
     { label: "Training", value: computed.training },
     { label: "Walking", value: computed.walking },
     { label: "Transport", value: computed.transport },
+    { label: "Outings", value: computed.outings },
   ];
 
   return (
@@ -90,7 +91,7 @@ export default async function AreaPage({ params }: Props) {
               </Badge>
             </div>
 
-            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-8 gap-3">
+            <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-4 gap-3">
               {statItems.map((stat) => (
                 <div
                   key={stat.label}

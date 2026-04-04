@@ -16,6 +16,7 @@ import {
   AlertCircle,
   ChevronRight,
   Lightbulb,
+  Coffee,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -46,6 +47,12 @@ const ICON_MAP: Record<string, React.ReactNode> = {
   Dog: <Dog className="w-6 h-6" aria-hidden="true" />,
   PawPrint: <PawPrint className="w-6 h-6" aria-hidden="true" />,
   Car: <Car className="w-6 h-6" aria-hidden="true" />,
+  OutingsPaw: (
+    <span className="relative inline-flex items-center justify-center w-6 h-6" aria-hidden="true">
+      <Coffee className="w-5 h-5" strokeWidth={2} />
+      <PawPrint className="w-3 h-3 absolute -bottom-0.5 -right-0.5" strokeWidth={2.5} />
+    </span>
+  ),
 };
 
 export default function HomePage() {
@@ -160,7 +167,7 @@ export default function HomePage() {
           <h2 className="font-display text-3xl font-bold text-neutral-900 tracking-tight">
             What does your pet need?
           </h2>
-          <p className="mt-2 text-neutral-500 text-sm">Eight categories — pick one and filter hard.</p>
+          <p className="mt-2 text-neutral-500 text-sm">Nine categories — pick one and filter hard.</p>
         </div>
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
           {CATEGORIES.map((cat) => (
@@ -173,8 +180,15 @@ export default function HomePage() {
                 {ICON_MAP[cat.icon]}
               </div>
               <h3 className="font-semibold text-neutral-900 text-sm">{cat.name}</h3>
+              {cat.slug === "outings-with-pet" && (
+                <p className="text-xs text-neutral-500 mt-1.5 leading-snug line-clamp-2">
+                  Pet-friendly cafes, restaurants &amp; chill spots we personally checked
+                </p>
+              )}
               <p className="text-[11px] text-neutral-400 mt-1 uppercase tracking-wide">
-                {cat.count} listings
+                {cat.slug === "outings-with-pet"
+                  ? `${cat.count} verified spots`
+                  : `${cat.count} listings`}
               </p>
               <ChevronRight className="w-4 h-4 text-neutral-300 mt-3 group-hover:text-primary transition-colors" />
             </Link>

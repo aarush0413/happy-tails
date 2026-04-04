@@ -44,6 +44,7 @@ export function getAreasForNav(): Area[] {
         training: c.training,
         walking: c.walking,
         transport: c.transport,
+        outings: c.outings,
         total: c.total,
         emergency: emergencyLabel,
         topRated: c.topRated,

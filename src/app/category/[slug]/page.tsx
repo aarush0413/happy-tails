@@ -47,7 +47,8 @@ export default async function CategoryPage({ params }: Props) {
               {category.description}
             </p>
             <p className="mt-2 text-[10px] text-white/30 uppercase tracking-wider">
-              {providers.length} providers &middot; Pune metro &middot; Verified {LAST_VERIFIED}
+              {providers.length} {slug === "outings-with-pet" ? "spots" : "providers"} &middot; Pune metro
+              &middot; Verified {LAST_VERIFIED}
             </p>
           </div>
           <div className="mt-6 flex gap-2 overflow-x-auto pb-2 scrollbar-hide snap-x snap-mandatory">
@@ -81,7 +82,9 @@ export default async function CategoryPage({ params }: Props) {
             {slug === "training" && "Professional trainers for obedience, behavioral issues, and puppy socialization. Both group classes and one-on-one sessions available."}
             {slug === "walking" && "Dog walkers and pet sitters for daily exercise and care. Many offer flexible schedules and home visits."}
             {slug === "transport" && "Pet-friendly transport for vet visits, travel, or relocations. Services include local drops and long-distance pet taxis."}
-            {!["vet", "grooming", "store", "boarding", "training", "walking", "transport"].includes(slug) && "Browse our verified providers in this category. Each listing includes contact details, pricing, and hours."}
+            {slug === "outings-with-pet" &&
+              "Cafés, restaurants, and outdoor spots where we checked pet policy in person — not star averages. Pune food-safety norms often mean dogs on patio or garden only; we say when indoor isn’t realistic, when weekends are chaos, and when water bowls are missing."}
+            {!["vet", "grooming", "store", "boarding", "training", "walking", "transport", "outings-with-pet"].includes(slug) && "Browse our verified providers in this category. Each listing includes contact details, pricing, and hours."}
           </p>
         </div>
         <FilterBar

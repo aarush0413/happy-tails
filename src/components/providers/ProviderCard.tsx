@@ -23,6 +23,8 @@ import {
   getCategoryLabel,
   servicesText,
   getPhoneFromProvider,
+  outingVibeLabel,
+  outingSeatingLabel,
 } from "@/lib/utils";
 import { getOpenStatus } from "@/lib/hours";
 import { whatsappHref } from "@/lib/whatsapp";
@@ -47,6 +49,7 @@ export function ProviderCard({
   const inCompare = isInCompare(provider.id);
   const isFav = isFavorite(provider.id);
   const isAtHome = provider.attributes.homeVisit;
+  const isOuting = provider.category === "outings-with-pet";
 
   return (
     <div
@@ -123,18 +126,58 @@ export function ProviderCard({
                 <Home className="w-3 h-3" aria-hidden="true" /> Home Visit
               </Badge>
             )}
-            <TrustBadge verdict={provider.trustVerdict} summary={provider.trustSummary} />
+            <TrustBadge
+              verdict={provider.trustVerdict}
+              summary={provider.trustSummary}
+              verdictLabelOverride={
+                isOuting && provider.trustVerdict === "legit"
+                  ? "Pet-Friendly Verified"
+                  : undefined
+              }
+            />
           </div>
 
-          <p className="text-sm font-mono font-semibold text-primary mt-3">
-            {provider.consultationFee === "Varies" || !provider.consultationFee
-              ? "Contact for pricing"
-              : provider.consultationFee}
+          <p className="text-[10px] text-neutral-400 mt-2 uppercase tracking-wide">
+            Last verified: {provider.verifiedDate}
           </p>
+
+          {isOuting && provider.outingMeta && (
+            <div className="flex flex-wrap gap-1.5 mt-2">
+              <Badge variant="outline" className="text-[10px]">
+                {outingSeatingLabel(provider.outingMeta.seating)}
+              </Badge>
+              {provider.outingMeta.waterBowls !== undefined && (
+                <Badge variant="outline" className="text-[10px]">
+                  {provider.outingMeta.waterBowls ? "Water bowls" : "No water bowls"}
+                </Badge>
+              )}
+              {provider.outingMeta.noiseLevel && (
+                <Badge variant="outline" className="text-[10px]">
+                  Noise: {provider.outingMeta.noiseLevel}
+                </Badge>
+              )}
+              {(provider.outingMeta.vibes ?? []).slice(0, 2).map((v) => (
+                <Badge key={v} variant="outline" className="text-[10px]">
+                  {outingVibeLabel(v)}
+                </Badge>
+              ))}
+            </div>
+          )}
+
+          {!isOuting && (
+            <p className="text-sm font-mono font-semibold text-primary mt-3">
+              {provider.consultationFee === "Varies" || !provider.consultationFee
+                ? "Contact for pricing"
+                : provider.consultationFee}
+            </p>
+          )}
 
           <div className={cn("mt-3", expanded ? "block" : "hidden md:block")}>
             <p className="text-xs text-neutral-500 line-clamp-2 leading-relaxed">
-              {servicesText(provider)}
+              {isOuting
+                ? (provider.trustDetailedNotes ?? "").slice(0, 220)
+                : servicesText(provider)}
+              {isOuting && (provider.trustDetailedNotes ?? "").length > 220 ? "…" : ""}
             </p>
             <div className="flex items-center gap-2 mt-3 text-xs text-neutral-500 flex-wrap">
               <span
@@ -157,8 +200,19 @@ export function ProviderCard({
             href={`/provider/${provider.slug}`}
             className="flex-1 inline-flex items-center justify-center rounded-lg border border-neutral-200 py-2.5 text-xs font-semibold uppercase tracking-wide text-neutral-700 hover:bg-neutral-50 min-h-[44px]"
           >
-            Details
+            View details
           </Link>
+          {provider.googleMapsUrl && (
+            <a
+              href={provider.googleMapsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex-1 inline-flex items-center justify-center gap-1 rounded-lg border border-neutral-200 py-2.5 text-xs font-semibold uppercase tracking-wide text-neutral-700 hover:bg-neutral-50 min-h-[44px]"
+            >
+              <MapPin className="w-3.5 h-3.5" aria-hidden="true" />
+              Maps
+            </a>
+          )}
           {wa && (
             <a
               href={wa}

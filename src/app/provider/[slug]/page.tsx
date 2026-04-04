@@ -24,6 +24,8 @@ import {
   getPhoneFromProvider,
   getContactType,
   servicesText,
+  outingVibeLabel,
+  outingSeatingLabel,
 } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
 import { TrustBadge } from "@/components/providers/TrustBadge";
@@ -67,6 +69,13 @@ export default async function ProviderPage({ params }: Props) {
     : "N/A";
   const contact = getContactType(contactLegacy);
   const status = getOpenStatus(provider);
+
+  const mapsHref =
+    provider.googleMapsUrl ??
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${provider.name} ${provider.address}`)}`;
+
+  const hasFacilities = Object.values(provider.attributes).some(Boolean);
+  const isOuting = provider.category === "outings-with-pet";
 
   const structuredData = {
     "@context": "https://schema.org",
@@ -230,12 +239,12 @@ export default async function ProviderPage({ params }: Props) {
                     </a>
                   )}
                   <a
-                    href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${provider.name} ${provider.address}`)}`}
+                    href={mapsHref}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="inline-flex items-center justify-center gap-2 rounded-lg border border-neutral-200 px-4 py-3 text-sm font-semibold text-neutral-800 min-h-[44px]"
                   >
-                    <ExternalLink className="w-4 h-4" aria-hidden="true" /> Get directions
+                    <ExternalLink className="w-4 h-4" aria-hidden="true" /> Google Maps
                   </a>
                 </div>
               </div>
@@ -245,12 +254,86 @@ export default async function ProviderPage({ params }: Props) {
       </section>
 
       <section className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+        {isOuting && provider.outingMeta && (
+          <div className="rounded-xl border border-neutral-200 bg-white p-6 shadow-sm mb-8">
+            <h2 className="font-display text-lg font-bold text-neutral-900 mb-4">
+              Pet-friendly check
+            </h2>
+            <dl className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-sm">
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                  Seating
+                </dt>
+                <dd className="text-neutral-800 mt-1">{outingSeatingLabel(provider.outingMeta.seating)}</dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                  Water bowls
+                </dt>
+                <dd className="text-neutral-800 mt-1">
+                  {provider.outingMeta.waterBowls === undefined
+                    ? "Not noted"
+                    : provider.outingMeta.waterBowls
+                      ? "Yes"
+                      : "No / inconsistent"}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                  Noise
+                </dt>
+                <dd className="text-neutral-800 mt-1 capitalize">
+                  {provider.outingMeta.noiseLevel ?? "Varies"}
+                </dd>
+              </div>
+              <div>
+                <dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                  Vibe
+                </dt>
+                <dd className="text-neutral-800 mt-1">
+                  {provider.outingMeta.vibes.map(outingVibeLabel).join(" · ")}
+                </dd>
+              </div>
+              {provider.outingMeta.breedNotes && (
+                <div className="sm:col-span-2">
+                  <dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                    Breed / size
+                  </dt>
+                  <dd className="text-neutral-800 mt-1">{provider.outingMeta.breedNotes}</dd>
+                </div>
+              )}
+              {provider.outingMeta.policySummary && (
+                <div className="sm:col-span-2">
+                  <dt className="text-[10px] font-bold uppercase tracking-wider text-neutral-400">
+                    Policy
+                  </dt>
+                  <dd className="text-neutral-800 mt-1">{provider.outingMeta.policySummary}</dd>
+                </div>
+              )}
+            </dl>
+            <a
+              href={mapsHref}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="mt-6 inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-3 text-sm font-semibold text-white min-h-[44px]"
+            >
+              <MapPin className="w-4 h-4" aria-hidden="true" />
+              Open in Google Maps
+            </a>
+          </div>
+        )}
+
         <div
           className={`rounded-xl border border-neutral-200 bg-white p-6 shadow-sm border-l-4 ${borderTrust}`}
         >
           <div className="flex flex-wrap items-center gap-3 mb-4">
-            <TrustBadge verdict={provider.trustVerdict} />
-            <span className="text-sm text-neutral-500">Last audited: {provider.verifiedDate}</span>
+            <TrustBadge
+              verdict={provider.trustVerdict}
+              verdictLabelOverride={
+                isOuting && provider.trustVerdict === "legit" ? "Pet-Friendly Verified" : undefined
+              }
+            />
+            <span className="text-sm text-neutral-500">Last verified: {provider.verifiedDate}</span>
           </div>
           <h2 className="font-display text-xl font-bold text-neutral-900 mb-3">Trust audit</h2>
           <div className="prose prose-neutral max-w-none text-sm text-neutral-700 whitespace-pre-wrap leading-relaxed">
@@ -285,16 +368,28 @@ export default async function ProviderPage({ params }: Props) {
         </div>
 
         <div className="mt-10 grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="rounded-xl border border-neutral-200 bg-white p-5">
-            <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
-              Price
-            </p>
-            <p className="font-mono font-semibold text-primary">
-              {provider.consultationFee === "Varies" || !provider.consultationFee
-                ? "Contact for pricing"
-                : provider.consultationFee}
-            </p>
-          </div>
+          {!isOuting && (
+            <div className="rounded-xl border border-neutral-200 bg-white p-5">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
+                Price
+              </p>
+              <p className="font-mono font-semibold text-primary">
+                {provider.consultationFee === "Varies" || !provider.consultationFee
+                  ? "Contact for pricing"
+                  : provider.consultationFee}
+              </p>
+            </div>
+          )}
+          {isOuting && (
+            <div className="rounded-xl border border-neutral-200 bg-white p-5">
+              <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
+                Spend / cover
+              </p>
+              <p className="text-sm text-neutral-800">
+                {provider.priceRange ?? "Varies by order — check menu at venue."}
+              </p>
+            </div>
+          )}
           <div className="rounded-xl border border-neutral-200 bg-white p-5">
             <p className="text-[10px] font-bold uppercase tracking-wider text-neutral-400 mb-1">
               Hours
@@ -307,7 +402,7 @@ export default async function ProviderPage({ params }: Props) {
             </p>
             <p className="text-sm text-neutral-700">{provider.address}</p>
             <a
-              href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(`${provider.name} ${provider.address}`)}`}
+              href={mapsHref}
               target="_blank"
               rel="noopener noreferrer"
               className="mt-2 inline-flex items-center gap-1 text-sm font-medium text-primary"
@@ -347,17 +442,21 @@ export default async function ProviderPage({ params }: Props) {
           ))}
         </div>
 
-        <h2 className="font-display text-xl font-bold text-neutral-900 mt-10 mb-4">Facilities</h2>
-        <ul className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm text-neutral-700">
-          {Object.entries(provider.attributes).map(([k, v]) =>
-            v ? (
-              <li key={k} className="flex items-center gap-2">
-                <Check className="w-4 h-4 text-emerald-600" aria-hidden="true" />
-                {k.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase())}
-              </li>
-            ) : null
-          )}
-        </ul>
+        {hasFacilities && (
+          <>
+            <h2 className="font-display text-xl font-bold text-neutral-900 mt-10 mb-4">Facilities</h2>
+            <ul className="grid grid-cols-2 md:grid-cols-3 gap-3 text-sm text-neutral-700">
+              {Object.entries(provider.attributes).map(([k, v]) =>
+                v ? (
+                  <li key={k} className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-emerald-600" aria-hidden="true" />
+                    {k.replace(/([A-Z])/g, " $1").replace(/^./, (s) => s.toUpperCase())}
+                  </li>
+                ) : null
+              )}
+            </ul>
+          </>
+        )}
 
         {provider.notes && (
           <div className="mt-10 rounded-xl bg-primary-muted p-6 border border-primary/10">

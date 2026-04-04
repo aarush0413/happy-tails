@@ -3,8 +3,14 @@
 import { useState, useMemo, useCallback } from "react";
 import { Search, SlidersHorizontal, X, ArrowUpDown } from "lucide-react";
 import { CATEGORIES, AREAS } from "@/lib/constants";
-import { Provider, CategorySlug, AreaSlug, TrustVerdict } from "@/lib/types";
-import { servicesText, getAreaLabel } from "@/lib/utils";
+import {
+  Provider,
+  CategorySlug,
+  AreaSlug,
+  TrustVerdict,
+  OutingVibe,
+} from "@/lib/types";
+import { servicesText, getAreaLabel, outingSearchText, outingVibeLabel } from "@/lib/utils";
 import { ProviderCard } from "@/components/providers/ProviderCard";
 
 interface FilterBarProps {
@@ -17,6 +23,9 @@ interface FilterBarProps {
 
 type SortOption = "default" | "rating-desc" | "name-asc" | "price-asc";
 type VerdictFilter = "" | TrustVerdict;
+type OutingVibeFilter = "" | OutingVibe;
+
+const OUTING_VIBES: OutingVibe[] = ["quiet", "spacious", "dog-cafe", "family-friendly"];
 
 function isOpenNow(hours: string): boolean {
   if (!hours) return false;
@@ -87,6 +96,9 @@ export function FilterBar({
   const [sortBy, setSortBy] = useState<SortOption>("default");
   const [verdictFilter, setVerdictFilter] = useState<VerdictFilter>("");
   const [openNow, setOpenNow] = useState(false);
+  const [outingVibe, setOutingVibe] = useState<OutingVibeFilter>("");
+
+  const isOutingsList = category === "outings-with-pet";
 
   const filtered = useMemo(() => {
     let result = initialProviders;
@@ -97,6 +109,8 @@ export function FilterBar({
         const areaSlug = p.area.toLowerCase();
         const areaLabel = getAreaLabel(p.area).toLowerCase();
         const notes = (p.notes ?? "").toLowerCase();
+        const detailed = (p.trustDetailedNotes ?? "").toLowerCase();
+        const outingBlob = outingSearchText(p).toLowerCase();
         return (
           p.name.toLowerCase().includes(q) ||
           servicesText(p).toLowerCase().includes(q) ||
@@ -104,7 +118,9 @@ export function FilterBar({
           areaSlug.includes(q) ||
           areaLabel.includes(q) ||
           p.slug.toLowerCase().includes(q) ||
-          notes.includes(q)
+          notes.includes(q) ||
+          detailed.includes(q) ||
+          outingBlob.includes(q)
         );
       });
     }
@@ -128,6 +144,9 @@ export function FilterBar({
     }
     if (openNow) {
       result = result.filter((p) => isOpenNow(p.hours));
+    }
+    if (outingVibe && category === "outings-with-pet") {
+      result = result.filter((p) => p.outingMeta?.vibes?.includes(outingVibe as OutingVibe));
     }
 
     if (sortBy !== "default") {
@@ -163,6 +182,8 @@ export function FilterBar({
     sortBy,
     verdictFilter,
     openNow,
+    outingVibe,
+    category,
   ]);
 
   const clearFilters = useCallback(() => {
@@ -175,6 +196,7 @@ export function FilterBar({
     setSortBy("default");
     setVerdictFilter("");
     setOpenNow(false);
+    setOutingVibe("");
   }, [initialCategory, initialArea]);
 
   const ITEMS_PER_PAGE = 12;
@@ -188,7 +210,8 @@ export function FilterBar({
     atHome ||
     minRating > 0 ||
     verdictFilter ||
-    openNow;
+    openNow ||
+    !!outingVibe;
 
   const visibleProviders = filtered.slice(0, visibleCount);
   const hasMore = visibleCount < filtered.length;
@@ -203,11 +226,15 @@ export function FilterBar({
           />
           <input
             type="text"
-            placeholder="Search providers, services..."
+            placeholder={
+              isOutingsList
+                ? "Search cafes, patios, policies, areas…"
+                : "Search providers, services…"
+            }
             value={query}
             onChange={(e) => setQuery(e.target.value)}
             className="w-full min-h-[44px] pl-10 pr-4 py-3 bg-white border border-neutral-200 rounded-lg text-sm text-neutral-900 placeholder:text-neutral-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary/40 transition-all"
-            aria-label="Search providers and services"
+            aria-label={isOutingsList ? "Search outings and areas" : "Search providers and services"}
           />
         </div>
         <div className="flex gap-2">
@@ -272,6 +299,21 @@ export function FilterBar({
                 ))}
               </select>
             )}
+            {isOutingsList && (
+              <select
+                value={outingVibe}
+                onChange={(e) => setOutingVibe(e.target.value as OutingVibeFilter)}
+                className={selectCls}
+                aria-label="Filter by vibe"
+              >
+                <option value="">All vibes</option>
+                {OUTING_VIBES.map((v) => (
+                  <option key={v} value={v}>
+                    {outingVibeLabel(v)}
+                  </option>
+                ))}
+              </select>
+            )}
             <select
               value={minRating}
               onChange={(e) => setMinRating(Number(e.target.value))}
@@ -304,24 +346,28 @@ export function FilterBar({
               />
               Open now
             </label>
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-neutral-200 text-sm text-neutral-600 cursor-pointer min-h-[44px]">
-              <input
-                type="checkbox"
-                checked={emergency}
-                onChange={(e) => setEmergency(e.target.checked)}
-                className="accent-red-600"
-              />
-              24/7 vet
-            </label>
-            <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-neutral-200 text-sm text-neutral-600 cursor-pointer min-h-[44px]">
-              <input
-                type="checkbox"
-                checked={atHome}
-                onChange={(e) => setAtHome(e.target.checked)}
-                className="accent-primary"
-              />
-              Home visit
-            </label>
+            {!isOutingsList && (
+              <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-neutral-200 text-sm text-neutral-600 cursor-pointer min-h-[44px]">
+                <input
+                  type="checkbox"
+                  checked={emergency}
+                  onChange={(e) => setEmergency(e.target.checked)}
+                  className="accent-red-600"
+                />
+                24/7 vet
+              </label>
+            )}
+            {!isOutingsList && (
+              <label className="inline-flex items-center gap-2 px-4 py-2.5 bg-white rounded-lg border border-neutral-200 text-sm text-neutral-600 cursor-pointer min-h-[44px]">
+                <input
+                  type="checkbox"
+                  checked={atHome}
+                  onChange={(e) => setAtHome(e.target.checked)}
+                  className="accent-primary"
+                />
+                Home visit
+              </label>
+            )}
             {hasActiveFilters && (
               <button
                 type="button"
@@ -338,8 +384,16 @@ export function FilterBar({
 
       <div className="flex items-center justify-between mb-4" aria-live="polite">
         <p className="text-sm text-neutral-500">
-          <span className="font-semibold text-neutral-900">{filtered.length}</span> provider
-          {filtered.length !== 1 ? "s" : ""} found
+          <span className="font-semibold text-neutral-900">{filtered.length}</span>{" "}
+          {isOutingsList ? (
+            <>
+              spot{filtered.length !== 1 ? "s" : ""} found
+            </>
+          ) : (
+            <>
+              provider{filtered.length !== 1 ? "s" : ""} found
+            </>
+          )}
         </p>
         {sortBy !== "default" && (
           <p className="text-[10px] text-neutral-400 uppercase tracking-wider flex items-center gap-1">
@@ -352,7 +406,9 @@ export function FilterBar({
 
       {filtered.length === 0 ? (
         <div className="text-center py-20">
-          <p className="font-display text-lg font-semibold text-neutral-400">No providers found</p>
+          <p className="font-display text-lg font-semibold text-neutral-400">
+            {isOutingsList ? "No spots found" : "No providers found"}
+          </p>
           <p className="text-sm text-neutral-400 mt-2">Try adjusting your filters or search query</p>
         </div>
       ) : (

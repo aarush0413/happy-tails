@@ -6,6 +6,8 @@ import type {
   ReviewAudit,
   CategorySlug,
   AreaSlug,
+  OutingVibe,
+  OutingMeta,
 } from "./types";
 
 export * from "./data";
@@ -24,6 +26,42 @@ export function formatRating(rating: number | string | undefined): string {
   return num.toFixed(1);
 }
 
+export function outingVibeLabel(v: OutingVibe): string {
+  const map: Record<OutingVibe, string> = {
+    quiet: "Quiet / calm",
+    spacious: "Spacious",
+    "dog-cafe": "Dog café / treats",
+    "family-friendly": "Family-friendly",
+  };
+  return map[v];
+}
+
+export function outingSeatingLabel(seating: OutingMeta["seating"]): string {
+  const map: Record<OutingMeta["seating"], string> = {
+    garden: "Garden",
+    patio: "Patio",
+    indoor: "Indoor",
+    mixed: "Mixed",
+  };
+  return map[seating];
+}
+
+/** In-page / Fuse search text for outings listings */
+export function outingSearchText(p: Provider): string {
+  if (p.category !== "outings-with-pet") return "";
+  const m = p.outingMeta;
+  const bits: string[] = [p.trustDetailedNotes ?? ""];
+  if (m) {
+    bits.push(...m.vibes.map(outingVibeLabel));
+    bits.push(outingSeatingLabel(m.seating));
+    if (m.waterBowls !== undefined) bits.push(m.waterBowls ? "water bowls" : "no water bowls");
+    if (m.noiseLevel) bits.push(m.noiseLevel);
+    if (m.breedNotes) bits.push(m.breedNotes);
+    if (m.policySummary) bits.push(m.policySummary);
+  }
+  return bits.filter(Boolean).join(" ");
+}
+
 export function getCategoryLabel(slug: CategorySlug): string {
   const map: Record<CategorySlug, string> = {
     vet: "Veterinary Clinics",
@@ -33,6 +71,7 @@ export function getCategoryLabel(slug: CategorySlug): string {
     training: "Training",
     walking: "Walking & Sitting",
     transport: "Pet Transport",
+    "outings-with-pet": "Outings with Pet",
   };
   return map[slug];
 }

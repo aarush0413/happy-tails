@@ -131,6 +131,7 @@ export function computeAreaStats(areaSlug: AreaSlug): ComputedAreaStats {
     training: areaProviders.filter((p) => p.category === "training").length,
     walking: areaProviders.filter((p) => p.category === "walking").length,
     transport: areaProviders.filter((p) => p.category === "transport").length,
+    outings: areaProviders.filter((p) => p.category === "outings-with-pet").length,
     total: areaProviders.length,
     topRated: areaProviders.filter((p) => (p.rating ?? 0) >= 4.5).length,
     emergency: areaProviders.filter((p) => p.isOpen247 && p.category === "vet").length,
@@ -153,6 +154,7 @@ export function getCategoriesWithCounts(): Category[] {
     training: 0,
     walking: 0,
     transport: 0,
+    "outings-with-pet": 0,
   };
   for (const p of providers) {
     counts[p.category]++;
