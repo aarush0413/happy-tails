@@ -51,10 +51,10 @@ export const metadata: Metadata = {
     locale: "en_IN",
     images: [
       {
-        url: `${SITE_URL}/icons/icon-512x512.png`,
-        width: 512,
-        height: 512,
-        alt: `${SITE_NAME}`,
+        url: "/og.png",
+        width: 500,
+        height: 500,
+        alt: `${SITE_NAME} — Happy Tails logo`,
       },
     ],
   },
@@ -62,6 +62,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: SITE_NAME,
     description: SITE_DESCRIPTION,
+    images: ["/og.png"],
   },
 };
 
