@@ -98,13 +98,14 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
           <div className="max-w-3xl animate-fadeIn">
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-4">
-              {totalProviders} providers audited · Pune metro
+              {totalProviders} curated listings · trust-rated · Pune metro
             </p>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-neutral-900 leading-[1.1]">
               We tell you who to trust with your pet.
             </h1>
             <p className="mt-6 text-base sm:text-lg text-neutral-500 max-w-xl leading-relaxed">
-              {totalProviders} providers audited. Rated LEGIT, CAUTION, or WEAK. No sugarcoating.
+              Every listing gets a trust label (LEGIT, CAUTION, or WEAK). Deeper editorial writeups exist
+              for many vets; see our FAQ for how coverage and verification work.
             </p>
             <div className="mt-10 flex flex-col sm:flex-row gap-3 items-stretch sm:items-center">
               <Button href="/providers" variant="primary" size="lg">
@@ -119,7 +120,7 @@ export default function HomePage() {
 
           <div className="mt-16 grid grid-cols-1 sm:grid-cols-3 gap-4">
             {[
-              { label: "Providers audited", value: String(stats.total) },
+              { label: "Curated listings", value: String(stats.total) },
               { label: "Caution or weak", value: String(stats.cautionOrWeak) },
               { label: "24/7 emergency clinics", value: String(stats.emergency247) },
             ].map((s) => (
@@ -330,7 +331,7 @@ export default function HomePage() {
           <div className="flex flex-wrap justify-center gap-8 text-white/80 text-sm">
             <div className="flex items-center gap-2">
               <Shield className="w-5 h-5 text-primary-muted" aria-hidden="true" />
-              <span>Editorial audits</span>
+              <span>Trust ratings &amp; notes</span>
             </div>
             <div className="flex items-center gap-2">
               <Star className="w-5 h-5 text-amber-400" aria-hidden="true" />

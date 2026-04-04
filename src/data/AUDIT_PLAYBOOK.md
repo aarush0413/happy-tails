@@ -51,3 +51,14 @@ Copy on `/disclaimer` and category pages should remind users that listings are *
 - **Removed** one unverified vet row (Skylark) that did not resolve on Maps.
 - **Tranche-1 seed rows** that were editorial placeholders (many groomers, stores, boarding, training, walkers) are marked **`weak`** + **`isOnboarded: false`** until replaced with Google Maps–verified businesses.
 - **Still missing phones** on many legacy East Pune rows and on **Pet's Life Line** (Baner): Practo/JD are the authoritative contact path until a number is captured from Maps.
+
+### Measured inventory (run `npm run verify-data`)
+
+| Metric | Notes |
+|--------|--------|
+| Listings in `providers.json` | ~115 (see script output) |
+| Rows in `audits.json` | Long-form editorial writeups (subset of listings); **not** 1:1 with every provider |
+| `isOnboarded: true` | Must have at least one of: `phone`, `whatsapp`, `website`, `googleMapsUrl` — enforced by `verify-data` |
+| Empty `phone` | Expected on some rows; users use Maps / Practo / site links (see `/faq`) |
+
+**Raintree Veterinary** (Ghorpadi): `website` + phones taken from official site `raintreevet.in` (April 2026).

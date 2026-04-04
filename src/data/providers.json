@@ -958,7 +958,7 @@
     "name": "Raintree Veterinary Clinic & Rehab",
     "category": "vet",
     "area": "hadapsar",
-    "phone": "",
+    "phone": "+918830207984",
     "address": "Uday Baug, Ghorpadi, Pune 411013 (Hadapsar adjacent)",
     "pincode": "411013",
     "hours": "By appointment (call/website)",
@@ -995,7 +995,9 @@
     "doctors": "Dr. Leila Fernandez, Dr. Phiroz Khambatta",
     "notes": "Rehab specialist; unique niche; 24/7. Book via raintreevet.in",
     "lastUpdated": "2026-03-24",
-    "legacyPriority": "Medium"
+    "legacyPriority": "Medium",
+    "website": "https://raintreevet.in",
+    "phoneSecondary": "+919175275957"
   },
   {
     "id": "vet-22",
@@ -1527,7 +1529,7 @@
     "priceRange": "Varies",
     "rating": 4.5,
     "isTopPick": false,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "App-based",
     "lastUpdated": "2026-03-24",
@@ -2691,7 +2693,7 @@
     "consultationFee": "",
     "rating": 4.8,
     "isTopPick": false,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Discount pricing; Est 2021",
     "lastUpdated": "2026-03-24",
@@ -2918,7 +2920,7 @@
     "consultationFee": "₹80/hour",
     "priceTier": "budget",
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Cage-free; 15 capacity; clear pricing",
     "lastUpdated": "2026-03-24",
@@ -3066,7 +3068,7 @@
     "priceTier": "mid",
     "rating": 4.4,
     "isTopPick": false,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Small dogs only; personal",
     "lastUpdated": "2026-03-24",
@@ -3214,7 +3216,7 @@
     "priceTier": "mid",
     "rating": 4.4,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Accepts ALL pets incl reptiles",
     "lastUpdated": "2026-03-24",
@@ -3413,7 +3415,7 @@
     "priceTier": "mid",
     "rating": 4.5,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Covers all 4 areas",
     "lastUpdated": "2026-03-24",
@@ -3511,7 +3513,7 @@
     "consultationFee": "Varies",
     "rating": 4.9,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "4.9; 23 ratings; NO cage; Est 2021; Handewadi",
     "lastUpdated": "2026-03-24",
@@ -3646,7 +3648,7 @@
     "priceTier": "budget",
     "rating": 4.5,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Clear pricing; board+train combo",
     "lastUpdated": "2026-03-24",
@@ -3690,7 +3692,7 @@
     "consultationFee": "Varies",
     "rating": 4.6,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Premier; cage-free; swimming; daily updates",
     "lastUpdated": "2026-03-24",
@@ -3733,7 +3735,7 @@
     "consultationFee": "Varies",
     "rating": 4.5,
     "isTopPick": false,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Also boarding & grooming",
     "lastUpdated": "2026-03-24",
@@ -3776,7 +3778,7 @@
     "consultationFee": "Varies",
     "rating": 4.8,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "500+ puppies; 1000+ families; online",
     "lastUpdated": "2026-03-24",
@@ -3820,7 +3822,7 @@
     "consultationFee": "Varies",
     "rating": 4.5,
     "isTopPick": false,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Professional center",
     "lastUpdated": "2026-03-24",
@@ -3865,7 +3867,7 @@
     "consultationFee": "Varies",
     "rating": 4.4,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "At-home; background-checked; UC-model",
     "lastUpdated": "2026-03-24",
@@ -3909,7 +3911,7 @@
     "consultationFee": "Varies",
     "rating": 4.9,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "4.9; 100 reviews; unique (hikes, counseling)",
     "lastUpdated": "2026-03-24",
@@ -3955,7 +3957,7 @@
     "consultationFee": "Varies",
     "rating": 4.5,
     "isTopPick": false,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Certified; teaches owners",
     "lastUpdated": "2026-03-24",
@@ -3998,7 +4000,7 @@
     "priceTier": "budget",
     "rating": 4.3,
     "isTopPick": false,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Budget; larger dogs; flexible",
     "lastUpdated": "2026-03-24",
@@ -4042,7 +4044,7 @@
     "consultationFee": "Varies",
     "rating": 4.5,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Covers 3 of 4 areas; sitting+walking",
     "lastUpdated": "2026-03-24",
@@ -4174,7 +4176,7 @@
     },
     "consultationFee": "Varies",
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Certified; first-aid trained; training+walking+sitting",
     "lastUpdated": "2026-03-24",
@@ -4217,7 +4219,7 @@
     },
     "consultationFee": "Varies",
     "isTopPick": false,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "100+ pets exp; medication admin; in-home",
     "lastUpdated": "2026-03-24",
@@ -4261,7 +4263,7 @@
     "consultationFee": "",
     "rating": 4.5,
     "isTopPick": true,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "200+ pets; IPATA certified; #1 rated",
     "lastUpdated": "2026-03-24",
@@ -4392,7 +4394,7 @@
     "consultationFee": "",
     "rating": 4.5,
     "isTopPick": false,
-    "isOnboarded": true,
+    "isOnboarded": false,
     "doctors": "",
     "notes": "Large scale; 45K clients",
     "lastUpdated": "2026-03-24",
@@ -4453,7 +4455,10 @@
     "phone": "+918308308912",
     "address": "Shop 42, Abhijit Apartment, Erandwane, Paud Phata, Kothrud, Pune 411038",
     "pincode": "411038",
-    "coordinates": { "lat": 18.5068, "lng": 73.8271 },
+    "coordinates": {
+      "lat": 18.5068,
+      "lng": 73.8271
+    },
     "hours": "10:00 AM–12:30 PM, 6:00–8:30 PM (closed Sun)",
     "isOpen247": false,
     "hasEmergency": false,
@@ -4462,7 +4467,13 @@
     "trustSummary": "Verified via public directories (Haduk, Practo): Dr. Atul Mane; Shop 42 Abhijit Apartment, Paud Phata Kothrud. Practo shows strong patient ratings (sample 282+); cross-check Google for latest star average.",
     "trustDetailedNotes": "**Sources:** Haduk, Practo (consult ~₹300 on Practo listing — confirm). **Phones:** +91 83083 08912 / 72761 36646 on multiple listings. **Recommendation:** LEGIT for routine care; not 24/7 emergency.",
     "verifiedDate": "April 2026",
-    "services": ["Consultations", "Vaccination", "Surgery", "Dental", "Lab"],
+    "services": [
+      "Consultations",
+      "Vaccination",
+      "Surgery",
+      "Dental",
+      "Lab"
+    ],
     "attributes": {
       "hasICU": false,
       "hasXray": true,
@@ -4498,7 +4509,10 @@
     "website": "https://www.practo.com/pune/clinic/petaegis-veterinary-clinic-kothrud",
     "address": "Mayur Colony, Bhushan A Apartment, Kothrud, Pune 411038 (near Central Bank of India, Kothrud branch)",
     "pincode": "411038",
-    "coordinates": { "lat": 18.5092, "lng": 73.8158 },
+    "coordinates": {
+      "lat": 18.5092,
+      "lng": 73.8158
+    },
     "hours": "9:00 AM–10:00 PM",
     "isOpen247": false,
     "hasEmergency": false,
@@ -4506,7 +4520,12 @@
     "trustSummary": "Extended evening hours on record; useful for working pet parents. Cross-check Google vs Practo themes before surgery — no major red flags in public snippets reviewed.",
     "trustDetailedNotes": "**Sources:** Haduk, Practo clinic page. **Phones:** +91 98901 24393 / 74105 02525 on listings. **Recommendation:** ONBOARD with standard editorial monitoring.",
     "verifiedDate": "April 2026",
-    "services": ["Consultations", "Vaccination", "Diagnostics", "Surgery"],
+    "services": [
+      "Consultations",
+      "Vaccination",
+      "Diagnostics",
+      "Surgery"
+    ],
     "attributes": {
       "hasICU": false,
       "hasXray": true,
@@ -4539,16 +4558,26 @@
     "website": "https://www.practo.com/pune/clinic/animal-profile-veterinary-clinic-baner-road/veterinarian-ps-49",
     "address": "Shop 3, B wing, Indus Residency / Indus Apartment, Baner Road, Baner, Pune 411045 (opp Domino's Pizza)",
     "pincode": "411045",
-    "coordinates": { "lat": 18.5592, "lng": 73.7855 },
+    "coordinates": {
+      "lat": 18.5592,
+      "lng": 73.7855
+    },
     "hours": "Mon–Sat 9:30 AM–1:30 PM, 5:30–9:00 PM; Sun 9:00 AM–1:00 PM",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "caution",
     "trustSummary": "Practo sample shows mixed patient feedback (~3.5/5 from limited reviews). Experienced clinician on file — treat as CAUTION: verify pricing and post-op communication before major procedures.",
     "trustDetailedNotes": "**Sources:** Practo profile, public address. **Findings:** Diagnostic positioning; some rating dispersion across platforms. **Recommendation:** ONBOARD with CAUTION badge; encourage readers to read recent Google + Practo reviews.",
-    "trustRedFlags": ["Mixed Practo vs Google themes — read recent reviews before surgery"],
+    "trustRedFlags": [
+      "Mixed Practo vs Google themes — read recent reviews before surgery"
+    ],
     "verifiedDate": "April 2026",
-    "services": ["Consultations", "Dental scaling", "Surgery", "Vaccination"],
+    "services": [
+      "Consultations",
+      "Dental scaling",
+      "Surgery",
+      "Vaccination"
+    ],
     "attributes": {
       "hasICU": false,
       "hasXray": true,
@@ -4581,7 +4610,10 @@
     "website": "https://www.practo.com/pune/clinic/pet-s-life-line-baner",
     "address": "Shop 1, Kalamkar Corner, Next to Jupiter Hospital, Baner, Pune 411045",
     "pincode": "411045",
-    "coordinates": { "lat": 18.5601, "lng": 73.7792 },
+    "coordinates": {
+      "lat": 18.5601,
+      "lng": 73.7792
+    },
     "hours": "Mon–Sat 10:00 AM–1:00 PM, 6:30–8:30 PM",
     "isOpen247": false,
     "hasEmergency": false,
@@ -4589,7 +4621,12 @@
     "trustSummary": "Practo lists consult ~₹300; phone often behind JustDial “Show number” — use Practo booking or Maps for current phone.",
     "trustDetailedNotes": "**Sources:** Practo (linked), JustDial listing exists. **Findings:** Established Baner name; useful one-stop. **Recommendation:** ONBOARD; get phone from Maps/JD before visit.",
     "verifiedDate": "April 2026",
-    "services": ["Consultations", "Surgery", "Grooming", "Dermatology"],
+    "services": [
+      "Consultations",
+      "Surgery",
+      "Grooming",
+      "Dermatology"
+    ],
     "attributes": {
       "hasICU": false,
       "hasXray": true,
@@ -4622,7 +4659,10 @@
     "phoneSecondary": "+912025657865",
     "address": "C3, Shop 4, Sakal Nagar Shopping Complex, Baner Road, Sakal Nagar, Pune",
     "pincode": "411008",
-    "coordinates": { "lat": 18.5555, "lng": 73.7765 },
+    "coordinates": {
+      "lat": 18.5555,
+      "lng": 73.7765
+    },
     "hours": "Contact for hours",
     "isOpen247": false,
     "hasEmergency": false,
@@ -4630,7 +4670,11 @@
     "trustSummary": "Dr. Small Animal Clinic (Sakal Nagar): public listings show landline + mobile; long-running Baner-area practice — confirm hours on call.",
     "trustDetailedNotes": "**Sources:** WebIndia123 / local directory blurbs (9822303750, 020-25657865). **Recommendation:** ONBOARD; verify on Google Maps before first visit.",
     "verifiedDate": "April 2026",
-    "services": ["Consultations", "Vaccination", "Basic surgery"],
+    "services": [
+      "Consultations",
+      "Vaccination",
+      "Basic surgery"
+    ],
     "attributes": {
       "hasICU": false,
       "hasXray": false,
@@ -4663,16 +4707,26 @@
     "website": "https://www.vetic.in/",
     "address": "Ground Floor, Darekar Heights, 4 & 5, Aditya Birla Hospital Marg, near Dange Chowk, Yashoda Colony, Thergaon, Pimpri-Chinchwad 411033",
     "pincode": "411033",
-    "coordinates": { "lat": 18.605, "lng": 73.785 },
+    "coordinates": {
+      "lat": 18.605,
+      "lng": 73.785
+    },
     "hours": "Typically 10:00 AM–8:00 PM (confirm branch)",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "caution",
     "trustSummary": "Same chain-wide dynamics as our Kalyani audit: strong brand, but verify **local** Google reviews and any national headlines before trusting grooming/surgery without questions.",
     "trustDetailedNotes": "**Cross-reference:** Happy Tails Kalyani Vetic audit (police case / chain review inflation themes). **Recommendation:** CAUTION for PCMC branch until independently verified.",
-    "trustRedFlags": ["Chain-wide review counts may inflate local perception"],
+    "trustRedFlags": [
+      "Chain-wide review counts may inflate local perception"
+    ],
     "verifiedDate": "April 2026",
-    "services": ["Consultations", "Grooming", "Diagnostics", "Surgery"],
+    "services": [
+      "Consultations",
+      "Grooming",
+      "Diagnostics",
+      "Surgery"
+    ],
     "attributes": {
       "hasICU": false,
       "hasXray": true,
@@ -4703,7 +4757,10 @@
     "phone": "",
     "address": "Unverified listing name — replace with a Google-verified Hinjewadi/Wakad clinic",
     "pincode": "411057",
-    "coordinates": { "lat": 18.598, "lng": 73.718 },
+    "coordinates": {
+      "lat": 18.598,
+      "lng": 73.718
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
@@ -4711,7 +4768,11 @@
     "trustSummary": "Editorial placeholder: business name/address not verified on Google Maps (April 2026). Do not use for navigation — add a verified clinic instead.",
     "trustDetailedNotes": "**Status:** NOT VERIFIED. **Recommendation:** Remove or replace after Maps confirmation.",
     "verifiedDate": "April 2026",
-    "services": ["Consultations", "Vaccination", "Lab"],
+    "services": [
+      "Consultations",
+      "Vaccination",
+      "Lab"
+    ],
     "attributes": {
       "hasICU": false,
       "hasXray": false,
@@ -4741,7 +4802,10 @@
     "phone": "",
     "address": "Unverified seed — search Google Maps for real Baner salons and replace this row",
     "pincode": "411045",
-    "coordinates": { "lat": 18.5585, "lng": 73.781 },
+    "coordinates": {
+      "lat": 18.5585,
+      "lng": 73.781
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
@@ -4749,7 +4813,11 @@
     "trustSummary": "Not verified: name/address were editorial placeholders. Replace with a Maps-verified groomer.",
     "trustDetailedNotes": "**Status:** NOT VERIFIED.",
     "verifiedDate": "April 2026",
-    "services": ["Bath & dry", "Haircut", "Nail trim"],
+    "services": [
+      "Bath & dry",
+      "Haircut",
+      "Nail trim"
+    ],
     "attributes": {
       "medicatedBath": true,
       "premiumGrooming": true,
@@ -4771,7 +4839,10 @@
     "phone": "",
     "address": "Unverified seed — replace with Maps-verified Kothrud groomer",
     "pincode": "411038",
-    "coordinates": { "lat": 18.512, "lng": 73.808 },
+    "coordinates": {
+      "lat": 18.512,
+      "lng": 73.808
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
@@ -4779,7 +4850,11 @@
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "trustDetailedNotes": "**Status:** NOT VERIFIED.",
     "verifiedDate": "April 2026",
-    "services": ["Full groom", "Deshedding", "Spa"],
+    "services": [
+      "Full groom",
+      "Deshedding",
+      "Spa"
+    ],
     "attributes": {
       "medicatedBath": true,
       "premiumGrooming": true,
@@ -4801,7 +4876,10 @@
     "phone": "",
     "address": "Unverified seed — replace with verified PCMC groomer",
     "pincode": "411018",
-    "coordinates": { "lat": 18.632, "lng": 73.802 },
+    "coordinates": {
+      "lat": 18.632,
+      "lng": 73.802
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
@@ -4809,7 +4887,11 @@
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "trustDetailedNotes": "**Status:** NOT VERIFIED.",
     "verifiedDate": "April 2026",
-    "services": ["Bath", "Breed grooms", "Nail & ear"],
+    "services": [
+      "Bath",
+      "Breed grooms",
+      "Nail & ear"
+    ],
     "attributes": {
       "medicatedBath": true,
       "premiumGrooming": false,
@@ -4831,15 +4913,23 @@
     "phone": "",
     "address": "Unverified seed — replace with verified Wakad/Hinjewadi groomer",
     "pincode": "411057",
-    "coordinates": { "lat": 18.605, "lng": 73.76 },
+    "coordinates": {
+      "lat": 18.605,
+      "lng": 73.76
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
-    "trustRedFlags": ["Unverified listing"],
+    "trustRedFlags": [
+      "Unverified listing"
+    ],
     "verifiedDate": "April 2026",
-    "services": ["Full groom", "Spa packages"],
+    "services": [
+      "Full groom",
+      "Spa packages"
+    ],
     "attributes": {
       "medicatedBath": true,
       "premiumGrooming": true,
@@ -4861,7 +4951,10 @@
     "phone": "",
     "address": "Unverified seed — replace with Maps-verified Kothrud pet store",
     "pincode": "411038",
-    "coordinates": { "lat": 18.5085, "lng": 73.812 },
+    "coordinates": {
+      "lat": 18.5085,
+      "lng": 73.812
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
@@ -4869,7 +4962,12 @@
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "trustDetailedNotes": "**Status:** NOT VERIFIED.",
     "verifiedDate": "April 2026",
-    "services": ["Food", "Treats", "Accessories", "Toys"],
+    "services": [
+      "Food",
+      "Treats",
+      "Accessories",
+      "Toys"
+    ],
     "attributes": {},
     "isTopPick": false,
     "isOnboarded": false,
@@ -4885,14 +4983,21 @@
     "phone": "",
     "address": "Unverified seed — replace with Maps-verified Baner pet store",
     "pincode": "411045",
-    "coordinates": { "lat": 18.561, "lng": 73.778 },
+    "coordinates": {
+      "lat": 18.561,
+      "lng": 73.778
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "verifiedDate": "April 2026",
-    "services": ["Food", "Grooming supplies", "Beds"],
+    "services": [
+      "Food",
+      "Grooming supplies",
+      "Beds"
+    ],
     "attributes": {},
     "isTopPick": false,
     "isOnboarded": false,
@@ -4908,14 +5013,20 @@
     "phone": "",
     "address": "Unverified seed — replace with Maps-verified PCMC pet store",
     "pincode": "411017",
-    "coordinates": { "lat": 18.627, "lng": 73.785 },
+    "coordinates": {
+      "lat": 18.627,
+      "lng": 73.785
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "verifiedDate": "April 2026",
-    "services": ["Food", "Accessories"],
+    "services": [
+      "Food",
+      "Accessories"
+    ],
     "attributes": {},
     "isTopPick": false,
     "isOnboarded": false,
@@ -4931,15 +5042,23 @@
     "phone": "",
     "address": "Unverified seed — replace with Maps-verified boarding in Camp/KP/Deccan",
     "pincode": "411001",
-    "coordinates": { "lat": 18.5315, "lng": 73.8775 },
+    "coordinates": {
+      "lat": 18.5315,
+      "lng": 73.8775
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
-    "trustRedFlags": ["Unverified listing"],
+    "trustRedFlags": [
+      "Unverified listing"
+    ],
     "verifiedDate": "April 2026",
-    "services": ["Overnight boarding", "Daycare"],
+    "services": [
+      "Overnight boarding",
+      "Daycare"
+    ],
     "attributes": {
       "supervision247": false,
       "cctv": false,
@@ -4959,14 +5078,20 @@
     "phone": "",
     "address": "Unverified seed — replace with Maps-verified boarding",
     "pincode": "411046",
-    "coordinates": { "lat": 18.457, "lng": 73.865 },
+    "coordinates": {
+      "lat": 18.457,
+      "lng": 73.865
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "verifiedDate": "April 2026",
-    "services": ["Home boarding", "Daycare"],
+    "services": [
+      "Home boarding",
+      "Daycare"
+    ],
     "attributes": {
       "supervision247": false,
       "cctv": false,
@@ -4986,15 +5111,23 @@
     "phone": "",
     "address": "Unverified seed — replace with Maps-verified Wagholi boarding",
     "pincode": "412207",
-    "coordinates": { "lat": 18.579, "lng": 73.975 },
+    "coordinates": {
+      "lat": 18.579,
+      "lng": 73.975
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
-    "trustRedFlags": ["Unverified listing"],
+    "trustRedFlags": [
+      "Unverified listing"
+    ],
     "verifiedDate": "April 2026",
-    "services": ["Boarding", "Daycare"],
+    "services": [
+      "Boarding",
+      "Daycare"
+    ],
     "attributes": {
       "supervision247": false,
       "cctv": false,
@@ -5014,14 +5147,21 @@
     "phone": "",
     "address": "Unverified seed — replace with Maps-verified trainer",
     "pincode": "411040",
-    "coordinates": { "lat": 18.484, "lng": 73.895 },
+    "coordinates": {
+      "lat": 18.484,
+      "lng": 73.895
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "verifiedDate": "April 2026",
-    "services": ["Obedience", "Puppy socialisation", "Behaviour consult"],
+    "services": [
+      "Obedience",
+      "Puppy socialisation",
+      "Behaviour consult"
+    ],
     "attributes": {},
     "isTopPick": false,
     "isOnboarded": false,
@@ -5037,14 +5177,20 @@
     "phone": "",
     "address": "Unverified seed — replace with Maps-verified trainer",
     "pincode": "411045",
-    "coordinates": { "lat": 18.562, "lng": 73.772 },
+    "coordinates": {
+      "lat": 18.562,
+      "lng": 73.772
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "verifiedDate": "April 2026",
-    "services": ["Obedience", "Agility intro"],
+    "services": [
+      "Obedience",
+      "Agility intro"
+    ],
     "attributes": {},
     "isTopPick": false,
     "isOnboarded": false,
@@ -5060,14 +5206,20 @@
     "phone": "",
     "address": "Unverified seed — replace with verified walker/sitter",
     "pincode": "411057",
-    "coordinates": { "lat": 18.601, "lng": 73.728 },
+    "coordinates": {
+      "lat": 18.601,
+      "lng": 73.728
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "verifiedDate": "April 2026",
-    "services": ["Daily walks", "Pet sitting"],
+    "services": [
+      "Daily walks",
+      "Pet sitting"
+    ],
     "attributes": {
       "homeVisit": true,
       "pickupDrop": false
@@ -5086,14 +5238,20 @@
     "phone": "",
     "address": "Unverified seed — replace with verified walker/sitter",
     "pincode": "411001",
-    "coordinates": { "lat": 18.5369, "lng": 73.8933 },
+    "coordinates": {
+      "lat": 18.5369,
+      "lng": 73.8933
+    },
     "hours": "—",
     "isOpen247": false,
     "hasEmergency": false,
     "trustVerdict": "weak",
     "trustSummary": "Not verified on Google Maps — placeholder only.",
     "verifiedDate": "April 2026",
-    "services": ["Walks", "Vacation sitting"],
+    "services": [
+      "Walks",
+      "Vacation sitting"
+    ],
     "attributes": {
       "homeVisit": true,
       "pickupDrop": false

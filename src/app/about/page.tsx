@@ -38,8 +38,8 @@ export default function AboutPage() {
           {[
             {
               icon: <Shield className="w-6 h-6" aria-hidden="true" />,
-              title: "Verified & Audited",
-              desc: "We don't just list providers. Every business goes through our review audit process. We flag caution, blacklist unsafe providers, and verify legitimate ones.",
+              title: "Trust ratings & editorial reviews",
+              desc: "Each listing carries a trust verdict and notes. We also publish longer audit-style writeups for a subset of businesses (see By the Numbers). We flag caution, blacklist unsafe operators, and call out weak or unverified placeholders.",
             },
             {
               icon: <Eye className="w-6 h-6" aria-hidden="true" />,
