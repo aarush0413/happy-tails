@@ -122,7 +122,7 @@ export default function HomePage() {
             {[
               { label: "Curated listings", value: String(stats.total) },
               { label: "Caution or weak", value: String(stats.cautionOrWeak) },
-              { label: "24/7 emergency clinics", value: String(stats.emergency247) },
+              { label: "24/7 vets in our directory", value: String(stats.emergency247) },
             ].map((s) => (
               <div
                 key={s.label}
@@ -140,8 +140,10 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
             <p className="font-semibold text-neutral-900">Pet emergency?</p>
-            <p className="text-sm text-neutral-600 mt-0.5">
-              {emergencyProviders.length} clinics available 24/7 across Pune metro.
+            <p className="text-sm text-neutral-600 mt-0.5 max-w-xl">
+              {emergencyProviders.length} vets in our data are flagged{" "}
+              <span className="whitespace-nowrap">24/7</span> — Pune has more emergency options; we add
+              them as we verify. See the emergency page for details.
             </p>
           </div>
           <Link
@@ -186,7 +188,7 @@ export default function HomePage() {
             </div>
             <h3 className="font-semibold text-red-700 text-sm">Emergency 24/7</h3>
             <p className="text-[11px] text-red-400/80 mt-1 uppercase tracking-wide">
-              {emergencyProviders.length} clinics
+              {emergencyProviders.length} in directory
             </p>
           </Link>
         </div>

@@ -29,8 +29,12 @@ export default function EmergencyPage() {
               </h1>
             </div>
           </div>
-          <p className="text-white/40 text-sm max-w-xl">
-            {providers.length} clinics available around the clock. Tap to call immediately.
+          <p className="text-white/70 text-sm max-w-2xl leading-relaxed">
+            <span className="text-white font-medium">{providers.length} listings</span> in Happy Tails are
+            marked <span className="text-white/90">true 24/7 veterinary hospitals/clinics</span> (we only
+            count vets, not groomers or boarding). Pune has additional night and emergency-capable clinics
+            that are not in our database yet, or that run daytime hours with on-call ER — use Maps or
+            chain sites and always call ahead.
           </p>
         </div>
       </section>
@@ -62,6 +66,16 @@ export default function EmergencyPage() {
               <Phone className="w-4 h-4" aria-hidden="true" /> SPCA
             </a>
           </div>
+        </div>
+
+        <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-5 mb-6">
+          <p className="text-sm text-neutral-700 leading-relaxed">
+            <strong className="text-neutral-900">Why so few?</strong> We deliberately use a narrow flag:{" "}
+            <strong>open 24 hours, vet clinic</strong>, in our curated list. Many good vets are daytime-only
+            or emergency-on-call; chains like Vetic also advertise 24/7 at select locations — we add or
+            update rows only after editorial checks, so this page is a starting point, not an exhaustive
+            map of every ER in PMC/PCMC.
+          </p>
         </div>
 
         <div className="bg-red-50 dark:bg-red-950/30 rounded-xl p-5 border border-red-100 dark:border-red-800/40 mb-8">
