@@ -4,7 +4,7 @@ import { useState, useMemo, useCallback } from "react";
 import { Search, SlidersHorizontal, X, ArrowUpDown } from "lucide-react";
 import { CATEGORIES, AREAS } from "@/lib/constants";
 import { Provider, CategorySlug, AreaSlug, TrustVerdict } from "@/lib/types";
-import { servicesText } from "@/lib/utils";
+import { servicesText, getAreaLabel } from "@/lib/utils";
 import { ProviderCard } from "@/components/providers/ProviderCard";
 
 interface FilterBarProps {
@@ -93,12 +93,20 @@ export function FilterBar({
 
     if (query) {
       const q = query.toLowerCase();
-      result = result.filter(
-        (p) =>
+      result = result.filter((p) => {
+        const areaSlug = p.area.toLowerCase();
+        const areaLabel = getAreaLabel(p.area).toLowerCase();
+        const notes = (p.notes ?? "").toLowerCase();
+        return (
           p.name.toLowerCase().includes(q) ||
           servicesText(p).toLowerCase().includes(q) ||
-          p.address.toLowerCase().includes(q)
-      );
+          p.address.toLowerCase().includes(q) ||
+          areaSlug.includes(q) ||
+          areaLabel.includes(q) ||
+          p.slug.toLowerCase().includes(q) ||
+          notes.includes(q)
+        );
+      });
     }
     if (category) {
       result = result.filter((p) => p.category === category);
