@@ -15,7 +15,7 @@ import {
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/cn";
 
-const RECENT_KEY = "happy-tails-search-recent";
+const RECENT_KEY = "happytails-search-recent";
 const MAX_RECENT = 6;
 
 function loadRecent(): string[] {

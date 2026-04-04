@@ -19,7 +19,7 @@ interface AppContextType {
 
 const AppContext = createContext<AppContextType | null>(null);
 
-const FAVORITES_KEY = "happy-tails-favorites";
+const FAVORITES_KEY = "happytails-favorites";
 const MAX_COMPARE = 3;
 
 export function AppProvider({ children }: { children: ReactNode }) {

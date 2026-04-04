@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import { Moon, Sun } from "lucide-react";
 
-const THEME_KEY = "happy-tails-theme";
+const THEME_KEY = "happytails-theme";
 
 export function ThemeToggle() {
   const [dark, setDark] = useState(false);
