@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+import Link from "next/link";
 import { Phone, Siren, AlertCircle } from "lucide-react";
 import { getEmergencyProviders } from "@/lib/utils";
 import { getEmergencySymptoms } from "@/lib/data";
@@ -30,11 +31,10 @@ export default function EmergencyPage() {
             </div>
           </div>
           <p className="text-white/70 text-sm max-w-2xl leading-relaxed">
-            <span className="text-white font-medium">{providers.length} listings</span> in Happy Tails are
-            marked <span className="text-white/90">true 24/7 veterinary hospitals/clinics</span> (we only
-            count vets, not groomers or boarding). Pune has additional night and emergency-capable clinics
-            that are not in our database yet, or that run daytime hours with on-call ER — use Maps or
-            chain sites and always call ahead.
+            <span className="text-white font-medium">{providers.length} verified 24/7 vet clinics</span> across
+            Kalyani Nagar, Viman Nagar, Aundh, and Hadapsar — Crown Vet, Vetic, Raintree, and Dr. Pet
+            Multi-Specialty. We only list vet hospitals we&apos;ve flagged as round-the-clock; call
+            ahead before driving.
           </p>
         </div>
       </section>
@@ -68,13 +68,19 @@ export default function EmergencyPage() {
           </div>
         </div>
 
-        <div className="rounded-xl border border-neutral-200 bg-neutral-50 p-5 mb-6">
-          <p className="text-sm text-neutral-700 leading-relaxed">
-            <strong className="text-neutral-900">Why so few?</strong> We deliberately use a narrow flag:{" "}
-            <strong>open 24 hours, vet clinic</strong>, in our curated list. Many good vets are daytime-only
-            or emergency-on-call; chains like Vetic also advertise 24/7 at select locations — we add or
-            update rows only after editorial checks, so this page is a starting point, not an exhaustive
-            map of every ER in PMC/PCMC.
+        <div className="rounded-xl border border-primary/25 bg-primary-muted/40 p-5 mb-6">
+          <p className="text-sm font-semibold text-neutral-900">Vetic — citywide emergency line</p>
+          <p className="text-sm text-neutral-600 mt-2 leading-relaxed">
+            Vetic advertises 24/7 emergency care in Pune with one number:{" "}
+            <a href="tel:+918929043121" className="font-mono font-semibold text-primary underline underline-offset-2">
+              +91 89290 43121
+            </a>
+            . Our <strong>Kalyani Nagar</strong> and <Link href="/provider/vetic-pimpri-chinchwad" className="text-primary font-medium underline underline-offset-2">Thergaon / PCMC</Link> branch
+            pages are in the directory; other branches (Aundh, NIBM, Wakad) are usually daytime — confirm on{" "}
+            <a href="https://www.vetic.in/clinics-locator" className="text-primary underline underline-offset-2" target="_blank" rel="noopener noreferrer">
+              vetic.in
+            </a>
+            .
           </p>
         </div>
 

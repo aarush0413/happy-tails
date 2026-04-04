@@ -5,7 +5,7 @@
     "description": "Dense pet services near Hermes Koregaon Park Annexe; strong vet and store coverage.",
     "density": "high",
     "readiness": "HIGH",
-    "emergencyVet": "Crown Vet (24/7 nearby)",
+    "emergencyVet": "Crown Vet + Vetic Kalyani (24/7)",
     "coordinates": { "lat": 18.5485, "lng": 73.9015 }
   },
   {
@@ -32,7 +32,7 @@
     "description": "Largest spread; many boarding and vet options toward Mundhwa and Manjri.",
     "density": "high",
     "readiness": "HIGH",
-    "emergencyVet": "My Pet Care / Raintree (24/7)",
+    "emergencyVet": "Raintree (24/7) + citywide list",
     "coordinates": { "lat": 18.4967, "lng": 73.9418 }
   },
   {
@@ -50,7 +50,7 @@
     "description": "Western residential belt — high footfall vets, grooming, and pet stores.",
     "density": "high",
     "readiness": "HIGH",
-    "emergencyVet": "Nearest 24/7: central Pune / Baner",
+    "emergencyVet": "Crown Aundh / Vetic Kalyani / citywide 24/7 list",
     "coordinates": { "lat": 18.5074, "lng": 73.8077 }
   },
   {
@@ -68,7 +68,7 @@
     "description": "Upscale west — vets and salons serving Aundh, Pashan, and Sus pockets.",
     "density": "high",
     "readiness": "HIGH",
-    "emergencyVet": "Nearest 24/7: Baner / city centre",
+    "emergencyVet": "Crown Vet Aundh (24/7)",
     "coordinates": { "lat": 18.5581, "lng": 73.8078 }
   },
   {

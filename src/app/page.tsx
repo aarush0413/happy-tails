@@ -95,7 +95,7 @@ export default function HomePage() {
       />
 
       <section className="relative overflow-hidden bg-gradient-to-b from-neutral-50 via-primary-muted/40 to-neutral-50 border-b border-neutral-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-28 lg:py-36">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-14 sm:py-20 lg:py-28">
           <div className="max-w-3xl animate-fadeIn">
             <p className="text-xs uppercase tracking-[0.2em] text-primary font-semibold mb-4">
               {totalProviders} curated listings · trust-rated · Pune metro

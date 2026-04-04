@@ -100,17 +100,16 @@ const faqs: FaqItem[] = [
     ),
   },
   {
-    q: "Why does the emergency page list only a handful of 24/7 vets?",
+    q: "Which emergency vets does Happy Tails list?",
     schemaText:
-      "Happy Tails only counts veterinary clinics in our database that are marked as open 24 hours. That is a narrow subset: many vets offer emergency or on-call care without being a full 24/7 hospital, and we have not listed every chain location or overnight option in Pune yet. The list is a starting point—use Google Maps, Practo, or chain sites and call ahead.",
+      "We list veterinary clinics in our database that are marked as open 24 hours, including Crown Vet, Vetic Kalyani Nagar, Dr. Pet Multi-Specialty Viman Nagar, and Raintree, plus Vetic's citywide emergency phone. Many other vets offer daytime or on-call emergency care; confirm hours before you travel.",
     a: (
       <>
-        The <Link href="/emergency" className="text-primary font-medium underline underline-offset-2">emergency finder</Link>{" "}
-        only includes <strong>vet clinics</strong> we&apos;ve marked as <strong>open 24/7</strong> — true
-        round-the-clock listings in our database. Pune has more night and
-        emergency-capable options (daytime clinics with on-call staff, chain ER hubs, etc.) that either
-        aren&apos;t in our directory yet or aren&apos;t flagged as full 24/7 here. Always confirm on Maps or
-        by phone; this list is <strong>curated coverage</strong>, not a census of every ER in the city.
+        The <Link href="/emergency" className="text-primary font-medium underline underline-offset-2">emergency page</Link>{" "}
+        shows every vet we&apos;ve verified as <strong>true 24/7</strong> (currently Crown Vet Kalyani &amp;
+        Aundh, Vetic Kalyani, Dr. Pet Multi-Specialty, Raintree) plus <strong>Vetic&apos;s emergency line</strong>{" "}
+        for the wider chain. Other clinics may take emergencies during the day or by appointment — use Maps
+        or call ahead.
       </>
     ),
   },

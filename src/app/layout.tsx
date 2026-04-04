@@ -89,7 +89,7 @@ export default function RootLayout({
             Skip to content
           </a>
           <Header />
-          <main id="main-content" className="flex-1 pb-24 md:pb-6">
+          <main id="main-content" className="pb-20 pb-[calc(5rem+env(safe-area-inset-bottom))] md:pb-6">
             {children}
           </main>
           <Footer />

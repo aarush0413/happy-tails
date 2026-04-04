@@ -15,13 +15,14 @@ import {
   servicesText,
 } from "@/lib/utils";
 import { Badge } from "@/components/ui/Badge";
+import areasData from "@/data/areas.json";
 
-const AREA_COORDS: Record<string, { lat: number; lng: number }> = {
-  "kalyani-nagar": { lat: 18.5535, lng: 73.9016 },
-  "viman-nagar": { lat: 18.5679, lng: 73.9143 },
-  "kharadi": { lat: 18.5511, lng: 73.9407 },
-  "hadapsar": { lat: 18.5089, lng: 73.9260 },
-};
+const AREA_COORDS: Record<string, { lat: number; lng: number }> = Object.fromEntries(
+  (areasData as { id: string; coordinates: { lat: number; lng: number } }[]).map((a) => [
+    a.id,
+    a.coordinates,
+  ])
+);
 
 function haversineKm(lat1: number, lon1: number, lat2: number, lon2: number): number {
   const R = 6371;
@@ -104,7 +105,7 @@ export function EmergencyList({ providers }: EmergencyListProps) {
         {sortedProviders.map((provider) => {
           const contact = getContactType(provider.phone || "N/A");
           const phone = getPhoneNumber(provider.phone || "");
-          const areaCoords = AREA_COORDS[provider.area];
+          const areaCoords = provider.coordinates ?? AREA_COORDS[provider.area];
           const distance = userLocation && areaCoords
             ? haversineKm(userLocation.lat, userLocation.lng, areaCoords.lat, areaCoords.lng)
             : null;
