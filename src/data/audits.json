@@ -288,26 +288,14 @@
     "recommendation": "ONBOARD with contact verification flag."
   },
   {
-    "sr": 26,
-    "businessName": "Skylark Veterinary Clinic",
-    "area": "Aundh · Pashan",
-    "category": "Vet Clinic",
-    "rating": "Pending full sweep",
-    "reviewCount": "N/A",
-    "verdict": "CAUTION",
-    "keyFindings": "Placeholder cluster entry until on-site verification and live Maps scrape.",
-    "redFlags": "Incomplete verification.",
-    "recommendation": "HOLD upgrade to LEGIT after field visit."
-  },
-  {
     "sr": 27,
-    "businessName": "Vetic Pet Clinic (Pimpri-Chinchwad)",
+    "businessName": "Vetic Pet Clinic (Thergaon / PCMC)",
     "area": "Pimpri–Chinchwad",
     "category": "Vet Clinic",
     "rating": "Chain — local branch varies",
     "reviewCount": "See Google branch page",
     "verdict": "CAUTION",
-    "keyFindings": "Cross-reference national chain headlines and Kalyani audit themes; verify **this branch’s** Google reviews, not chain-wide totals.",
+    "keyFindings": "Thergaon PCMC branch: use branch Google page + vetic.in for phone/hours. Cross-reference Kalyani audit themes; verify **local** reviews, not chain-wide totals.",
     "redFlags": "Chain-wide review inflation possible.",
     "recommendation": "CAUTION until independent branch verification."
   },
@@ -316,12 +304,12 @@
     "businessName": "Pawfect Pet Clinic",
     "area": "Hinjewadi · Wakad",
     "category": "Vet Clinic",
-    "rating": "4.3 est. (verify)",
-    "reviewCount": "Check Maps",
-    "verdict": "LEGIT",
-    "keyFindings": "IT-corridor day OPD pattern — not for overnight emergency.",
-    "redFlags": "NONE in editorial template.",
-    "recommendation": "ONBOARD as neighbourhood vet."
+    "rating": "N/A",
+    "reviewCount": "N/A",
+    "verdict": "WEAK / UNVERIFIED",
+    "keyFindings": "Name/address not confirmed on Google Maps — placeholder removed from recommendations.",
+    "redFlags": "Unverified listing.",
+    "recommendation": "Replace with Maps-verified clinic."
   },
   {
     "sr": 29,

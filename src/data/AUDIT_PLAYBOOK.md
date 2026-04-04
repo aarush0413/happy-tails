@@ -42,3 +42,12 @@ Audits are **editorial judgments** based on publicly visible information (Google
 ## Disclaimer
 
 Copy on `/disclaimer` and category pages should remind users that listings are **curated opinions at a point in time** and that they should call ahead and use their own judgment for medical decisions.
+
+## April 2026 verification pass (summary)
+
+- **Area rows** in `areas.json`: coordinates are **cluster centroids** for maps/filters — not street pins for every listing.
+- **Provider pins**: only some rows include `coordinates`; others fall back to the area centroid in the UI (see `AreaMap`).
+- **Cross-checked with public listings** (Haduk, Practo, Vetic.in, directory sites): Petmax (Kothrud), Petaegis (Kothrud), Animal Profile (Baner), Dr Small Animal Clinic / Sakal Nagar Baner, Vetic Thergaon (PCMC). Phones/addresses updated in `providers.json` where confirmed.
+- **Removed** one unverified vet row (Skylark) that did not resolve on Maps.
+- **Tranche-1 seed rows** that were editorial placeholders (many groomers, stores, boarding, training, walkers) are marked **`weak`** + **`isOnboarded: false`** until replaced with Google Maps–verified businesses.
+- **Still missing phones** on many legacy East Pune rows and on **Pet's Life Line** (Baner): Practo/JD are the authoritative contact path until a number is captured from Maps.
